@@ -1,0 +1,25 @@
+# --- Données brutes (volumineuses, publiques, reproductibles depuis le MSSS) ---
+00_brut/
+Archives/
+Demographic Data/
+Dépenses par activités/
+Dépenses par région/
+SAD/
+Stats usagers DI-TSA/
+Contours financiers/
+# fichiers de données à la racine
+*.pdf
+*.zip
+*.xls
+*.xlsx
+# exception : on garde le catalogue et les sorties canoniques
+!00_catalogue/*.csv
+!20_canonique/**/*.csv
+!20_canonique/**/*.parquet
+
+# --- Artefacts reconstructibles ---
+40_base/*.db
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
