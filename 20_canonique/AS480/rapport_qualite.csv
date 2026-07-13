@@ -1,0 +1,23 @@
+﻿exercice,sous_formulaire,source,lignes_brutes,lignes_retenues,lignes_ecartees,etablissements,pages,chiffre_null,motif
+2010-2011,AS480A,Archives\AS480\2010-2111\AS-480-CJ-general_autochtones-2010-2011-BD.xls,0,0,0,0,0,0,erreur de lecture : classeur multi-onglets pivote (134 onglets) - format non standard hors perimetre (necessiterait un depivotage dedie)
+2011-2012,AS480A,Archives\AS480\2011-2012\BD-AS-480-peoples-autochtones.xlsx,0,0,0,0,0,0,erreur de lecture : classeur multi-onglets pivote (135 onglets) - format non standard hors perimetre (necessiterait un depivotage dedie)
+2012-2013,AS480A,Archives\AS480\2012-2013\BD-AS-480-CJ-general_autochtones-2012-2013.xlsx,0,0,0,0,0,0,erreur de lecture : classeur multi-onglets pivote (135 onglets) - format non standard hors perimetre (necessiterait un depivotage dedie)
+2013-2014,AS480A,Archives\AS480\2013-2014\BD-AS-480-General-Autochtone-2013-2014.xlsx,0,0,0,0,0,0,erreur de lecture : classeur multi-onglets pivote (115 onglets) - format non standard hors perimetre (necessiterait un depivotage dedie)
+2014-2015,AS480A,00_brut\AS480\BD-AS-480A-Autochtones-2014-15\AS480A_BD_2014_2015.csv,4538,4538,0,13,13,0,ok
+2014-2015,AS480G,00_brut\AS480\BD-AS-480G-2014-15\AS480G_BD_2014_2015.csv,8084,8084,0,21,15,0,ok
+2015-2016,AS480A,00_brut\AS480\AS480A_BD_2015_2016\AS480A_BD_2015_2016.csv,3619,3619,0,12,14,0,ok
+2015-2016,AS480G,00_brut\AS480\AS480G_BD_2015_2016\AS480G_BD_2015_2016.csv,6852,6852,0,19,16,0,ok
+2016-2017,AS480A,00_brut\AS480\AS480A_BD_2016_2017\AS480A_BD_2016_2017.csv,3033,3033,0,13,12,0,ok
+2016-2017,AS480G,00_brut\AS480\AS480G_BD_2016_2017\AS480G_BD_2016_2017.csv,6027,6027,0,21,14,0,ok
+2017-2018,AS480A,00_brut\AS480\AS480A_BD_2017_2018\AS480A_BD_2017_2018.csv,3154,3154,0,13,12,0,ok
+2017-2018,AS480G,00_brut\AS480\AS480G_BD_2017_2018\AS480G_BD_2017_2018.csv,6069,6069,0,21,14,0,ok
+2018-2019,AS480A,Archives\AS480\2018-2019\AS480A_BD_2018_2019.csv,3443,3443,0,13,12,0,ok
+2018-2019,AS480G,Archives\AS480\2018-2019\AS480G_BD_2018_2019.csv,5586,5586,0,19,14,0,ok
+2019-2020,AS480A,Archives\AS480\2019-2020\AS480A_BD_2019_2020.csv,3077,3077,0,13,10,0,ok
+2019-2020,AS480G,Archives\AS480\2019-2020\AS480G_BD_2019_2020.csv,5382,5382,0,21,12,0,ok
+2020-2021,AS480A,Archives\AS480\2020-2021\AS480A_BD_2020_2021.csv,2807,2807,0,13,10,0,ok
+2020-2021,AS480G,Archives\AS480\2020-2021\AS480G_BD_2020_2021.csv,5201,5201,0,21,12,0,ok
+2021-2022,AS480A,Archives\AS480\2021-2022\AS480A_BD_2022-09-12.csv,2960,2960,0,13,10,0,ok
+2021-2022,AS480G,Archives\AS480\2021-2022\AS480G_BD_2022-09-12.csv,5119,5119,0,19,12,0,ok
+2022-2023,AS480A,Archives\AS480\2022-2023\AS480A_BD_2022_2023.csv,3063,3063,0,13,10,0,ok
+2022-2023,AS480G,Archives\AS480\2022-2023\AS480G_BD_2022_2023.csv,5235,5235,0,19,12,0,ok
