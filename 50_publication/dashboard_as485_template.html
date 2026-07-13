@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AS485 — Usagers desservis et listes d'attente (DI-TSA)</title>
+<style>
+  :root {
+    --surface-1:      #fcfcfb;
+    --page-plane:     #f9f9f7;
+    --surface-card:   #ffffff;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted:     #898781;
+    --gridline:       #e1e0d9;
+    --baseline:       #c3c2b7;
+    --border:         rgba(11,11,11,0.10);
+    --series-1: #2a78d6; /* blue */
+    --series-2: #1baf7a; /* aqua */
+    --series-3: #eda100; /* yellow */
+    --series-4: #008300; /* green */
+    --series-5: #4a3aa7; /* violet */
+    --series-6: #e34948; /* red */
+    --series-7: #e87ba4; /* magenta */
+    --series-8: #eb6834; /* orange */
+    --radius: 10px;
+    --gap: 16px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface-1:      #1a1a19;
+      --page-plane:     #0d0d0d;
+      --surface-card:   #232322;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --text-muted:     #898781;
+      --gridline:       #2c2c2a;
+      --baseline:       #383835;
+      --border: rgba(255,255,255,0.10);
+      --series-1: #3987e5;
+      --series-2: #199e70;
+      --series-3: #c98500;
+      --series-4: #008300;
+      --series-5: #9085e9;
+      --series-6: #e66767;
+      --series-7: #d55181;
+      --series-8: #d95926;
+    }
+  }
+  :root[data-theme="dark"] {
+    --surface-1:      #1a1a19;
+    --page-plane:     #0d0d0d;
+    --surface-card:   #232322;
+    --text-primary:   #ffffff;
+    --text-secondary: #c3c2b7;
+    --text-muted:     #898781;
+    --gridline:       #2c2c2a;
+    --baseline:       #383835;
+    --border: rgba(255,255,255,0.10);
+    --series-1: #3987e5; --series-2: #199e70; --series-3: #c98500; --series-4: #008300;
+    --series-5: #9085e9; --series-6: #e66767; --series-7: #d55181; --series-8: #d95926;
+  }
+  :root[data-theme="light"] {
+    --surface-1:      #fcfcfb;
+    --page-plane:     #f9f9f7;
+    --surface-card:   #ffffff;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted:     #898781;
+    --gridline:       #e1e0d9;
+    --baseline:       #c3c2b7;
+    --border: rgba(11,11,11,0.10);
+    --series-1: #2a78d6; --series-2: #1baf7a; --series-3: #eda100; --series-4: #008300;
+    --series-5: #4a3aa7; --series-6: #e34948; --series-7: #e87ba4; --series-8: #eb6834;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: var(--page-plane);
+    color: var(--text-primary);
+    line-height: 1.5;
+  }
+  .wrap { max-width: 1320px; margin: 0 auto; padding: 20px 16px 60px; }
+
+  header.top {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin-bottom: var(--gap);
+  }
+  header.top h1 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+  header.top p { font-size: 13px; color: var(--text-secondary); max-width: 900px; }
+  header.top .scope {
+    margin-top: 10px; font-size: 12px; color: var(--text-muted);
+    display: flex; gap: 16px; flex-wrap: wrap;
+  }
+
+  nav.tabs { display:flex; gap:8px; margin-bottom: var(--gap); }
+  nav.tabs button {
+    font: inherit; font-size: 13px; font-weight: 600; padding: 10px 18px;
+    border-radius: 999px; border: 1px solid var(--border); cursor: pointer;
+    background: var(--surface-card); color: var(--text-secondary);
+  }
+  nav.tabs button.active { background: var(--series-1); color: #fff; border-color: var(--series-1); }
+
+  .tabpanel { display: none; }
+  .tabpanel.active { display: block; }
+
+  .filters {
+    display:flex; gap: 20px; align-items:flex-end; flex-wrap: wrap;
+    background: var(--surface-card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px 20px; margin-bottom: var(--gap);
+  }
+  .filter-group { display:flex; flex-direction: column; gap: 5px; }
+  .filter-group label { font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--text-muted); }
+  .filter-group select {
+    font: inherit; font-size: 13px; padding: 7px 10px; border-radius: 6px;
+    border: 1px solid var(--border); background: var(--surface-1); color: var(--text-primary);
+    min-width: 220px;
+  }
+  .filter-group.grow { flex: 1; min-width: 260px; }
+
+  .kpi-row { display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: var(--gap); margin-bottom: var(--gap); }
+  .kpi-card {
+    background: var(--surface-card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 16px 20px;
+  }
+  .kpi-label { font-size: 12px; color: var(--text-secondary); margin-bottom: 6px; }
+  .kpi-value { font-size: 26px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .kpi-delta { font-size: 12px; margin-top: 4px; color: var(--text-muted); }
+  .kpi-delta.up { color: var(--series-6); }
+  .kpi-delta.down { color: #0ca30c; }
+
+  .chart-row { display:grid; grid-template-columns: 1.4fr 1fr; gap: var(--gap); margin-bottom: var(--gap); }
+  @media (max-width: 900px) { .chart-row { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--surface-card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 18px 20px;
+  }
+  .card h3 { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+  .card .sub { font-size: 11px; color: var(--text-muted); margin-bottom: 12px; }
+
+  svg.chart { width: 100%; height: auto; overflow: visible; font-family: inherit; }
+  .axis-label { font-size: 10px; fill: var(--text-muted); }
+  .gridline { stroke: var(--gridline); stroke-width: 1; }
+  .baseline { stroke: var(--baseline); stroke-width: 1; }
+  .line-series { fill:none; stroke-width: 2.5; }
+  .pt { stroke: var(--surface-card); stroke-width: 1.5; }
+  .legend { display:flex; gap: 14px; flex-wrap: wrap; font-size: 11px; color: var(--text-secondary); margin-top: 10px; }
+  .legend .item { display:flex; align-items:center; gap: 6px; }
+  .legend .swatch { width: 10px; height: 10px; border-radius: 2px; display:inline-block; }
+
+  .tooltip {
+    position: fixed; pointer-events: none; background: var(--text-primary); color: var(--surface-1);
+    font-size: 12px; padding: 6px 10px; border-radius: 6px; opacity: 0; transition: opacity .1s;
+    z-index: 50; max-width: 260px;
+  }
+
+  table.data-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  table.data-table th, table.data-table td { padding: 7px 10px; text-align: right; border-bottom: 1px solid var(--gridline); white-space:nowrap; }
+  table.data-table th:first-child, table.data-table td:first-child { text-align:left; }
+  table.data-table thead th { color: var(--text-secondary); font-weight:600; cursor:pointer; user-select:none; position: sticky; top:0; background: var(--surface-card); }
+  table.data-table tbody tr:hover { background: var(--page-plane); }
+  .table-wrap { max-height: 420px; overflow: auto; border-radius: 8px; border: 1px solid var(--border); }
+
+  footer.bottom { margin-top: 24px; font-size: 11px; color: var(--text-muted); text-align:center; }
+
+  .bar-hover { cursor: pointer; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <h1>AS485 — Personnes desservies et listes d'attente en DI-TSA</h1>
+    <p>Rapport statistique annuel AS-485 (MSSS), centres offrant des services en déficience intellectuelle
+       et trouble du spectre de l'autisme. Deux indicateurs de démonstration : les usagers desservis
+       (pages 09-10 du formulaire) et les listes d'attente (pages 17-20).</p>
+    <div class="scope">
+      <span>Période couverte : 2013-2014 à 2022-2023</span>
+      <span>18 régions sociosanitaires (RSS présentes selon les années)</span>
+      <span id="scope-note">Source : gabarit MSSS AS-485 2013-2014, mapping vérifié stable jusqu'en 2022-2023</span>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="active" data-tab="desservis">Usagers desservis</button>
+    <button data-tab="attente">Listes d'attente</button>
+  </nav>
+
+  <!-- ================= ONGLET USAGERS DESSERVIS ================= -->
+  <section class="tabpanel active" id="tab-desservis">
+    <div class="filters">
+      <div class="filter-group grow">
+        <label for="sel-desservis-indic">Indicateur</label>
+        <select id="sel-desservis-indic"></select>
+      </div>
+      <div class="filter-group">
+        <label for="sel-desservis-annee">Année (répartition régionale)</label>
+        <select id="sel-desservis-annee"></select>
+      </div>
+      <div class="filter-group">
+        <label for="sel-desservis-region">Isoler une région (tendance)</label>
+        <select id="sel-desservis-region"><option value="">Total Québec</option></select>
+      </div>
+    </div>
+
+    <div class="kpi-row" id="kpi-desservis"></div>
+
+    <div class="chart-row">
+      <div class="card">
+        <h3 id="titre-desservis-trend">Évolution 2013-2023</h3>
+        <div class="sub">Total Québec, sauf région isolée dans le filtre ci-dessus</div>
+        <svg class="chart" id="chart-desservis-trend" viewBox="0 0 640 300"></svg>
+      </div>
+      <div class="card">
+        <h3 id="titre-desservis-bar">Répartition par région</h3>
+        <div class="sub" id="sub-desservis-bar"></div>
+        <svg class="chart" id="chart-desservis-bar" viewBox="0 0 460 420"></svg>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Détail par région et par exercice</h3>
+      <div class="sub">Cliquer un en-tête pour trier</div>
+      <div class="table-wrap"><table class="data-table" id="table-desservis"></table></div>
+    </div>
+  </section>
+
+  <!-- ================= ONGLET LISTES D'ATTENTE ================= -->
+  <section class="tabpanel" id="tab-attente">
+    <div class="filters">
+      <div class="filter-group grow">
+        <label for="sel-attente-indic">Indicateur</label>
+        <select id="sel-attente-indic"></select>
+      </div>
+      <div class="filter-group">
+        <label for="sel-attente-annee">Année (répartition régionale)</label>
+        <select id="sel-attente-annee"></select>
+      </div>
+      <div class="filter-group">
+        <label for="sel-attente-region">Isoler une région (tendance)</label>
+        <select id="sel-attente-region"><option value="">Total Québec</option></select>
+      </div>
+    </div>
+
+    <div class="kpi-row" id="kpi-attente"></div>
+
+    <div class="chart-row">
+      <div class="card">
+        <h3 id="titre-attente-trend">Évolution 2013-2023</h3>
+        <div class="sub">Total Québec, sauf région isolée dans le filtre ci-dessus</div>
+        <svg class="chart" id="chart-attente-trend" viewBox="0 0 640 300"></svg>
+      </div>
+      <div class="card">
+        <h3 id="titre-attente-bar">Répartition par région</h3>
+        <div class="sub" id="sub-attente-bar"></div>
+        <svg class="chart" id="chart-attente-bar" viewBox="0 0 460 420"></svg>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Détail par région et par exercice</h3>
+      <div class="sub">Cliquer un en-tête pour trier</div>
+      <div class="table-wrap"><table class="data-table" id="table-attente"></table></div>
+    </div>
+  </section>
+
+  <footer class="bottom">
+    Dashboard généré depuis 40_base/sqdi_sante.db (vues v_as485_demo_par_exercice_qc /
+    v_as485_demo_par_exercice_region) — voir 10_scripts/exporter_dashboard_data.py et
+    10_scripts/construire_base.py. 2010-2011 → 2012-2013 exclus (ancienne génération de maquette).
+  </footer>
+</div>
+<div class="tooltip" id="tooltip"></div>
+
+<script id="donnees-json" type="application/json">
+__DONNEES_JSON__
+</script>
+<script>
+(function () {
+  "use strict";
+  const DATA = JSON.parse(document.getElementById("donnees-json").textContent);
+  const SERIES_COLORS = ["--series-1","--series-2","--series-3","--series-4","--series-5","--series-6","--series-7","--series-8"];
+  const cssVar = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  const fmt = (v) => v == null ? "—" : Math.round(v).toLocaleString("fr-CA");
+
+  const tooltip = document.getElementById("tooltip");
+  function showTip(x, y, html) {
+    tooltip.innerHTML = html;
+    tooltip.style.left = (x + 14) + "px";
+    tooltip.style.top = (y + 14) + "px";
+    tooltip.style.opacity = 1;
+  }
+  function hideTip() { tooltip.style.opacity = 0; }
+
+  // ---- tabs ----
+  document.querySelectorAll("nav.tabs button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll("nav.tabs button").forEach(b => b.classList.remove("active"));
+      document.querySelectorAll(".tabpanel").forEach(p => p.classList.remove("active"));
+      btn.classList.add("active");
+      document.getElementById("tab-" + btn.dataset.tab).classList.add("active");
+    });
+  });
+
+  function indicateursPourCategorie(cat) {
+    return DATA.indicateurs.filter(i => i.categorie === cat);
+  }
+
+  function regionsDisponibles(code) {
+    const rss = new Set();
+    Object.values(DATA.regional[code] || {}).forEach(parAnnee => {
+      Object.keys(parAnnee).forEach(r => rss.add(r));
+    });
+    return DATA.regions.filter(r => rss.has(r.rss));
+  }
+
+  // ---------------- Ligne (SVG) ----------------
+  function dessinerLigne(svgEl, series, opts) {
+    const W = svgEl.viewBox.baseVal.width, H = svgEl.viewBox.baseVal.height;
+    const M = { top: 14, right: 18, bottom: 30, left: 56 };
+    const iw = W - M.left - M.right, ih = H - M.top - M.bottom;
+    svgEl.innerHTML = "";
+
+    const allVals = series.flatMap(s => s.values.map(v => v.y)).filter(v => v != null);
+    const maxV = Math.max(1, ...allVals);
+    const x = (i) => M.left + (i / (opts.labels.length - 1)) * iw;
+    const y = (v) => M.top + ih - (v / maxV) * ih;
+
+    const ns = "http://www.w3.org/2000/svg";
+    const g = document.createElementNS(ns, "g");
+    svgEl.appendChild(g);
+
+    // gridlines (4)
+    for (let k = 0; k <= 4; k++) {
+      const gy = M.top + ih - (k / 4) * ih;
+      const line = document.createElementNS(ns, "line");
+      line.setAttribute("x1", M.left); line.setAttribute("x2", M.left + iw);
+      line.setAttribute("y1", gy); line.setAttribute("y2", gy);
+      line.setAttribute("class", "gridline");
+      g.appendChild(line);
+      const txt = document.createElementNS(ns, "text");
+      txt.setAttribute("x", M.left - 8); txt.setAttribute("y", gy + 3);
+      txt.setAttribute("text-anchor", "end"); txt.setAttribute("class", "axis-label");
+      txt.textContent = fmt(maxV * k / 4);
+      g.appendChild(txt);
+    }
+    // baseline
+    const base = document.createElementNS(ns, "line");
+    base.setAttribute("x1", M.left); base.setAttribute("x2", M.left + iw);
+    base.setAttribute("y1", M.top + ih); base.setAttribute("y2", M.top + ih);
+    base.setAttribute("class", "baseline");
+    g.appendChild(base);
+
+    // x labels (years, short)
+    opts.labels.forEach((lab, i) => {
+      const txt = document.createElementNS(ns, "text");
+      txt.setAttribute("x", x(i)); txt.setAttribute("y", M.top + ih + 18);
+      txt.setAttribute("text-anchor", "middle"); txt.setAttribute("class", "axis-label");
+      txt.textContent = "'" + lab.slice(2, 4);
+      g.appendChild(txt);
+    });
+
+    series.forEach((s, si) => {
+      const color = cssVar(SERIES_COLORS[si % SERIES_COLORS.length]);
+      let d = "";
+      s.values.forEach((v, i) => {
+        if (v.y == null) return;
+        d += (d === "" ? "M" : "L") + x(i) + "," + y(v.y) + " ";
+      });
+      const path = document.createElementNS(ns, "path");
+      path.setAttribute("d", d.trim());
+      path.setAttribute("class", "line-series");
+      path.setAttribute("stroke", color);
+      g.appendChild(path);
+
+      s.values.forEach((v, i) => {
+        if (v.y == null) return;
+        const c = document.createElementNS(ns, "circle");
+        c.setAttribute("cx", x(i)); c.setAttribute("cy", y(v.y)); c.setAttribute("r", 4);
+        c.setAttribute("fill", color); c.setAttribute("class", "pt");
+        c.addEventListener("mousemove", (ev) => {
+          showTip(ev.clientX, ev.clientY, `<strong>${opts.labels[i]}</strong><br>${s.name}: ${fmt(v.y)}${opts.unite ? " " + opts.unite : ""}`);
+        });
+        c.addEventListener("mouseleave", hideTip);
+        g.appendChild(c);
+      });
+    });
+
+    if (opts.legend) {
+      opts.legend.innerHTML = "";
+      series.forEach((s, si) => {
+        const color = cssVar(SERIES_COLORS[si % SERIES_COLORS.length]);
+        const item = document.createElement("span");
+        item.className = "item";
+        item.innerHTML = `<span class="swatch" style="background:${color}"></span>${s.name}`;
+        opts.legend.appendChild(item);
+      });
+    }
+  }
+
+  // ---------------- Barres horizontales (SVG) ----------------
+  function dessinerBarres(svgEl, items, opts) {
+    const W = svgEl.viewBox.baseVal.width;
+    const rowH = 20, gapH = 6;
+    const H = items.length * (rowH + gapH) + 20;
+    svgEl.setAttribute("viewBox", `0 0 ${W} ${H}`);
+    svgEl.innerHTML = "";
+    const ns = "http://www.w3.org/2000/svg";
+    const M = { left: 150, right: 60, top: 6 };
+    const iw = W - M.left - M.right;
+    const maxV = Math.max(1, ...items.map(d => d.value || 0));
+    const color = cssVar("--series-1");
+
+    items.forEach((d, i) => {
+      const yy = M.top + i * (rowH + gapH);
+      const label = document.createElementNS(ns, "text");
+      label.setAttribute("x", M.left - 8); label.setAttribute("y", yy + rowH * 0.65);
+      label.setAttribute("text-anchor", "end"); label.setAttribute("class", "axis-label");
+      label.textContent = d.label;
+      svgEl.appendChild(label);
+
+      const w = (d.value / maxV) * iw;
+      const rect = document.createElementNS(ns, "rect");
+      rect.setAttribute("x", M.left); rect.setAttribute("y", yy);
+      rect.setAttribute("width", Math.max(1, w)); rect.setAttribute("height", rowH);
+      rect.setAttribute("rx", 3); rect.setAttribute("fill", color);
+      rect.setAttribute("class", "bar-hover");
+      rect.addEventListener("mousemove", (ev) => {
+        showTip(ev.clientX, ev.clientY, `<strong>${d.label}</strong><br>${fmt(d.value)}${opts.unite ? " " + opts.unite : ""}`);
+      });
+      rect.addEventListener("mouseleave", hideTip);
+      svgEl.appendChild(rect);
+
+      const val = document.createElementNS(ns, "text");
+      val.setAttribute("x", M.left + w + 6); val.setAttribute("y", yy + rowH * 0.65);
+      val.setAttribute("class", "axis-label");
+      val.textContent = fmt(d.value);
+      svgEl.appendChild(val);
+    });
+  }
+
+  // ---------------- Construction d'un onglet ----------------
+  function construireOnglet(cat, prefix) {
+    const selIndic = document.getElementById(`sel-${prefix}-indic`);
+    const selAnnee = document.getElementById(`sel-${prefix}-annee`);
+    const selRegion = document.getElementById(`sel-${prefix}-region`);
+    const kpiRow = document.getElementById(`kpi-${prefix}`);
+    const chartTrend = document.getElementById(`chart-${prefix}-trend`);
+    const chartBar = document.getElementById(`chart-${prefix}-bar`);
+    const titreTrend = document.getElementById(`titre-${prefix}-trend`);
+    const titreBar = document.getElementById(`titre-${prefix}-bar`);
+    const subBar = document.getElementById(`sub-${prefix}-bar`);
+    const tableEl = document.getElementById(`table-${prefix}`);
+    const legendEl = document.createElement("div");
+    legendEl.className = "legend";
+    chartTrend.after(legendEl);
+
+    const indicateurs = indicateursPourCategorie(cat);
+    indicateurs.forEach(ind => {
+      const opt = document.createElement("option");
+      opt.value = ind.code; opt.textContent = ind.label;
+      selIndic.appendChild(opt);
+    });
+    DATA.periode.forEach((ex, i) => {
+      const opt = document.createElement("option");
+      opt.value = ex; opt.textContent = ex;
+      if (i === DATA.periode.length - 1) opt.selected = true;
+      selAnnee.appendChild(opt);
+    });
+
+    let sortState = { col: null, dir: 1 };
+
+    function unite(code) {
+      const lbl = (DATA.indicateurs.find(i => i.code === code) || {}).label || "";
+      return /délai/i.test(lbl) ? "jours" : "usagers";
+    }
+
+    function majRegions(code) {
+      const regs = regionsDisponibles(code);
+      selRegion.innerHTML = '<option value="">Total Québec</option>';
+      regs.forEach(r => {
+        const opt = document.createElement("option");
+        opt.value = r.rss; opt.textContent = r.nom;
+        selRegion.appendChild(opt);
+      });
+    }
+
+    function rafraichir() {
+      const code = selIndic.value;
+      const annee = selAnnee.value;
+      const rssIsole = selRegion.value;
+      const ind = DATA.indicateurs.find(i => i.code === code);
+      const u = unite(code);
+
+      // --- KPI ---
+      const parAnnee = DATA.national[code] || {};
+      const derniere = DATA.periode[DATA.periode.length - 1];
+      const avantDerniere = DATA.periode[DATA.periode.length - 2];
+      const vDerniere = parAnnee[derniere], vAvant = parAnnee[avantDerniere];
+      const delta = (vDerniere != null && vAvant) ? ((vDerniere - vAvant) / vAvant * 100) : null;
+      const vAnneeChoisie = annee === derniere ? vDerniere : parAnnee[annee];
+
+      kpiRow.innerHTML = "";
+      const cards = [
+        { label: `${ind.label} — ${derniere} (Québec)`, value: fmt(vDerniere) + " " + u },
+        { label: `Variation vs ${avantDerniere}`, value: delta == null ? "—" : (delta >= 0 ? "+" : "") + delta.toFixed(1) + "%",
+          cls: delta == null ? "" : (delta >= 0 ? (/délai|attente/i.test(ind.label) ? "up" : "up") : "down") },
+        { label: `${ind.label} — ${annee} (année sélectionnée)`, value: fmt(vAnneeChoisie) + " " + u },
+      ];
+      cards.forEach(c => {
+        const div = document.createElement("div");
+        div.className = "kpi-card";
+        div.innerHTML = `<div class="kpi-label">${c.label}</div><div class="kpi-value">${c.value.replace(/ (usagers|jours)$/, '')}</div>` +
+          (c.cls !== undefined ? `<div class="kpi-delta ${c.cls}"></div>` : `<div class="kpi-delta">${u}</div>`);
+        kpiRow.appendChild(div);
+      });
+
+      // --- trend chart ---
+      titreTrend.textContent = ind.label + " — évolution 2013-2023" + (rssIsole ? ` (${DATA.regions.find(r=>r.rss===rssIsole).nom})` : " (Québec)");
+      let serieValues;
+      if (rssIsole) {
+        serieValues = DATA.periode.map(ex => ({ y: ((DATA.regional[code] || {})[ex] || {})[rssIsole] ?? null }));
+      } else {
+        serieValues = DATA.periode.map(ex => ({ y: (DATA.national[code] || {})[ex] ?? null }));
+      }
+      dessinerLigne(chartTrend, [{ name: ind.label, values: serieValues }], { labels: DATA.periode, unite: u, legend: legendEl });
+
+      // --- bar chart (region breakdown for selected year) ---
+      titreBar.textContent = "Par région — " + annee;
+      subBar.textContent = u === "jours" ? "Délai (jours), par région" : "Nombre d'usagers, par région";
+      const regs = regionsDisponibles(code);
+      const items = regs.map(r => ({
+        label: r.nom,
+        value: ((DATA.regional[code] || {})[annee] || {})[r.rss] ?? 0,
+      })).sort((a, b) => b.value - a.value);
+      dessinerBarres(chartBar, items, { unite: u });
+
+      // --- table ---
+      const rows = [];
+      regs.forEach(r => {
+        DATA.periode.forEach(ex => {
+          const v = ((DATA.regional[code] || {})[ex] || {})[r.rss];
+          if (v != null) rows.push({ region: r.nom, exercice: ex, valeur: v });
+        });
+      });
+      function renderTable() {
+        let data = rows.slice();
+        if (sortState.col) {
+          data.sort((a, b) => {
+            const av = a[sortState.col], bv = b[sortState.col];
+            const cmp = av < bv ? -1 : av > bv ? 1 : 0;
+            return cmp * sortState.dir;
+          });
+        }
+        const cols = [
+          { key: "region", label: "Région" },
+          { key: "exercice", label: "Exercice" },
+          { key: "valeur", label: `Valeur (${u})` },
+        ];
+        let html = "<thead><tr>";
+        cols.forEach(c => {
+          const arrow = sortState.col === c.key ? (sortState.dir === 1 ? " ▲" : " ▼") : "";
+          html += `<th data-col="${c.key}">${c.label}${arrow}</th>`;
+        });
+        html += "</tr></thead><tbody>";
+        data.slice(0, 400).forEach(r => {
+          html += `<tr><td>${r.region}</td><td>${r.exercice}</td><td>${fmt(r.valeur)}</td></tr>`;
+        });
+        html += "</tbody>";
+        tableEl.innerHTML = html;
+        tableEl.querySelectorAll("thead th").forEach(th => {
+          th.addEventListener("click", () => {
+            const col = th.dataset.col;
+            sortState.dir = sortState.col === col ? -sortState.dir : -1;
+            sortState.col = col;
+            renderTable();
+          });
+        });
+      }
+      renderTable();
+    }
+
+    selIndic.addEventListener("change", () => { majRegions(selIndic.value); rafraichir(); });
+    selAnnee.addEventListener("change", rafraichir);
+    selRegion.addEventListener("change", rafraichir);
+
+    majRegions(selIndic.value);
+    rafraichir();
+  }
+
+  construireOnglet("desservis", "desservis");
+  construireOnglet("attente", "attente");
+})();
+</script>
+</body>
+</html>
