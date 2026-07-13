@@ -17,9 +17,16 @@ Contours financiers/
 !20_canonique/**/*.csv
 !20_canonique/**/*.parquet
 
+# exception dans l'exception : le CSV AS478 (~283 Mo) dépasse la limite
+# GitHub de 100 Mo/fichier -> on ne versionne que son parquet (mêmes données)
+20_canonique/AS478/as478_harmonise.csv
+
 # --- Artefacts reconstructibles ---
 40_base/*.db
 __pycache__/
 *.pyc
 .DS_Store
 Thumbs.db
+
+# --- Outils / config locale ---
+.claude/
