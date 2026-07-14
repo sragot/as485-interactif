@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AS485 — Usagers desservis et listes d'attente (DI-TSA)</title>
+<title>AS-485 (DI-TSA) et AS-484 (déficience physique) — MSSS</title>
 <style>
   :root {
     --surface-1:      #fcfcfb;
@@ -15,14 +15,14 @@
     --gridline:       #e1e0d9;
     --baseline:       #c3c2b7;
     --border:         rgba(11,11,11,0.10);
-    --series-1: #2a78d6; /* blue */
-    --series-2: #1baf7a; /* aqua */
-    --series-3: #eda100; /* yellow */
-    --series-4: #008300; /* green */
-    --series-5: #4a3aa7; /* violet */
-    --series-6: #e34948; /* red */
-    --series-7: #e87ba4; /* magenta */
-    --series-8: #eb6834; /* orange */
+    --series-1: #2a78d6;
+    --series-2: #1baf7a;
+    --series-3: #eda100;
+    --series-4: #008300;
+    --series-5: #4a3aa7;
+    --series-6: #e34948;
+    --series-7: #e87ba4;
+    --series-8: #eb6834;
     --radius: 10px;
     --gap: 16px;
   }
@@ -97,7 +97,7 @@
     display: flex; gap: 16px; flex-wrap: wrap;
   }
 
-  nav.tabs { display:flex; gap:8px; margin-bottom: var(--gap); }
+  nav.tabs { display:flex; gap:8px; margin-bottom: var(--gap); flex-wrap: wrap; }
   nav.tabs button {
     font: inherit; font-size: 13px; font-weight: 600; padding: 10px 18px;
     border-radius: 999px; border: 1px solid var(--border); cursor: pointer;
@@ -174,20 +174,23 @@
 <div class="wrap">
 
   <header class="top">
-    <h1>AS485 — Personnes desservies et listes d'attente en DI-TSA</h1>
-    <p>Rapport statistique annuel AS-485 (MSSS), centres offrant des services en déficience intellectuelle
-       et trouble du spectre de l'autisme. Deux indicateurs de démonstration : les usagers desservis
-       (pages 09-10 du formulaire) et les listes d'attente (pages 17-20).</p>
+    <h1>Rapports statistiques annuels MSSS — DI-TSA (AS-485) et déficience physique (AS-484)</h1>
+    <p>Données de démonstration issues de deux rapports statistiques annuels du MSSS.
+       <strong>AS-485</strong> (centres DI-TSA) : usagers desservis (pages 09-10) et listes d'attente
+       (pages 17-20). <strong>AS-484</strong> (centres de réadaptation pour personnes ayant une
+       déficience physique) : usagers admis en CRDP par groupe d'âge (page 09, structure en vigueur
+       depuis 2013-2014).</p>
     <div class="scope">
       <span>Période couverte : 2013-2014 à 2022-2023</span>
       <span>18 régions sociosanitaires (RSS présentes selon les années)</span>
-      <span id="scope-note">Source : gabarit MSSS AS-485 2013-2014, mapping vérifié stable jusqu'en 2022-2023</span>
+      <span id="scope-note">Sources : gabarits MSSS AS-485 (2013-2014) et AS-484 (2014-2015), mappings vérifiés</span>
     </div>
   </header>
 
   <nav class="tabs">
-    <button class="active" data-tab="desservis">Usagers desservis</button>
-    <button data-tab="attente">Listes d'attente</button>
+    <button class="active" data-tab="desservis">AS-485 · Usagers desservis</button>
+    <button data-tab="attente">AS-485 · Listes d'attente</button>
+    <button data-tab="dp484">AS-484 · Déficience physique</button>
   </nav>
 
   <!-- ================= ONGLET USAGERS DESSERVIS ================= -->
@@ -268,10 +271,50 @@
     </div>
   </section>
 
+  <!-- ================= ONGLET AS-484 DÉFICIENCE PHYSIQUE ================= -->
+  <section class="tabpanel" id="tab-dp484">
+    <div class="filters">
+      <div class="filter-group grow">
+        <label for="sel-dp484-indic">Indicateur (usagers admis en CRDP, page 09)</label>
+        <select id="sel-dp484-indic"></select>
+      </div>
+      <div class="filter-group">
+        <label for="sel-dp484-annee">Année (répartition régionale)</label>
+        <select id="sel-dp484-annee"></select>
+      </div>
+      <div class="filter-group">
+        <label for="sel-dp484-region">Isoler une région (tendance)</label>
+        <select id="sel-dp484-region"><option value="">Total Québec</option></select>
+      </div>
+    </div>
+
+    <div class="kpi-row" id="kpi-dp484"></div>
+
+    <div class="chart-row">
+      <div class="card">
+        <h3 id="titre-dp484-trend">Évolution 2013-2023</h3>
+        <div class="sub">Total Québec, sauf région isolée dans le filtre ci-dessus</div>
+        <svg class="chart" id="chart-dp484-trend" viewBox="0 0 640 300"></svg>
+      </div>
+      <div class="card">
+        <h3 id="titre-dp484-bar">Répartition par région</h3>
+        <div class="sub" id="sub-dp484-bar"></div>
+        <svg class="chart" id="chart-dp484-bar" viewBox="0 0 460 420"></svg>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Détail par région et par exercice</h3>
+      <div class="sub">Cliquer un en-tête pour trier</div>
+      <div class="table-wrap"><table class="data-table" id="table-dp484"></table></div>
+    </div>
+  </section>
+
   <footer class="bottom">
-    Dashboard généré depuis 40_base/sqdi_sante.db (vues v_as485_demo_par_exercice_qc /
-    v_as485_demo_par_exercice_region) — voir 10_scripts/exporter_dashboard_data.py et
-    10_scripts/construire_base.py. 2010-2011 → 2012-2013 exclus (ancienne génération de maquette).
+    Dashboard généré depuis 40_base/sqdi_sante.db (vues v_as485_* et v_as484_*) — voir
+    10_scripts/exporter_dashboard_data.py et 10_scripts/construire_base.py.
+    AS-485 : exercices 2010-2011 → 2012-2013 exclus (ancienne maquette). AS-484 : page 09
+    structurée ainsi depuis 2013-2014.
   </footer>
 </div>
 <div class="tooltip" id="tooltip"></div>
@@ -296,7 +339,6 @@ __DONNEES_JSON__
   }
   function hideTip() { tooltip.style.opacity = 0; }
 
-  // ---- tabs ----
   document.querySelectorAll("nav.tabs button").forEach(btn => {
     btn.addEventListener("click", () => {
       document.querySelectorAll("nav.tabs button").forEach(b => b.classList.remove("active"));
@@ -318,7 +360,6 @@ __DONNEES_JSON__
     return DATA.regions.filter(r => rss.has(r.rss));
   }
 
-  // ---------------- Ligne (SVG) ----------------
   function dessinerLigne(svgEl, series, opts) {
     const W = svgEl.viewBox.baseVal.width, H = svgEl.viewBox.baseVal.height;
     const M = { top: 14, right: 18, bottom: 30, left: 56 };
@@ -334,7 +375,6 @@ __DONNEES_JSON__
     const g = document.createElementNS(ns, "g");
     svgEl.appendChild(g);
 
-    // gridlines (4)
     for (let k = 0; k <= 4; k++) {
       const gy = M.top + ih - (k / 4) * ih;
       const line = document.createElementNS(ns, "line");
@@ -348,14 +388,12 @@ __DONNEES_JSON__
       txt.textContent = fmt(maxV * k / 4);
       g.appendChild(txt);
     }
-    // baseline
     const base = document.createElementNS(ns, "line");
     base.setAttribute("x1", M.left); base.setAttribute("x2", M.left + iw);
     base.setAttribute("y1", M.top + ih); base.setAttribute("y2", M.top + ih);
     base.setAttribute("class", "baseline");
     g.appendChild(base);
 
-    // x labels (years, short)
     opts.labels.forEach((lab, i) => {
       const txt = document.createElementNS(ns, "text");
       txt.setAttribute("x", x(i)); txt.setAttribute("y", M.top + ih + 18);
@@ -402,7 +440,6 @@ __DONNEES_JSON__
     }
   }
 
-  // ---------------- Barres horizontales (SVG) ----------------
   function dessinerBarres(svgEl, items, opts) {
     const W = svgEl.viewBox.baseVal.width;
     const rowH = 20, gapH = 6;
@@ -443,7 +480,6 @@ __DONNEES_JSON__
     });
   }
 
-  // ---------------- Construction d'un onglet ----------------
   function construireOnglet(cat, prefix) {
     const selIndic = document.getElementById(`sel-${prefix}-indic`);
     const selAnnee = document.getElementById(`sel-${prefix}-annee`);
@@ -496,7 +532,6 @@ __DONNEES_JSON__
       const ind = DATA.indicateurs.find(i => i.code === code);
       const u = unite(code);
 
-      // --- KPI ---
       const parAnnee = DATA.national[code] || {};
       const derniere = DATA.periode[DATA.periode.length - 1];
       const avantDerniere = DATA.periode[DATA.periode.length - 2];
@@ -508,7 +543,7 @@ __DONNEES_JSON__
       const cards = [
         { label: `${ind.label} — ${derniere} (Québec)`, value: fmt(vDerniere) + " " + u },
         { label: `Variation vs ${avantDerniere}`, value: delta == null ? "—" : (delta >= 0 ? "+" : "") + delta.toFixed(1) + "%",
-          cls: delta == null ? "" : (delta >= 0 ? (/délai|attente/i.test(ind.label) ? "up" : "up") : "down") },
+          cls: delta == null ? "" : (delta >= 0 ? "up" : "down") },
         { label: `${ind.label} — ${annee} (année sélectionnée)`, value: fmt(vAnneeChoisie) + " " + u },
       ];
       cards.forEach(c => {
@@ -519,7 +554,6 @@ __DONNEES_JSON__
         kpiRow.appendChild(div);
       });
 
-      // --- trend chart ---
       titreTrend.textContent = ind.label + " — évolution 2013-2023" + (rssIsole ? ` (${DATA.regions.find(r=>r.rss===rssIsole).nom})` : " (Québec)");
       let serieValues;
       if (rssIsole) {
@@ -529,7 +563,6 @@ __DONNEES_JSON__
       }
       dessinerLigne(chartTrend, [{ name: ind.label, values: serieValues }], { labels: DATA.periode, unite: u, legend: legendEl });
 
-      // --- bar chart (region breakdown for selected year) ---
       titreBar.textContent = "Par région — " + annee;
       subBar.textContent = u === "jours" ? "Délai (jours), par région" : "Nombre d'usagers, par région";
       const regs = regionsDisponibles(code);
@@ -539,7 +572,6 @@ __DONNEES_JSON__
       })).sort((a, b) => b.value - a.value);
       dessinerBarres(chartBar, items, { unite: u });
 
-      // --- table ---
       const rows = [];
       regs.forEach(r => {
         DATA.periode.forEach(ex => {
@@ -594,6 +626,7 @@ __DONNEES_JSON__
 
   construireOnglet("desservis", "desservis");
   construireOnglet("attente", "attente");
+  construireOnglet("dp484", "dp484");
 })();
 </script>
 </body>

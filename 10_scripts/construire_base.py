@@ -1,22 +1,19 @@
 #!/usr/bin/env python3
 """Phase 5 — Construction de la base SQLite 40_base/sqdi_sante.db.
 
-Charge les tables canoniques (une par formulaire, cf. PREFERES ci-dessous —
-même convention que 10_scripts/extraire_codes.py : on évite les doublons
-harmonise/unifie/depivote pour l'AS480) et le dictionnaire de codes
-(30_dictionnaires/codes_as.csv), puis crée :
+Charge les tables canoniques (une par formulaire) et le dictionnaire de codes
+(30_dictionnaires/codes_as.csv), puis crée des vues « valeurs libellées » et des
+agrégats de démonstration :
 
-  - as485_valeurs_libellees : vue qui joint les valeurs AS485 à leurs
-    libellés du dictionnaire (jointure code_cellule, avec prise en compte de
-    la colonne `epoque` : un code 'stable' matche tous les exercices, un code
-    daté ne matche que les exercices de son époque).
-  - v_as485_demo_par_exercice_region : agrégat (somme des valeurs) par
-    exercice + région (rss), pour les 6 pages de démo (09,10,17,18,19,20).
-  - v_as485_demo_par_exercice_qc : même agrégat, replié au niveau du Québec
-    (toutes régions confondues) — vue « comparer dans le temps ».
+  AS485 (DI-TSA) :
+  - as485_valeurs_libellees : jointure valeurs AS485 <-> libellés (avec `epoque`).
+  - v_as485_demo_par_exercice_region / _qc : agrégats sur les pages de démo.
 
-Script idempotent : on peut le relancer, la base est reconstruite à chaque
-exécution (DROP + CREATE).
+  AS484 (déficience physique) :
+  - as484_valeurs_libellees + v_as484_demo_par_exercice_region / _qc : idem sur la
+    page phare décodée (page 09, structure depuis 2013-2014).
+
+Script idempotent : la base est reconstruite à chaque exécution.
 
 Usage :
     python 10_scripts/construire_base.py \
@@ -52,6 +49,10 @@ REGIONS_RSS = [
 
 PAGES_DEMO = ("09", "10", "17", "18", "19", "20")
 
+# AS484 (déficience physique) — page phare décodée (cf. decoder_pages_as484.py).
+# Structure post-restructuration 2013-2014 (epoque = 'depuis_2013').
+PAGES_DEMO_AS484 = ("09",)
+
 
 def charger_tables(con: sqlite3.Connection, canonique_dir: str) -> None:
     for formulaire, rel in PREFERES.items():
@@ -81,6 +82,8 @@ def charger_regions(con: sqlite3.Connection) -> None:
 def creer_index(con: sqlite3.Connection) -> None:
     con.execute("CREATE INDEX IF NOT EXISTS idx_as485_code ON as485(code_cellule)")
     con.execute("CREATE INDEX IF NOT EXISTS idx_as485_exercice ON as485(exercice_debut)")
+    con.execute("CREATE INDEX IF NOT EXISTS idx_as484_code ON as484(code_cellule)")
+    con.execute("CREATE INDEX IF NOT EXISTS idx_as484_exercice ON as484(exercice_debut)")
     con.execute("CREATE INDEX IF NOT EXISTS idx_dico_formulaire_code ON dictionnaire(formulaire, code_cellule)")
 
 
@@ -102,14 +105,8 @@ def creer_vues(con: sqlite3.Connection) -> None:
             d.epoque IS NULL OR d.epoque = 'stable'
             OR d.epoque = (CASE WHEN v.exercice_debut <= 2017 THEN '2013-2017' ELSE '2018-2023' END)
        )
-       -- 2010-2011 -> 2012-2013 : ancienne génération de maquette AS485, hors périmètre
-       -- (mêmes code_cellule que 2013-2014+ mais sens différent -> ne JAMAIS étiqueter ces exercices)
        AND (d.page NOT IN {PAGES_DEMO} OR v.exercice_debut >= 2013);
 
-    -- Note d'agrégation : les lignes « délai moyen/médian » (unite='jours') sont
-    -- des moyennes calculées par établissement -> les SOMMER entre établissements
-    -- n'a pas de sens statistique. On utilise donc AVG() pour ces lignes et
-    -- SUM() pour les lignes de dénombrement (usagers, dossiers, HPS, ...).
     DROP VIEW IF EXISTS v_as485_demo_par_exercice_region;
     CREATE VIEW v_as485_demo_par_exercice_region AS
     SELECT
@@ -136,6 +133,57 @@ def creer_vues(con: sqlite3.Connection) -> None:
           "v_as485_demo_par_exercice_region, v_as485_demo_par_exercice_qc")
 
 
+def creer_vues_as484(con: sqlite3.Connection) -> None:
+    """Vues AS484 (déficience physique) sur la page phare décodée (page 09).
+
+    Même logique que l'AS485 : une vue valeurs libellées qui joint le dictionnaire
+    en tenant compte de epoque (ici 'depuis_2013' : ces code_cellule ne désignent
+    la structure courante qu'à partir de 2013-2014), puis deux agrégats."""
+    pages_in = "(" + ",".join("'" + str(pp) + "'" for pp in PAGES_DEMO_AS484) + ")"
+    con.executescript(f"""
+    DROP VIEW IF EXISTS as484_valeurs_libellees;
+    CREATE VIEW as484_valeurs_libellees AS
+    SELECT
+        v.exercice, v.exercice_debut, v.rss, r.region_nom,
+        v.etablissement_id, v.etablissement_nom,
+        v.page, v.ligne, v.colonne, v.code_cellule, v.chiffre,
+        d.libelle, d.unite, d.theme, d.page_titre, d.epoque
+    FROM as484 AS v
+    LEFT JOIN regions_rss AS r ON r.rss = v.rss
+    LEFT JOIN dictionnaire AS d
+        ON d.formulaire = 'AS484'
+       AND d.code_cellule = v.code_cellule
+       AND (
+            d.epoque IS NULL OR d.epoque = 'stable'
+            OR (d.epoque = 'depuis_2013' AND v.exercice_debut >= 2013)
+       );
+
+    DROP VIEW IF EXISTS v_as484_demo_par_exercice_region;
+    CREATE VIEW v_as484_demo_par_exercice_region AS
+    SELECT
+        exercice, exercice_debut, rss, region_nom,
+        page, page_titre, ligne, colonne, code_cellule, libelle, theme, unite,
+        SUM(chiffre) AS valeur,
+        COUNT(*) AS n_lignes_sources
+    FROM as484_valeurs_libellees
+    WHERE page IN {pages_in} AND exercice_debut >= 2013 AND libelle IS NOT NULL
+    GROUP BY exercice, rss, page, ligne, colonne;
+
+    DROP VIEW IF EXISTS v_as484_demo_par_exercice_qc;
+    CREATE VIEW v_as484_demo_par_exercice_qc AS
+    SELECT
+        exercice, exercice_debut,
+        page, page_titre, ligne, colonne, code_cellule, libelle, theme, unite,
+        SUM(chiffre) AS valeur,
+        COUNT(*) AS n_lignes_sources
+    FROM as484_valeurs_libellees
+    WHERE page IN {pages_in} AND exercice_debut >= 2013 AND libelle IS NOT NULL
+    GROUP BY exercice, page, ligne, colonne;
+    """)
+    print("[OK] vues créées : as484_valeurs_libellees, "
+          "v_as484_demo_par_exercice_region, v_as484_demo_par_exercice_qc")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--canonique", default="20_canonique")
@@ -154,6 +202,7 @@ def main() -> None:
         charger_regions(con)
         creer_index(con)
         creer_vues(con)
+        creer_vues_as484(con)
         con.commit()
     finally:
         con.close()

@@ -28,26 +28,13 @@ Données publiques du MSSS. Aucune restriction de rediffusion ; source à crédi
 
 - [x] Phase 0 — Socle de projet + git
 - [x] Phase 1 — Catalogue des sources
-- [ ] Phase 2 — ETL formulaires AS478/480/481/484
-- [ ] Phase 3 — ETL dépenses / SAD / contours
-- [ ] Phase 4 — Dictionnaire de codes (canevas = pages des formulaires MSSS)
-- [ ] Phase 5 — Base SQLite
+- [x] Phase 2 — ETL formulaires AS478/480/481/484/485 (tables canoniques + rapports qualité)
+- [ ] Phase 3 — ETL dépenses / SAD / contours *(non commencé)*
+- [~] Phase 4 — Dictionnaire de codes : 23 953 codes extraits ; **démo AS485 décodée** (6 pages : 09, 10, 17, 18, 19, 20) + **AS484 page 09** (usagers admis en CRDP par groupe d'âge, `epoque=depuis_2013`)
+- [~] Phase 5 — Base SQLite `40_base/sqdi_sante.db` : 5 tables AS + dictionnaire + vues agrégées AS485 et AS484
 - [ ] Phase 6 — Publication open data (GitHub public)
-- [ ] Phase 7 — Visualisation
+- [~] Phase 7 — Visualisation : dashboard HTML autonome (`50_publication/`), 3 onglets : AS485 desservis / AS485 attente / AS484 déficience physique
 - [ ] Phase 8 — Mise à jour annuelle
 
-Voir `PLAN_mise_en_ligne.md` pour le détail des phases.
-
-## Reproduire
-
-```bash
-# Inventaire des sources
-python 10_scripts/scan_catalogue.py --root . --out 00_catalogue/catalogue_sources.csv
-
-# Harmoniser l'AS485 (exemple)
-python 10_scripts/harmoniser_as485.py \
-    --input "Demographic Data/Stats.xlsx" \
-    --outdir 20_canonique/AS485
-```
-
-Dépendances : `pip install pandas openpyxl pyarrow`
+Légende : `[x]` fait · `[~]` partiel (démo) · `[ ]` à faire.
+La base SQLite (`40_base/*.db`, ~430 Mo) est reconstructible et n'est pas versionné
