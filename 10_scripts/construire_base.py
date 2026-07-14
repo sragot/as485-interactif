@@ -356,6 +356,42 @@ def creer_vues_effectifs(con: sqlite3.Connection) -> None:
           "v_effectifs_par_exercice_region")
 
 
+
+def charger_depenses_region(con: sqlite3.Connection, canonique_dir: str) -> None:
+    """Charge la table canonique des dépenses par région (Chantier 3).
+
+    Dépivotage des feuilles « Par région » (programme × RSS) des rapports
+    annuels de dépenses MSSS — cf. 10_scripts/harmoniser_depenses.py."""
+    path = os.path.join(canonique_dir, "depenses_region", "depenses_region_long.parquet")
+    if not os.path.exists(path):
+        print(f"[SKIP] depenses_region : introuvable {path}")
+        return
+    df = pd.read_parquet(path)
+    df.to_sql("depenses_region", con, if_exists="replace", index=False)
+    print(f"[OK] table depenses_region <- depenses_region/depenses_region_long.parquet  ({len(df):,} lignes)")
+
+
+def creer_vues_depenses_region(con: sqlite3.Connection) -> None:
+    """Vues agrégées des dépenses par région et par programme.
+
+    Un code synthétique par programme : DEPR:<programme> (montant en $).
+    RSS casté en TEXT pour rester cohérent avec regions_rss et l'export."""
+    con.executescript("""
+    DROP VIEW IF EXISTS v_depenses_region_par_exercice_qc;
+    CREATE VIEW v_depenses_region_par_exercice_qc AS
+      SELECT exercice, 'DEPR:' || programme AS code_cellule, SUM(montant) AS valeur
+        FROM depenses_region GROUP BY exercice, programme;
+
+    DROP VIEW IF EXISTS v_depenses_region_par_exercice_region;
+    CREATE VIEW v_depenses_region_par_exercice_region AS
+      SELECT exercice, CAST(rss AS TEXT) AS rss,
+             'DEPR:' || programme AS code_cellule, SUM(montant) AS valeur
+        FROM depenses_region GROUP BY exercice, rss, programme;
+    """)
+    print("[OK] vues créées : v_depenses_region_par_exercice_qc, "
+          "v_depenses_region_par_exercice_region")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--canonique", default="20_canonique")
@@ -373,12 +409,14 @@ def main() -> None:
         charger_dictionnaire(con, args.dico)
         charger_regions(con)
         charger_effectifs(con, args.canonique)
+        charger_depenses_region(con, args.canonique)
         creer_index(con)
         creer_vues(con)
         creer_vues_as484(con)
         creer_vues_as481(con)
         creer_vues_as480(con)
         creer_vues_effectifs(con)
+        creer_vues_depenses_region(con)
         con.commit()
     finally:
         con.close()
