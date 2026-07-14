@@ -32,3 +32,6 @@ Thumbs.db
 
 # sauvegardes/partiels de la base (reconstructibles)
 40_base/sqdi_sante.db*
+
+# fichier de test technique (non pertinent)
+10_scripts/_synctest.txt
