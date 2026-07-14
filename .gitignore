@@ -22,7 +22,6 @@ Contours financiers/
 20_canonique/AS478/as478_harmonise.csv
 
 # --- Artefacts reconstructibles ---
-40_base/*.db
 __pycache__/
 *.pyc
 .DS_Store
@@ -32,5 +31,4 @@ Thumbs.db
 .claude/
 
 # sauvegardes/partiels de la base (reconstructibles)
-40_base/*.bak*
-40_base/*.db-*
+40_base/sqdi_sante.db*
