@@ -196,6 +196,7 @@
     <button data-tab="eff">Effectifs DI-TSA (2010-2023)</button>
     <button data-tab="depr">Dépenses par région ($)</button>
     <button data-tab="dact">Dépenses par activités ($)</button>
+    <button data-tab="sad">SAD — soutien à domicile ($)</button>
   </nav>
 
   <!-- ================= ONGLET USAGERS DESSERVIS ================= -->
@@ -504,11 +505,50 @@
     </div>
   </section>
 
+  <!-- ================= ONGLET SAD (SOUTIEN À DOMICILE) ================= -->
+  <section class="tabpanel" id="tab-sad">
+    <div class="filters">
+      <div class="filter-group grow">
+        <label for="sel-sad-indic">Programme (dépenses SAD par région, rapports MSSS)</label>
+        <select id="sel-sad-indic"></select>
+      </div>
+      <div class="filter-group">
+        <label for="sel-sad-annee">Année (répartition régionale)</label>
+        <select id="sel-sad-annee"></select>
+      </div>
+      <div class="filter-group">
+        <label for="sel-sad-region">Isoler une région (tendance)</label>
+        <select id="sel-sad-region"><option value="">Total Québec</option></select>
+      </div>
+    </div>
+
+    <div class="kpi-row" id="kpi-sad"></div>
+
+    <div class="chart-row">
+      <div class="card">
+        <h3 id="titre-sad-trend">Évolution 2016-2024</h3>
+        <div class="sub">Total Québec, sauf région isolée dans le filtre ci-dessus</div>
+        <svg class="chart" id="chart-sad-trend" viewBox="0 0 640 300"></svg>
+      </div>
+      <div class="card">
+        <h3 id="titre-sad-bar">Répartition par région</h3>
+        <div class="sub" id="sub-sad-bar"></div>
+        <svg class="chart" id="chart-sad-bar" viewBox="0 0 460 420"></svg>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Détail par région et par exercice</h3>
+      <div class="sub">Cliquer un en-tête pour trier</div>
+      <div class="table-wrap"><table class="data-table" id="table-sad"></table></div>
+    </div>
+  </section>
+
   <footer class="bottom">
     Dashboard généré depuis 40_base/sqdi_sante.db (vues v_as485_* et v_as484_*) — voir
     10_scripts/exporter_dashboard_data.py et 10_scripts/construire_base.py.
     AS-485 : exercices 2010-2011 → 2012-2013 exclus (ancienne maquette). AS-484 : page 09
-    structurée ainsi depuis 2013-2014. AS-481 (dépendance) : page 02, usagers admis par groupe d'âge, lignes 01-14 stables sur 2011-2012 → 2022-2023. AS-480 (centres jeunesse) : page 04, signalements retenus par problématique (LPJ art. 38/38.1), lignes 01-14 stables 2010-2011 → 2022-2023. Effectifs DI-TSA : feuille « Population (historical) » de Stats.xlsx (usagers DI / TSA par groupe d'âge, 2010-2011 → 2022-2023 ; rupture de maquette 2013 — ventilation par âge disponible dès 2013-2014). Dépenses par région : rapports annuels MSSS « Dépenses par programme et par région » (feuille « Par région »), dépivotés par programme, 2013-2014 → 2022-2023 (montants en $ ; somme des postes = GRAND TOTAL de la source, DI-TSA recoupé avec « historique par région »). Dépenses par activités : rapports annuels MSSS « Dépenses par programme et par centre d'activités », dépivotés (matrice C/A × programme), 2013-2014 → 2023-2024 ; DI-TSA ventilée par centre d'activités sur tout l'historique et recoupée au dollar près avec les dépenses par région.
+    structurée ainsi depuis 2013-2014. AS-481 (dépendance) : page 02, usagers admis par groupe d'âge, lignes 01-14 stables sur 2011-2012 → 2022-2023. AS-480 (centres jeunesse) : page 04, signalements retenus par problématique (LPJ art. 38/38.1), lignes 01-14 stables 2010-2011 → 2022-2023. Effectifs DI-TSA : feuille « Population (historical) » de Stats.xlsx (usagers DI / TSA par groupe d'âge, 2010-2011 → 2022-2023 ; rupture de maquette 2013 — ventilation par âge disponible dès 2013-2014). Dépenses par région : rapports annuels MSSS « Dépenses par programme et par région » (feuille « Par région »), dépivotés par programme, 2013-2014 → 2022-2023 (montants en $ ; somme des postes = GRAND TOTAL de la source, DI-TSA recoupé avec « historique par région »). Dépenses par activités : rapports annuels MSSS « Dépenses par programme et par centre d'activités », dépivotés (matrice C/A × programme), 2013-2014 → 2023-2024 ; DI-TSA ventilée par centre d'activités sur tout l'historique et recoupée au dollar près avec les dépenses par région. SAD (soutien à domicile) : rapports MSSS « Dépenses de services à domicile par programme et par région » (maquette par programme dès 2016-2017 ; les fichiers antérieurs, de définition différente, sont écartés), 2016-2017 → 2023-2024, montants en $. NB : pour la région 18 (Terres-Cries-de-la-Baie-James), le SAD DI-TSA excède légèrement le total DI-TSA régional (~26 %, quelques dizaines de milliers de $) — discordance de périmètre entre extraits MSSS, données reproduites telles quelles.
   </footer>
 </div>
 <div class="tooltip" id="tooltip"></div>
@@ -937,6 +977,7 @@ __DONNEES_JSON__
   construireOnglet("eff", "eff");
   construireOnglet("depr", "depr");
   construireOngletCA("dact", "dact");
+  construireOnglet("sad", "sad");
 })();
 </script>
 </body>

@@ -18,7 +18,7 @@ déjà généré).
 | **Effectifs démographiques** (Stats.xlsx) | **Cible viz** | ✅ | ✅ Population (historical) | ✅ 1 onglet (effectifs DI-TSA) |
 | **Dépenses par activités** | **Cible viz** | ✅ | — | ✅ 1 onglet (par centre d'activités) |
 | **Dépenses par région** (`Dépenses par région/`) | **Cible viz** | ✅ | — | ✅ 1 onglet (par programme) |
-| **SAD** (soutien à domicile) | **Cible viz** | ⬜ | — | ⬜ à faire |
+| **SAD** (soutien à domicile) | **Cible viz** | ✅ | — | ✅ 1 onglet (par programme, dès 2016-2017) |
 | **Contour financier** | **Cible viz** | ⬜ | — | ⬜ à faire |
 | AS484 (déficience physique) | Archive | ✅ | ✅ page 09 | ✅ 1 onglet (déjà généré — conservé) |
 | AS481 (dépendance) | Archive | ✅ | ✅ page 02 | ✅ 1 onglet (déjà généré — conservé) |

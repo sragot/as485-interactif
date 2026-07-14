@@ -110,6 +110,22 @@ INDICATEURS_DACT = [
     (f"DACT:{prog}", "dact", prog, "$") for prog in _PROGRAMMES_DEPR
 ]
 
+# Dépenses SAD (soutien à domicile) par programme × région (Chantier 4).
+# Maquette « par programme » dès 2016-2017 ; 7 programmes (pas de « Jeunes en
+# difficulté », « Administration », etc. côté SAD). DI-TSA en tête.
+_PROGRAMMES_SAD = [
+    "Déficience intellectuelle et TSA",
+    "Déficience physique",
+    "Soutien à l'autonomie des PA",
+    "Santé physique",
+    "Santé mentale",
+    "Santé publique",
+    "Services généraux",
+]
+INDICATEURS_SAD = [
+    (f"SAD:{prog}", "sad", prog, "$") for prog in _PROGRAMMES_SAD
+]
+
 
 def _collecter(cur, vue_qc, vue_region, codes, prefixe=""):
     """Retourne (national, regional, rss_presentes) pour une liste de codes bruts.
@@ -144,6 +160,7 @@ def main() -> None:
     codeseff = [c for c, _, _ in INDICATEURS_EFF]
     codesdepr = [c for c, _, _, _ in INDICATEURS_DEPR]
     codesdact = [c for c, _, _, _ in INDICATEURS_DACT]
+    codessad = [c for c, _, _, _ in INDICATEURS_SAD]
 
     ph485 = ",".join("?" * len(codes485))
     cur.execute(f"SELECT DISTINCT exercice FROM v_as485_demo_par_exercice_qc WHERE code_cellule IN ({ph485})", codes485)
@@ -166,6 +183,9 @@ def main() -> None:
     phdact = ",".join("?" * len(codesdact))
     cur.execute(f"SELECT DISTINCT exercice FROM v_depenses_activites_par_exercice_qc WHERE code_cellule IN ({phdact})", codesdact)
     exercices |= {r[0] for r in cur.fetchall()}
+    phsad = ",".join("?" * len(codessad))
+    cur.execute(f"SELECT DISTINCT exercice FROM v_depenses_sad_par_exercice_qc WHERE code_cellule IN ({phsad})", codessad)
+    exercices |= {r[0] for r in cur.fetchall()}
     exercices = sorted(exercices)
 
     nat485, reg485, rss485 = _collecter(cur, "v_as485_demo_par_exercice_qc", "v_as485_demo_par_exercice_region", codes485)
@@ -182,10 +202,11 @@ def main() -> None:
     for code, exercice, ca, valeur in cur.execute(
         f"SELECT code_cellule, exercice, centre_activites, valeur FROM v_depenses_activites_par_ca WHERE code_cellule IN ({phdact})", codesdact):
         activites.setdefault(code, {}).setdefault(exercice, {})[ca] = valeur
+    natsad, regsad, rsssad = _collecter(cur, "v_depenses_sad_par_exercice_qc", "v_depenses_sad_par_exercice_region", codessad)
 
-    national = {**nat485, **nat484, **nat481, **nat480, **nateff, **natdepr, **natdact}
-    regional = {**reg485, **reg484, **reg481, **reg480, **regeff, **regdepr}
-    rss_presentes = rss485 | rss484 | rss481 | rss480 | rsseff | rssdepr
+    national = {**nat485, **nat484, **nat481, **nat480, **nateff, **natdepr, **natdact, **natsad}
+    regional = {**reg485, **reg484, **reg481, **reg480, **regeff, **regdepr, **regsad}
+    rss_presentes = rss485 | rss484 | rss481 | rss480 | rsseff | rssdepr | rsssad
 
     cur.execute("SELECT rss, region_nom FROM regions_rss ORDER BY CAST(rss AS INTEGER)")
     regions = [{"rss": rss, "nom": nom} for rss, nom in cur.fetchall() if rss in rss_presentes]
@@ -198,6 +219,7 @@ def main() -> None:
         + [{"code": c, "categorie": cat, "label": lbl} for c, cat, lbl in INDICATEURS_EFF]
         + [{"code": c, "categorie": cat, "label": lbl, "unite": u} for c, cat, lbl, u in INDICATEURS_DEPR]
         + [{"code": c, "categorie": cat, "label": lbl, "unite": u} for c, cat, lbl, u in INDICATEURS_DACT]
+        + [{"code": c, "categorie": cat, "label": lbl, "unite": u} for c, cat, lbl, u in INDICATEURS_SAD]
     )
 
     con.close()
@@ -216,7 +238,7 @@ def main() -> None:
 
     print(f"[LIVRABLE] {args.out}  "
           f"({len(exercices)} exercices, {len(regions)} régions, "
-          f"{len(INDICATEURS_AS485)} AS485 + {len(INDICATEURS_AS484)} AS484 + {len(INDICATEURS_AS481)} AS481 + {len(INDICATEURS_AS480)} AS480 + {len(INDICATEURS_EFF)} EFF + {len(INDICATEURS_DEPR)} DEPR + {len(INDICATEURS_DACT)} DACT)")
+          f"{len(INDICATEURS_AS485)} AS485 + {len(INDICATEURS_AS484)} AS484 + {len(INDICATEURS_AS481)} AS481 + {len(INDICATEURS_AS480)} AS480 + {len(INDICATEURS_EFF)} EFF + {len(INDICATEURS_DEPR)} DEPR + {len(INDICATEURS_DACT)} DACT + {len(INDICATEURS_SAD)} SAD)")
 
 
 if __name__ == "__main__":

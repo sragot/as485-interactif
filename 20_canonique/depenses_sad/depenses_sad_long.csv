@@ -1,0 +1,972 @@
+jeu,exercice,rss,region_nom,programme,montant
+depenses_sad,2016-2017,1,Bas-Saint-Laurent,Déficience intellectuelle et TSA,759150.02
+depenses_sad,2016-2017,1,Bas-Saint-Laurent,Déficience physique,10371126.67
+depenses_sad,2016-2017,1,Bas-Saint-Laurent,Santé mentale,182269.39
+depenses_sad,2016-2017,1,Bas-Saint-Laurent,Santé physique,5576583.31
+depenses_sad,2016-2017,1,Bas-Saint-Laurent,Santé publique,0.0
+depenses_sad,2016-2017,1,Bas-Saint-Laurent,Services généraux,6668953.11
+depenses_sad,2016-2017,1,Bas-Saint-Laurent,Soutien à l'autonomie des PA,22175029.32
+depenses_sad,2016-2017,2,Saguenay–Lac-Saint-Jean,Déficience intellectuelle et TSA,2673076.42
+depenses_sad,2016-2017,2,Saguenay–Lac-Saint-Jean,Déficience physique,12103832.27
+depenses_sad,2016-2017,2,Saguenay–Lac-Saint-Jean,Santé mentale,208085.96
+depenses_sad,2016-2017,2,Saguenay–Lac-Saint-Jean,Santé physique,7083463.72
+depenses_sad,2016-2017,2,Saguenay–Lac-Saint-Jean,Santé publique,0.0
+depenses_sad,2016-2017,2,Saguenay–Lac-Saint-Jean,Services généraux,4852714.2
+depenses_sad,2016-2017,2,Saguenay–Lac-Saint-Jean,Soutien à l'autonomie des PA,27986320.67
+depenses_sad,2016-2017,3,Capitale-Nationale,Déficience intellectuelle et TSA,8021206.19
+depenses_sad,2016-2017,3,Capitale-Nationale,Déficience physique,32572597.44
+depenses_sad,2016-2017,3,Capitale-Nationale,Santé mentale,1209057.06
+depenses_sad,2016-2017,3,Capitale-Nationale,Santé physique,13854102.44
+depenses_sad,2016-2017,3,Capitale-Nationale,Santé publique,0.0
+depenses_sad,2016-2017,3,Capitale-Nationale,Services généraux,14486709.47
+depenses_sad,2016-2017,3,Capitale-Nationale,Soutien à l'autonomie des PA,60258358.61
+depenses_sad,2016-2017,4,Mauricie et Centre-du-Québec,Déficience intellectuelle et TSA,3331220.25
+depenses_sad,2016-2017,4,Mauricie et Centre-du-Québec,Déficience physique,19147361.76
+depenses_sad,2016-2017,4,Mauricie et Centre-du-Québec,Santé mentale,356686.06
+depenses_sad,2016-2017,4,Mauricie et Centre-du-Québec,Santé physique,11120646.8
+depenses_sad,2016-2017,4,Mauricie et Centre-du-Québec,Santé publique,0.0
+depenses_sad,2016-2017,4,Mauricie et Centre-du-Québec,Services généraux,6912653.66
+depenses_sad,2016-2017,4,Mauricie et Centre-du-Québec,Soutien à l'autonomie des PA,53242618.56
+depenses_sad,2016-2017,5,Estrie,Déficience intellectuelle et TSA,4513214.23
+depenses_sad,2016-2017,5,Estrie,Déficience physique,15948261.87
+depenses_sad,2016-2017,5,Estrie,Santé mentale,343110.1
+depenses_sad,2016-2017,5,Estrie,Santé physique,8684822.3
+depenses_sad,2016-2017,5,Estrie,Santé publique,0.0
+depenses_sad,2016-2017,5,Estrie,Services généraux,6277964.33
+depenses_sad,2016-2017,5,Estrie,Soutien à l'autonomie des PA,53528762.11
+depenses_sad,2016-2017,6,Montréal,Déficience intellectuelle et TSA,13586237.97
+depenses_sad,2016-2017,6,Montréal,Déficience physique,56005216.72
+depenses_sad,2016-2017,6,Montréal,Santé mentale,4360077.57
+depenses_sad,2016-2017,6,Montréal,Santé physique,41808998.93
+depenses_sad,2016-2017,6,Montréal,Santé publique,0.0
+depenses_sad,2016-2017,6,Montréal,Services généraux,23608474.72
+depenses_sad,2016-2017,6,Montréal,Soutien à l'autonomie des PA,226557272.54
+depenses_sad,2016-2017,7,Outaouais,Déficience intellectuelle et TSA,2660695.94
+depenses_sad,2016-2017,7,Outaouais,Déficience physique,10759488.32
+depenses_sad,2016-2017,7,Outaouais,Santé mentale,77594.33
+depenses_sad,2016-2017,7,Outaouais,Santé physique,7223369.38
+depenses_sad,2016-2017,7,Outaouais,Santé publique,0.0
+depenses_sad,2016-2017,7,Outaouais,Services généraux,3921949.94
+depenses_sad,2016-2017,7,Outaouais,Soutien à l'autonomie des PA,22675839.92
+depenses_sad,2016-2017,8,Abitibi-Témiscamingue,Déficience intellectuelle et TSA,1199809.09
+depenses_sad,2016-2017,8,Abitibi-Témiscamingue,Déficience physique,6737821.11
+depenses_sad,2016-2017,8,Abitibi-Témiscamingue,Santé mentale,240371.16
+depenses_sad,2016-2017,8,Abitibi-Témiscamingue,Santé physique,1821189.99
+depenses_sad,2016-2017,8,Abitibi-Témiscamingue,Santé publique,0.0
+depenses_sad,2016-2017,8,Abitibi-Témiscamingue,Services généraux,983680.01
+depenses_sad,2016-2017,8,Abitibi-Témiscamingue,Soutien à l'autonomie des PA,19921350.8
+depenses_sad,2016-2017,9,Côte-Nord,Déficience intellectuelle et TSA,1342499.49
+depenses_sad,2016-2017,9,Côte-Nord,Déficience physique,5530300.9
+depenses_sad,2016-2017,9,Côte-Nord,Santé mentale,311926.6
+depenses_sad,2016-2017,9,Côte-Nord,Santé physique,1880369.8
+depenses_sad,2016-2017,9,Côte-Nord,Santé publique,0.0
+depenses_sad,2016-2017,9,Côte-Nord,Services généraux,920753.28
+depenses_sad,2016-2017,9,Côte-Nord,Soutien à l'autonomie des PA,11276501.83
+depenses_sad,2016-2017,10,Nord-du-Québec,Déficience intellectuelle et TSA,101487.32
+depenses_sad,2016-2017,10,Nord-du-Québec,Déficience physique,476948.74
+depenses_sad,2016-2017,10,Nord-du-Québec,Santé mentale,42230.96
+depenses_sad,2016-2017,10,Nord-du-Québec,Santé physique,695947.97
+depenses_sad,2016-2017,10,Nord-du-Québec,Santé publique,0.0
+depenses_sad,2016-2017,10,Nord-du-Québec,Services généraux,305791.49
+depenses_sad,2016-2017,10,Nord-du-Québec,Soutien à l'autonomie des PA,1849823.28
+depenses_sad,2016-2017,11,Gaspésie–Îles-de-la-Madeleine,Déficience intellectuelle et TSA,2080573.77
+depenses_sad,2016-2017,11,Gaspésie–Îles-de-la-Madeleine,Déficience physique,7052761.01
+depenses_sad,2016-2017,11,Gaspésie–Îles-de-la-Madeleine,Santé mentale,62032.3
+depenses_sad,2016-2017,11,Gaspésie–Îles-de-la-Madeleine,Santé physique,3511102.03
+depenses_sad,2016-2017,11,Gaspésie–Îles-de-la-Madeleine,Santé publique,0.0
+depenses_sad,2016-2017,11,Gaspésie–Îles-de-la-Madeleine,Services généraux,1790549.17
+depenses_sad,2016-2017,11,Gaspésie–Îles-de-la-Madeleine,Soutien à l'autonomie des PA,13346673.03
+depenses_sad,2016-2017,12,Chaudière-Appalaches,Déficience intellectuelle et TSA,5516471.24
+depenses_sad,2016-2017,12,Chaudière-Appalaches,Déficience physique,8882682.33
+depenses_sad,2016-2017,12,Chaudière-Appalaches,Santé mentale,111094.95
+depenses_sad,2016-2017,12,Chaudière-Appalaches,Santé physique,8050193.18
+depenses_sad,2016-2017,12,Chaudière-Appalaches,Santé publique,0.0
+depenses_sad,2016-2017,12,Chaudière-Appalaches,Services généraux,6829202.84
+depenses_sad,2016-2017,12,Chaudière-Appalaches,Soutien à l'autonomie des PA,38028805.96
+depenses_sad,2016-2017,13,Laval,Déficience intellectuelle et TSA,4122979.36
+depenses_sad,2016-2017,13,Laval,Déficience physique,8423906.01
+depenses_sad,2016-2017,13,Laval,Santé mentale,87870.82
+depenses_sad,2016-2017,13,Laval,Santé physique,3838105.35
+depenses_sad,2016-2017,13,Laval,Santé publique,0.0
+depenses_sad,2016-2017,13,Laval,Services généraux,5188901.66
+depenses_sad,2016-2017,13,Laval,Soutien à l'autonomie des PA,45037292.48
+depenses_sad,2016-2017,14,Lanaudière,Déficience intellectuelle et TSA,2274306.3
+depenses_sad,2016-2017,14,Lanaudière,Déficience physique,11785609.28
+depenses_sad,2016-2017,14,Lanaudière,Santé mentale,603418.5
+depenses_sad,2016-2017,14,Lanaudière,Santé physique,5543750.13
+depenses_sad,2016-2017,14,Lanaudière,Santé publique,0.0
+depenses_sad,2016-2017,14,Lanaudière,Services généraux,5752901.16
+depenses_sad,2016-2017,14,Lanaudière,Soutien à l'autonomie des PA,42758440.17
+depenses_sad,2016-2017,15,Laurentides,Déficience intellectuelle et TSA,3107535.17
+depenses_sad,2016-2017,15,Laurentides,Déficience physique,16127604.96
+depenses_sad,2016-2017,15,Laurentides,Santé mentale,495368.13
+depenses_sad,2016-2017,15,Laurentides,Santé physique,8960908.11
+depenses_sad,2016-2017,15,Laurentides,Santé publique,0.0
+depenses_sad,2016-2017,15,Laurentides,Services généraux,6872335.87
+depenses_sad,2016-2017,15,Laurentides,Soutien à l'autonomie des PA,49765249.42
+depenses_sad,2016-2017,16,Montérégie,Déficience intellectuelle et TSA,11361026.88
+depenses_sad,2016-2017,16,Montérégie,Déficience physique,34546497.03
+depenses_sad,2016-2017,16,Montérégie,Santé mentale,477780.71
+depenses_sad,2016-2017,16,Montérégie,Santé physique,21442540.81
+depenses_sad,2016-2017,16,Montérégie,Santé publique,0.0
+depenses_sad,2016-2017,16,Montérégie,Services généraux,13435345.69
+depenses_sad,2016-2017,16,Montérégie,Soutien à l'autonomie des PA,99964421.35
+depenses_sad,2016-2017,17,Nunavik,Déficience intellectuelle et TSA,111295.56
+depenses_sad,2016-2017,17,Nunavik,Déficience physique,237119.76
+depenses_sad,2016-2017,17,Nunavik,Santé mentale,1390213.97
+depenses_sad,2016-2017,17,Nunavik,Santé physique,2037618.2
+depenses_sad,2016-2017,17,Nunavik,Santé publique,0.0
+depenses_sad,2016-2017,17,Nunavik,Services généraux,130811.76
+depenses_sad,2016-2017,17,Nunavik,Soutien à l'autonomie des PA,2436826.81
+depenses_sad,2016-2017,18,Terres-Cries-de-la-Baie-James,Déficience intellectuelle et TSA,70929.32
+depenses_sad,2016-2017,18,Terres-Cries-de-la-Baie-James,Déficience physique,915395.9
+depenses_sad,2016-2017,18,Terres-Cries-de-la-Baie-James,Santé mentale,30839.05
+depenses_sad,2016-2017,18,Terres-Cries-de-la-Baie-James,Santé physique,148540.14
+depenses_sad,2016-2017,18,Terres-Cries-de-la-Baie-James,Santé publique,0.0
+depenses_sad,2016-2017,18,Terres-Cries-de-la-Baie-James,Services généraux,60649.22
+depenses_sad,2016-2017,18,Terres-Cries-de-la-Baie-James,Soutien à l'autonomie des PA,3913435.44
+depenses_sad,2017-2018,1,Bas-Saint-Laurent,Déficience intellectuelle et TSA,791403.14
+depenses_sad,2017-2018,1,Bas-Saint-Laurent,Déficience physique,11307453.95
+depenses_sad,2017-2018,1,Bas-Saint-Laurent,Santé mentale,97085.94
+depenses_sad,2017-2018,1,Bas-Saint-Laurent,Santé physique,5459597.57
+depenses_sad,2017-2018,1,Bas-Saint-Laurent,Santé publique,0.0
+depenses_sad,2017-2018,1,Bas-Saint-Laurent,Services généraux,6698456.42
+depenses_sad,2017-2018,1,Bas-Saint-Laurent,Soutien à l'autonomie des PA,23809228.96
+depenses_sad,2017-2018,2,Saguenay–Lac-Saint-Jean,Déficience intellectuelle et TSA,2859058.63
+depenses_sad,2017-2018,2,Saguenay–Lac-Saint-Jean,Déficience physique,13825680.85
+depenses_sad,2017-2018,2,Saguenay–Lac-Saint-Jean,Santé mentale,216325.97
+depenses_sad,2017-2018,2,Saguenay–Lac-Saint-Jean,Santé physique,7506924.42
+depenses_sad,2017-2018,2,Saguenay–Lac-Saint-Jean,Santé publique,0.0
+depenses_sad,2017-2018,2,Saguenay–Lac-Saint-Jean,Services généraux,4959600.76
+depenses_sad,2017-2018,2,Saguenay–Lac-Saint-Jean,Soutien à l'autonomie des PA,30053896.54
+depenses_sad,2017-2018,3,Capitale-Nationale,Déficience intellectuelle et TSA,8665144.98
+depenses_sad,2017-2018,3,Capitale-Nationale,Déficience physique,36842614.01
+depenses_sad,2017-2018,3,Capitale-Nationale,Santé mentale,1049804.91
+depenses_sad,2017-2018,3,Capitale-Nationale,Santé physique,13381878.87
+depenses_sad,2017-2018,3,Capitale-Nationale,Santé publique,0.0
+depenses_sad,2017-2018,3,Capitale-Nationale,Services généraux,14612717.6
+depenses_sad,2017-2018,3,Capitale-Nationale,Soutien à l'autonomie des PA,65116357.87
+depenses_sad,2017-2018,4,Mauricie et Centre-du-Québec,Déficience intellectuelle et TSA,3803113.16
+depenses_sad,2017-2018,4,Mauricie et Centre-du-Québec,Déficience physique,20517146.23
+depenses_sad,2017-2018,4,Mauricie et Centre-du-Québec,Santé mentale,321606.12
+depenses_sad,2017-2018,4,Mauricie et Centre-du-Québec,Santé physique,12173330.81
+depenses_sad,2017-2018,4,Mauricie et Centre-du-Québec,Santé publique,0.0
+depenses_sad,2017-2018,4,Mauricie et Centre-du-Québec,Services généraux,7583662.43
+depenses_sad,2017-2018,4,Mauricie et Centre-du-Québec,Soutien à l'autonomie des PA,58747726.76
+depenses_sad,2017-2018,5,Estrie,Déficience intellectuelle et TSA,4789210.23
+depenses_sad,2017-2018,5,Estrie,Déficience physique,17214236.3
+depenses_sad,2017-2018,5,Estrie,Santé mentale,325908.9
+depenses_sad,2017-2018,5,Estrie,Santé physique,9392451.01
+depenses_sad,2017-2018,5,Estrie,Santé publique,0.0
+depenses_sad,2017-2018,5,Estrie,Services généraux,6439750.9
+depenses_sad,2017-2018,5,Estrie,Soutien à l'autonomie des PA,55872617.59
+depenses_sad,2017-2018,6,Montréal,Déficience intellectuelle et TSA,14615780.17
+depenses_sad,2017-2018,6,Montréal,Déficience physique,58985305.46
+depenses_sad,2017-2018,6,Montréal,Santé mentale,4769692.54
+depenses_sad,2017-2018,6,Montréal,Santé physique,43078175.07
+depenses_sad,2017-2018,6,Montréal,Santé publique,0.0
+depenses_sad,2017-2018,6,Montréal,Services généraux,26333388.24
+depenses_sad,2017-2018,6,Montréal,Soutien à l'autonomie des PA,254228899.74
+depenses_sad,2017-2018,7,Outaouais,Déficience intellectuelle et TSA,3887252.05
+depenses_sad,2017-2018,7,Outaouais,Déficience physique,12947469.39
+depenses_sad,2017-2018,7,Outaouais,Santé mentale,39052.17
+depenses_sad,2017-2018,7,Outaouais,Santé physique,7580215.5
+depenses_sad,2017-2018,7,Outaouais,Santé publique,0.0
+depenses_sad,2017-2018,7,Outaouais,Services généraux,4155371.92
+depenses_sad,2017-2018,7,Outaouais,Soutien à l'autonomie des PA,27624684.52
+depenses_sad,2017-2018,8,Abitibi-Témiscamingue,Déficience intellectuelle et TSA,1366043.57
+depenses_sad,2017-2018,8,Abitibi-Témiscamingue,Déficience physique,7697015.48
+depenses_sad,2017-2018,8,Abitibi-Témiscamingue,Santé mentale,166680.93
+depenses_sad,2017-2018,8,Abitibi-Témiscamingue,Santé physique,2157041.46
+depenses_sad,2017-2018,8,Abitibi-Témiscamingue,Santé publique,0.0
+depenses_sad,2017-2018,8,Abitibi-Témiscamingue,Services généraux,1059018.78
+depenses_sad,2017-2018,8,Abitibi-Témiscamingue,Soutien à l'autonomie des PA,23209584.44
+depenses_sad,2017-2018,9,Côte-Nord,Déficience intellectuelle et TSA,1162994.48
+depenses_sad,2017-2018,9,Côte-Nord,Déficience physique,5875399.2
+depenses_sad,2017-2018,9,Côte-Nord,Santé mentale,154817.68
+depenses_sad,2017-2018,9,Côte-Nord,Santé physique,2021100.28
+depenses_sad,2017-2018,9,Côte-Nord,Santé publique,0.0
+depenses_sad,2017-2018,9,Côte-Nord,Services généraux,991038.39
+depenses_sad,2017-2018,9,Côte-Nord,Soutien à l'autonomie des PA,12597189.92
+depenses_sad,2017-2018,10,Nord-du-Québec,Déficience intellectuelle et TSA,120823.72
+depenses_sad,2017-2018,10,Nord-du-Québec,Déficience physique,661076.16
+depenses_sad,2017-2018,10,Nord-du-Québec,Santé mentale,36946.77
+depenses_sad,2017-2018,10,Nord-du-Québec,Santé physique,685755.32
+depenses_sad,2017-2018,10,Nord-du-Québec,Santé publique,0.0
+depenses_sad,2017-2018,10,Nord-du-Québec,Services généraux,231805.09
+depenses_sad,2017-2018,10,Nord-du-Québec,Soutien à l'autonomie des PA,2115410.5
+depenses_sad,2017-2018,11,Gaspésie–Îles-de-la-Madeleine,Déficience intellectuelle et TSA,1796286.17
+depenses_sad,2017-2018,11,Gaspésie–Îles-de-la-Madeleine,Déficience physique,6136354.52
+depenses_sad,2017-2018,11,Gaspésie–Îles-de-la-Madeleine,Santé mentale,127746.58
+depenses_sad,2017-2018,11,Gaspésie–Îles-de-la-Madeleine,Santé physique,3553619.74
+depenses_sad,2017-2018,11,Gaspésie–Îles-de-la-Madeleine,Santé publique,0.0
+depenses_sad,2017-2018,11,Gaspésie–Îles-de-la-Madeleine,Services généraux,2200996.83
+depenses_sad,2017-2018,11,Gaspésie–Îles-de-la-Madeleine,Soutien à l'autonomie des PA,16874136.42
+depenses_sad,2017-2018,12,Chaudière-Appalaches,Déficience intellectuelle et TSA,5861072.2
+depenses_sad,2017-2018,12,Chaudière-Appalaches,Déficience physique,9521600.66
+depenses_sad,2017-2018,12,Chaudière-Appalaches,Santé mentale,158136.97
+depenses_sad,2017-2018,12,Chaudière-Appalaches,Santé physique,8766749.73
+depenses_sad,2017-2018,12,Chaudière-Appalaches,Santé publique,0.0
+depenses_sad,2017-2018,12,Chaudière-Appalaches,Services généraux,7104538.48
+depenses_sad,2017-2018,12,Chaudière-Appalaches,Soutien à l'autonomie des PA,42619556.68
+depenses_sad,2017-2018,13,Laval,Déficience intellectuelle et TSA,4850029.86
+depenses_sad,2017-2018,13,Laval,Déficience physique,9142115.78
+depenses_sad,2017-2018,13,Laval,Santé mentale,50776.28
+depenses_sad,2017-2018,13,Laval,Santé physique,3547152.43
+depenses_sad,2017-2018,13,Laval,Santé publique,0.0
+depenses_sad,2017-2018,13,Laval,Services généraux,4175074.94
+depenses_sad,2017-2018,13,Laval,Soutien à l'autonomie des PA,50853592.2
+depenses_sad,2017-2018,14,Lanaudière,Déficience intellectuelle et TSA,3088202.58
+depenses_sad,2017-2018,14,Lanaudière,Déficience physique,12649705.63
+depenses_sad,2017-2018,14,Lanaudière,Santé mentale,531801.11
+depenses_sad,2017-2018,14,Lanaudière,Santé physique,5777164.4
+depenses_sad,2017-2018,14,Lanaudière,Santé publique,0.0
+depenses_sad,2017-2018,14,Lanaudière,Services généraux,5948604.27
+depenses_sad,2017-2018,14,Lanaudière,Soutien à l'autonomie des PA,46615462.46
+depenses_sad,2017-2018,15,Laurentides,Déficience intellectuelle et TSA,4081754.43
+depenses_sad,2017-2018,15,Laurentides,Déficience physique,18004935.76
+depenses_sad,2017-2018,15,Laurentides,Santé mentale,1106914.24
+depenses_sad,2017-2018,15,Laurentides,Santé physique,10026393.31
+depenses_sad,2017-2018,15,Laurentides,Santé publique,0.0
+depenses_sad,2017-2018,15,Laurentides,Services généraux,7271911.97
+depenses_sad,2017-2018,15,Laurentides,Soutien à l'autonomie des PA,54273694.86
+depenses_sad,2017-2018,16,Montérégie,Déficience intellectuelle et TSA,13095833.49
+depenses_sad,2017-2018,16,Montérégie,Déficience physique,39836555.17
+depenses_sad,2017-2018,16,Montérégie,Santé mentale,465565.44
+depenses_sad,2017-2018,16,Montérégie,Santé physique,23241518.58
+depenses_sad,2017-2018,16,Montérégie,Santé publique,0.0
+depenses_sad,2017-2018,16,Montérégie,Services généraux,13595484.87
+depenses_sad,2017-2018,16,Montérégie,Soutien à l'autonomie des PA,112466644.21
+depenses_sad,2017-2018,17,Nunavik,Déficience intellectuelle et TSA,106149.86
+depenses_sad,2017-2018,17,Nunavik,Déficience physique,213700.72
+depenses_sad,2017-2018,17,Nunavik,Santé mentale,1901734.39
+depenses_sad,2017-2018,17,Nunavik,Santé physique,1928001.22
+depenses_sad,2017-2018,17,Nunavik,Santé publique,0.0
+depenses_sad,2017-2018,17,Nunavik,Services généraux,127652.87
+depenses_sad,2017-2018,17,Nunavik,Soutien à l'autonomie des PA,2420201.02
+depenses_sad,2017-2018,18,Terres-Cries-de-la-Baie-James,Déficience intellectuelle et TSA,56024.55
+depenses_sad,2017-2018,18,Terres-Cries-de-la-Baie-James,Déficience physique,723035.88
+depenses_sad,2017-2018,18,Terres-Cries-de-la-Baie-James,Santé mentale,24357.9
+depenses_sad,2017-2018,18,Terres-Cries-de-la-Baie-James,Santé physique,117326.03
+depenses_sad,2017-2018,18,Terres-Cries-de-la-Baie-James,Santé publique,0.0
+depenses_sad,2017-2018,18,Terres-Cries-de-la-Baie-James,Services généraux,47904.83
+depenses_sad,2017-2018,18,Terres-Cries-de-la-Baie-James,Soutien à l'autonomie des PA,3091070.32
+depenses_sad,2018-2019,1,Bas-Saint-Laurent,Déficience intellectuelle et TSA,892685.57
+depenses_sad,2018-2019,1,Bas-Saint-Laurent,Déficience physique,13174566.93
+depenses_sad,2018-2019,1,Bas-Saint-Laurent,Santé mentale,64314.05
+depenses_sad,2018-2019,1,Bas-Saint-Laurent,Santé physique,6167532.12
+depenses_sad,2018-2019,1,Bas-Saint-Laurent,Santé publique,0.0
+depenses_sad,2018-2019,1,Bas-Saint-Laurent,Services généraux,5778660.13
+depenses_sad,2018-2019,1,Bas-Saint-Laurent,Soutien à l'autonomie des PA,28187984.93
+depenses_sad,2018-2019,2,Saguenay–Lac-Saint-Jean,Déficience intellectuelle et TSA,3123645.27
+depenses_sad,2018-2019,2,Saguenay–Lac-Saint-Jean,Déficience physique,14766098.57
+depenses_sad,2018-2019,2,Saguenay–Lac-Saint-Jean,Santé mentale,187240.41
+depenses_sad,2018-2019,2,Saguenay–Lac-Saint-Jean,Santé physique,8225058.34
+depenses_sad,2018-2019,2,Saguenay–Lac-Saint-Jean,Santé publique,0.0
+depenses_sad,2018-2019,2,Saguenay–Lac-Saint-Jean,Services généraux,5126816.65
+depenses_sad,2018-2019,2,Saguenay–Lac-Saint-Jean,Soutien à l'autonomie des PA,33705036.09
+depenses_sad,2018-2019,3,Capitale-Nationale,Déficience intellectuelle et TSA,9832391.56
+depenses_sad,2018-2019,3,Capitale-Nationale,Déficience physique,42583446.95
+depenses_sad,2018-2019,3,Capitale-Nationale,Santé mentale,810059.34
+depenses_sad,2018-2019,3,Capitale-Nationale,Santé physique,12930492.93
+depenses_sad,2018-2019,3,Capitale-Nationale,Santé publique,0.0
+depenses_sad,2018-2019,3,Capitale-Nationale,Services généraux,16824137.67
+depenses_sad,2018-2019,3,Capitale-Nationale,Soutien à l'autonomie des PA,68011936.38
+depenses_sad,2018-2019,4,Mauricie et Centre-du-Québec,Déficience intellectuelle et TSA,3700935.65
+depenses_sad,2018-2019,4,Mauricie et Centre-du-Québec,Déficience physique,19076489.5
+depenses_sad,2018-2019,4,Mauricie et Centre-du-Québec,Santé mentale,442399.49
+depenses_sad,2018-2019,4,Mauricie et Centre-du-Québec,Santé physique,15076827.88
+depenses_sad,2018-2019,4,Mauricie et Centre-du-Québec,Santé publique,0.0
+depenses_sad,2018-2019,4,Mauricie et Centre-du-Québec,Services généraux,7883292.56
+depenses_sad,2018-2019,4,Mauricie et Centre-du-Québec,Soutien à l'autonomie des PA,63535943.45
+depenses_sad,2018-2019,5,Estrie,Déficience intellectuelle et TSA,5992641.7
+depenses_sad,2018-2019,5,Estrie,Déficience physique,20482837.14
+depenses_sad,2018-2019,5,Estrie,Santé mentale,237780.91
+depenses_sad,2018-2019,5,Estrie,Santé physique,9000372.77
+depenses_sad,2018-2019,5,Estrie,Santé publique,0.0
+depenses_sad,2018-2019,5,Estrie,Services généraux,6040302.03
+depenses_sad,2018-2019,5,Estrie,Soutien à l'autonomie des PA,57324773.04
+depenses_sad,2018-2019,6,Montréal,Déficience intellectuelle et TSA,14394674.08
+depenses_sad,2018-2019,6,Montréal,Déficience physique,64506542.7
+depenses_sad,2018-2019,6,Montréal,Santé mentale,2834076.9
+depenses_sad,2018-2019,6,Montréal,Santé physique,43739482.01
+depenses_sad,2018-2019,6,Montréal,Santé publique,0.0
+depenses_sad,2018-2019,6,Montréal,Services généraux,27117480.52
+depenses_sad,2018-2019,6,Montréal,Soutien à l'autonomie des PA,281575004.72
+depenses_sad,2018-2019,7,Outaouais,Déficience intellectuelle et TSA,5603902.49
+depenses_sad,2018-2019,7,Outaouais,Déficience physique,14954932.62
+depenses_sad,2018-2019,7,Outaouais,Santé mentale,58304.21
+depenses_sad,2018-2019,7,Outaouais,Santé physique,7860007.05
+depenses_sad,2018-2019,7,Outaouais,Santé publique,0.0
+depenses_sad,2018-2019,7,Outaouais,Services généraux,4565328.86
+depenses_sad,2018-2019,7,Outaouais,Soutien à l'autonomie des PA,32397100.84
+depenses_sad,2018-2019,8,Abitibi-Témiscamingue,Déficience intellectuelle et TSA,1523881.81
+depenses_sad,2018-2019,8,Abitibi-Témiscamingue,Déficience physique,8008809.63
+depenses_sad,2018-2019,8,Abitibi-Témiscamingue,Santé mentale,206397.89
+depenses_sad,2018-2019,8,Abitibi-Témiscamingue,Santé physique,1765111.2
+depenses_sad,2018-2019,8,Abitibi-Témiscamingue,Santé publique,0.0
+depenses_sad,2018-2019,8,Abitibi-Témiscamingue,Services généraux,1069186.14
+depenses_sad,2018-2019,8,Abitibi-Témiscamingue,Soutien à l'autonomie des PA,24859725.36
+depenses_sad,2018-2019,9,Côte-Nord,Déficience intellectuelle et TSA,1183608.19
+depenses_sad,2018-2019,9,Côte-Nord,Déficience physique,5597740.15
+depenses_sad,2018-2019,9,Côte-Nord,Santé mentale,145021.14
+depenses_sad,2018-2019,9,Côte-Nord,Santé physique,2425179.17
+depenses_sad,2018-2019,9,Côte-Nord,Santé publique,0.0
+depenses_sad,2018-2019,9,Côte-Nord,Services généraux,1090930.22
+depenses_sad,2018-2019,9,Côte-Nord,Soutien à l'autonomie des PA,14394547.37
+depenses_sad,2018-2019,10,Nord-du-Québec,Déficience intellectuelle et TSA,83486.83
+depenses_sad,2018-2019,10,Nord-du-Québec,Déficience physique,622357.24
+depenses_sad,2018-2019,10,Nord-du-Québec,Santé mentale,31021.1
+depenses_sad,2018-2019,10,Nord-du-Québec,Santé physique,671354.12
+depenses_sad,2018-2019,10,Nord-du-Québec,Santé publique,0.0
+depenses_sad,2018-2019,10,Nord-du-Québec,Services généraux,264270.72
+depenses_sad,2018-2019,10,Nord-du-Québec,Soutien à l'autonomie des PA,2107609.45
+depenses_sad,2018-2019,11,Gaspésie–Îles-de-la-Madeleine,Déficience intellectuelle et TSA,2388779.3
+depenses_sad,2018-2019,11,Gaspésie–Îles-de-la-Madeleine,Déficience physique,6518501.22
+depenses_sad,2018-2019,11,Gaspésie–Îles-de-la-Madeleine,Santé mentale,84674.32
+depenses_sad,2018-2019,11,Gaspésie–Îles-de-la-Madeleine,Santé physique,3776668.16
+depenses_sad,2018-2019,11,Gaspésie–Îles-de-la-Madeleine,Santé publique,0.0
+depenses_sad,2018-2019,11,Gaspésie–Îles-de-la-Madeleine,Services généraux,2133425.18
+depenses_sad,2018-2019,11,Gaspésie–Îles-de-la-Madeleine,Soutien à l'autonomie des PA,19502586.49
+depenses_sad,2018-2019,12,Chaudière-Appalaches,Déficience intellectuelle et TSA,6117427.62
+depenses_sad,2018-2019,12,Chaudière-Appalaches,Déficience physique,10062922.34
+depenses_sad,2018-2019,12,Chaudière-Appalaches,Santé mentale,151678.47
+depenses_sad,2018-2019,12,Chaudière-Appalaches,Santé physique,9357297.5
+depenses_sad,2018-2019,12,Chaudière-Appalaches,Santé publique,0.0
+depenses_sad,2018-2019,12,Chaudière-Appalaches,Services généraux,8553646.88
+depenses_sad,2018-2019,12,Chaudière-Appalaches,Soutien à l'autonomie des PA,50109763.28
+depenses_sad,2018-2019,13,Laval,Déficience intellectuelle et TSA,5573312.23
+depenses_sad,2018-2019,13,Laval,Déficience physique,9694230.74
+depenses_sad,2018-2019,13,Laval,Santé mentale,70772.64
+depenses_sad,2018-2019,13,Laval,Santé physique,4115348.1
+depenses_sad,2018-2019,13,Laval,Santé publique,0.0
+depenses_sad,2018-2019,13,Laval,Services généraux,4895811.18
+depenses_sad,2018-2019,13,Laval,Soutien à l'autonomie des PA,54082082.54
+depenses_sad,2018-2019,14,Lanaudière,Déficience intellectuelle et TSA,3163886.93
+depenses_sad,2018-2019,14,Lanaudière,Déficience physique,10910101.82
+depenses_sad,2018-2019,14,Lanaudière,Santé mentale,396380.57
+depenses_sad,2018-2019,14,Lanaudière,Santé physique,5284398.59
+depenses_sad,2018-2019,14,Lanaudière,Santé publique,0.0
+depenses_sad,2018-2019,14,Lanaudière,Services généraux,6895088.34
+depenses_sad,2018-2019,14,Lanaudière,Soutien à l'autonomie des PA,57996648.57
+depenses_sad,2018-2019,15,Laurentides,Déficience intellectuelle et TSA,4816215.19
+depenses_sad,2018-2019,15,Laurentides,Déficience physique,19346549.82
+depenses_sad,2018-2019,15,Laurentides,Santé mentale,1669240.33
+depenses_sad,2018-2019,15,Laurentides,Santé physique,9735481.64
+depenses_sad,2018-2019,15,Laurentides,Santé publique,0.0
+depenses_sad,2018-2019,15,Laurentides,Services généraux,7687363.84
+depenses_sad,2018-2019,15,Laurentides,Soutien à l'autonomie des PA,61557832.8
+depenses_sad,2018-2019,16,Montérégie,Déficience intellectuelle et TSA,14705050.46
+depenses_sad,2018-2019,16,Montérégie,Déficience physique,45525308.83
+depenses_sad,2018-2019,16,Montérégie,Santé mentale,497252.88
+depenses_sad,2018-2019,16,Montérégie,Santé physique,25474789.24
+depenses_sad,2018-2019,16,Montérégie,Santé publique,0.0
+depenses_sad,2018-2019,16,Montérégie,Services généraux,14440112.03
+depenses_sad,2018-2019,16,Montérégie,Soutien à l'autonomie des PA,137595814.49
+depenses_sad,2018-2019,17,Nunavik,Déficience intellectuelle et TSA,91298.91
+depenses_sad,2018-2019,17,Nunavik,Déficience physique,198828.53
+depenses_sad,2018-2019,17,Nunavik,Santé mentale,1600692.49
+depenses_sad,2018-2019,17,Nunavik,Santé physique,1921225.93
+depenses_sad,2018-2019,17,Nunavik,Santé publique,0.0
+depenses_sad,2018-2019,17,Nunavik,Services généraux,1193378.44
+depenses_sad,2018-2019,17,Nunavik,Soutien à l'autonomie des PA,1744394.98
+depenses_sad,2018-2019,18,Terres-Cries-de-la-Baie-James,Déficience intellectuelle et TSA,61457.13
+depenses_sad,2018-2019,18,Terres-Cries-de-la-Baie-James,Déficience physique,793153.14
+depenses_sad,2018-2019,18,Terres-Cries-de-la-Baie-James,Santé mentale,26721.04
+depenses_sad,2018-2019,18,Terres-Cries-de-la-Baie-James,Santé physique,128703.82
+depenses_sad,2018-2019,18,Terres-Cries-de-la-Baie-James,Santé publique,0.0
+depenses_sad,2018-2019,18,Terres-Cries-de-la-Baie-James,Services généraux,52550.12
+depenses_sad,2018-2019,18,Terres-Cries-de-la-Baie-James,Soutien à l'autonomie des PA,3390830.61
+depenses_sad,2019-2020,1,Bas-Saint-Laurent,Déficience intellectuelle et TSA,1853128.75
+depenses_sad,2019-2020,1,Bas-Saint-Laurent,Déficience physique,14497076.6
+depenses_sad,2019-2020,1,Bas-Saint-Laurent,Santé mentale,64358.6
+depenses_sad,2019-2020,1,Bas-Saint-Laurent,Santé physique,7784651.57
+depenses_sad,2019-2020,1,Bas-Saint-Laurent,Santé publique,0.0
+depenses_sad,2019-2020,1,Bas-Saint-Laurent,Services généraux,8900011.17
+depenses_sad,2019-2020,1,Bas-Saint-Laurent,Soutien à l'autonomie des PA,31061643.88
+depenses_sad,2019-2020,2,Saguenay–Lac-Saint-Jean,Déficience intellectuelle et TSA,3204653.82
+depenses_sad,2019-2020,2,Saguenay–Lac-Saint-Jean,Déficience physique,14960068.61
+depenses_sad,2019-2020,2,Saguenay–Lac-Saint-Jean,Santé mentale,153680.65
+depenses_sad,2019-2020,2,Saguenay–Lac-Saint-Jean,Santé physique,8894731.17
+depenses_sad,2019-2020,2,Saguenay–Lac-Saint-Jean,Santé publique,0.0
+depenses_sad,2019-2020,2,Saguenay–Lac-Saint-Jean,Services généraux,5550867.43
+depenses_sad,2019-2020,2,Saguenay–Lac-Saint-Jean,Soutien à l'autonomie des PA,36473601.71
+depenses_sad,2019-2020,3,Capitale-Nationale,Déficience intellectuelle et TSA,13951452.86
+depenses_sad,2019-2020,3,Capitale-Nationale,Déficience physique,51579292.93
+depenses_sad,2019-2020,3,Capitale-Nationale,Santé mentale,681258.75
+depenses_sad,2019-2020,3,Capitale-Nationale,Santé physique,14320313.41
+depenses_sad,2019-2020,3,Capitale-Nationale,Santé publique,0.0
+depenses_sad,2019-2020,3,Capitale-Nationale,Services généraux,18349599.54
+depenses_sad,2019-2020,3,Capitale-Nationale,Soutien à l'autonomie des PA,73681866.36
+depenses_sad,2019-2020,4,Mauricie et Centre-du-Québec,Déficience intellectuelle et TSA,4303266.86
+depenses_sad,2019-2020,4,Mauricie et Centre-du-Québec,Déficience physique,21978388.83
+depenses_sad,2019-2020,4,Mauricie et Centre-du-Québec,Santé mentale,373768.43
+depenses_sad,2019-2020,4,Mauricie et Centre-du-Québec,Santé physique,16811074.73
+depenses_sad,2019-2020,4,Mauricie et Centre-du-Québec,Santé publique,0.0
+depenses_sad,2019-2020,4,Mauricie et Centre-du-Québec,Services généraux,9835312.38
+depenses_sad,2019-2020,4,Mauricie et Centre-du-Québec,Soutien à l'autonomie des PA,71449093.64
+depenses_sad,2019-2020,5,Estrie,Déficience intellectuelle et TSA,6574912.66
+depenses_sad,2019-2020,5,Estrie,Déficience physique,23462181.0
+depenses_sad,2019-2020,5,Estrie,Santé mentale,241702.54
+depenses_sad,2019-2020,5,Estrie,Santé physique,9896439.0
+depenses_sad,2019-2020,5,Estrie,Santé publique,0.0
+depenses_sad,2019-2020,5,Estrie,Services généraux,6227403.23
+depenses_sad,2019-2020,5,Estrie,Soutien à l'autonomie des PA,67647322.21
+depenses_sad,2019-2020,6,Montréal,Déficience intellectuelle et TSA,17367464.95
+depenses_sad,2019-2020,6,Montréal,Déficience physique,70800493.06
+depenses_sad,2019-2020,6,Montréal,Santé mentale,3014812.11
+depenses_sad,2019-2020,6,Montréal,Santé physique,47356281.76
+depenses_sad,2019-2020,6,Montréal,Santé publique,0.0
+depenses_sad,2019-2020,6,Montréal,Services généraux,29925282.36
+depenses_sad,2019-2020,6,Montréal,Soutien à l'autonomie des PA,314378340.15
+depenses_sad,2019-2020,7,Outaouais,Déficience intellectuelle et TSA,5286707.03
+depenses_sad,2019-2020,7,Outaouais,Déficience physique,16356421.14
+depenses_sad,2019-2020,7,Outaouais,Santé mentale,44607.67
+depenses_sad,2019-2020,7,Outaouais,Santé physique,8547658.48
+depenses_sad,2019-2020,7,Outaouais,Santé publique,0.0
+depenses_sad,2019-2020,7,Outaouais,Services généraux,4671009.33
+depenses_sad,2019-2020,7,Outaouais,Soutien à l'autonomie des PA,34843111.34
+depenses_sad,2019-2020,8,Abitibi-Témiscamingue,Déficience intellectuelle et TSA,1762342.62
+depenses_sad,2019-2020,8,Abitibi-Témiscamingue,Déficience physique,8245614.46
+depenses_sad,2019-2020,8,Abitibi-Témiscamingue,Santé mentale,153050.19
+depenses_sad,2019-2020,8,Abitibi-Témiscamingue,Santé physique,1910698.74
+depenses_sad,2019-2020,8,Abitibi-Témiscamingue,Santé publique,0.0
+depenses_sad,2019-2020,8,Abitibi-Témiscamingue,Services généraux,1205384.92
+depenses_sad,2019-2020,8,Abitibi-Témiscamingue,Soutien à l'autonomie des PA,26082170.87
+depenses_sad,2019-2020,9,Côte-Nord,Déficience intellectuelle et TSA,1232387.24
+depenses_sad,2019-2020,9,Côte-Nord,Déficience physique,5044796.88
+depenses_sad,2019-2020,9,Côte-Nord,Santé mentale,334371.89
+depenses_sad,2019-2020,9,Côte-Nord,Santé physique,3227615.96
+depenses_sad,2019-2020,9,Côte-Nord,Santé publique,0.0
+depenses_sad,2019-2020,9,Côte-Nord,Services généraux,1358268.62
+depenses_sad,2019-2020,9,Côte-Nord,Soutien à l'autonomie des PA,19034016.98
+depenses_sad,2019-2020,10,Nord-du-Québec,Déficience intellectuelle et TSA,114760.13
+depenses_sad,2019-2020,10,Nord-du-Québec,Déficience physique,525282.58
+depenses_sad,2019-2020,10,Nord-du-Québec,Santé mentale,55889.97
+depenses_sad,2019-2020,10,Nord-du-Québec,Santé physique,669534.99
+depenses_sad,2019-2020,10,Nord-du-Québec,Santé publique,0.0
+depenses_sad,2019-2020,10,Nord-du-Québec,Services généraux,348736.7
+depenses_sad,2019-2020,10,Nord-du-Québec,Soutien à l'autonomie des PA,2460720.99
+depenses_sad,2019-2020,11,Gaspésie–Îles-de-la-Madeleine,Déficience intellectuelle et TSA,2539514.8
+depenses_sad,2019-2020,11,Gaspésie–Îles-de-la-Madeleine,Déficience physique,7095451.34
+depenses_sad,2019-2020,11,Gaspésie–Îles-de-la-Madeleine,Santé mentale,90081.72
+depenses_sad,2019-2020,11,Gaspésie–Îles-de-la-Madeleine,Santé physique,4519431.92
+depenses_sad,2019-2020,11,Gaspésie–Îles-de-la-Madeleine,Santé publique,0.0
+depenses_sad,2019-2020,11,Gaspésie–Îles-de-la-Madeleine,Services généraux,2590223.46
+depenses_sad,2019-2020,11,Gaspésie–Îles-de-la-Madeleine,Soutien à l'autonomie des PA,21813664.08
+depenses_sad,2019-2020,12,Chaudière-Appalaches,Déficience intellectuelle et TSA,6853508.68
+depenses_sad,2019-2020,12,Chaudière-Appalaches,Déficience physique,11514004.1
+depenses_sad,2019-2020,12,Chaudière-Appalaches,Santé mentale,215456.19
+depenses_sad,2019-2020,12,Chaudière-Appalaches,Santé physique,10292529.77
+depenses_sad,2019-2020,12,Chaudière-Appalaches,Santé publique,0.0
+depenses_sad,2019-2020,12,Chaudière-Appalaches,Services généraux,9650620.99
+depenses_sad,2019-2020,12,Chaudière-Appalaches,Soutien à l'autonomie des PA,55957194.73
+depenses_sad,2019-2020,13,Laval,Déficience intellectuelle et TSA,6073284.83
+depenses_sad,2019-2020,13,Laval,Déficience physique,11449673.6
+depenses_sad,2019-2020,13,Laval,Santé mentale,188284.69
+depenses_sad,2019-2020,13,Laval,Santé physique,4544684.62
+depenses_sad,2019-2020,13,Laval,Santé publique,0.0
+depenses_sad,2019-2020,13,Laval,Services généraux,4836184.17
+depenses_sad,2019-2020,13,Laval,Soutien à l'autonomie des PA,59360166.61
+depenses_sad,2019-2020,14,Lanaudière,Déficience intellectuelle et TSA,3703424.57
+depenses_sad,2019-2020,14,Lanaudière,Déficience physique,10258021.5
+depenses_sad,2019-2020,14,Lanaudière,Santé mentale,177426.74
+depenses_sad,2019-2020,14,Lanaudière,Santé physique,5289460.14
+depenses_sad,2019-2020,14,Lanaudière,Santé publique,0.0
+depenses_sad,2019-2020,14,Lanaudière,Services généraux,7243595.05
+depenses_sad,2019-2020,14,Lanaudière,Soutien à l'autonomie des PA,66993865.13
+depenses_sad,2019-2020,15,Laurentides,Déficience intellectuelle et TSA,5597722.43
+depenses_sad,2019-2020,15,Laurentides,Déficience physique,22951050.45
+depenses_sad,2019-2020,15,Laurentides,Santé mentale,1957948.98
+depenses_sad,2019-2020,15,Laurentides,Santé physique,10899980.23
+depenses_sad,2019-2020,15,Laurentides,Santé publique,0.0
+depenses_sad,2019-2020,15,Laurentides,Services généraux,8104755.23
+depenses_sad,2019-2020,15,Laurentides,Soutien à l'autonomie des PA,73243750.56
+depenses_sad,2019-2020,16,Montérégie,Déficience intellectuelle et TSA,17951973.34
+depenses_sad,2019-2020,16,Montérégie,Déficience physique,49413915.21
+depenses_sad,2019-2020,16,Montérégie,Santé mentale,620997.77
+depenses_sad,2019-2020,16,Montérégie,Santé physique,27297934.28
+depenses_sad,2019-2020,16,Montérégie,Santé publique,0.0
+depenses_sad,2019-2020,16,Montérégie,Services généraux,14556066.53
+depenses_sad,2019-2020,16,Montérégie,Soutien à l'autonomie des PA,169560718.28
+depenses_sad,2019-2020,17,Nunavik,Déficience intellectuelle et TSA,64282.31
+depenses_sad,2019-2020,17,Nunavik,Déficience physique,125842.54
+depenses_sad,2019-2020,17,Nunavik,Santé mentale,2687525.15
+depenses_sad,2019-2020,17,Nunavik,Santé physique,1883698.57
+depenses_sad,2019-2020,17,Nunavik,Santé publique,0.0
+depenses_sad,2019-2020,17,Nunavik,Services généraux,1008486.46
+depenses_sad,2019-2020,17,Nunavik,Soutien à l'autonomie des PA,2039848.35
+depenses_sad,2019-2020,18,Terres-Cries-de-la-Baie-James,Déficience intellectuelle et TSA,58459.73
+depenses_sad,2019-2020,18,Terres-Cries-de-la-Baie-James,Déficience physique,754469.39
+depenses_sad,2019-2020,18,Terres-Cries-de-la-Baie-James,Santé mentale,25417.27
+depenses_sad,2019-2020,18,Terres-Cries-de-la-Baie-James,Santé physique,122426.53
+depenses_sad,2019-2020,18,Terres-Cries-de-la-Baie-James,Santé publique,0.0
+depenses_sad,2019-2020,18,Terres-Cries-de-la-Baie-James,Services généraux,49987.3
+depenses_sad,2019-2020,18,Terres-Cries-de-la-Baie-James,Soutien à l'autonomie des PA,3225451.94
+depenses_sad,2020-2021,1,Bas-Saint-Laurent,Déficience intellectuelle et TSA,2427099.31
+depenses_sad,2020-2021,1,Bas-Saint-Laurent,Déficience physique,15904516.36
+depenses_sad,2020-2021,1,Bas-Saint-Laurent,Santé mentale,81287.95
+depenses_sad,2020-2021,1,Bas-Saint-Laurent,Santé physique,8424523.25
+depenses_sad,2020-2021,1,Bas-Saint-Laurent,Santé publique,0.0
+depenses_sad,2020-2021,1,Bas-Saint-Laurent,Services généraux,13888395.33
+depenses_sad,2020-2021,1,Bas-Saint-Laurent,Soutien à l'autonomie des PA,34372583.76
+depenses_sad,2020-2021,2,Saguenay–Lac-Saint-Jean,Déficience intellectuelle et TSA,3526850.56
+depenses_sad,2020-2021,2,Saguenay–Lac-Saint-Jean,Déficience physique,16069905.21
+depenses_sad,2020-2021,2,Saguenay–Lac-Saint-Jean,Santé mentale,68034.31
+depenses_sad,2020-2021,2,Saguenay–Lac-Saint-Jean,Santé physique,10245355.39
+depenses_sad,2020-2021,2,Saguenay–Lac-Saint-Jean,Santé publique,0.0
+depenses_sad,2020-2021,2,Saguenay–Lac-Saint-Jean,Services généraux,6289758.2
+depenses_sad,2020-2021,2,Saguenay–Lac-Saint-Jean,Soutien à l'autonomie des PA,36753592.09
+depenses_sad,2020-2021,3,Capitale-Nationale,Déficience intellectuelle et TSA,24756036.48
+depenses_sad,2020-2021,3,Capitale-Nationale,Déficience physique,52806744.76
+depenses_sad,2020-2021,3,Capitale-Nationale,Santé mentale,480960.11
+depenses_sad,2020-2021,3,Capitale-Nationale,Santé physique,16504529.55
+depenses_sad,2020-2021,3,Capitale-Nationale,Santé publique,0.0
+depenses_sad,2020-2021,3,Capitale-Nationale,Services généraux,21685895.35
+depenses_sad,2020-2021,3,Capitale-Nationale,Soutien à l'autonomie des PA,75791052.72
+depenses_sad,2020-2021,4,Mauricie et Centre-du-Québec,Déficience intellectuelle et TSA,5979835.5
+depenses_sad,2020-2021,4,Mauricie et Centre-du-Québec,Déficience physique,22104588.28
+depenses_sad,2020-2021,4,Mauricie et Centre-du-Québec,Santé mentale,480656.2
+depenses_sad,2020-2021,4,Mauricie et Centre-du-Québec,Santé physique,17106743.04
+depenses_sad,2020-2021,4,Mauricie et Centre-du-Québec,Santé publique,0.0
+depenses_sad,2020-2021,4,Mauricie et Centre-du-Québec,Services généraux,12543688.37
+depenses_sad,2020-2021,4,Mauricie et Centre-du-Québec,Soutien à l'autonomie des PA,84045728.41
+depenses_sad,2020-2021,5,Estrie,Déficience intellectuelle et TSA,8829368.84
+depenses_sad,2020-2021,5,Estrie,Déficience physique,27110663.62
+depenses_sad,2020-2021,5,Estrie,Santé mentale,244111.7
+depenses_sad,2020-2021,5,Estrie,Santé physique,12367350.38
+depenses_sad,2020-2021,5,Estrie,Santé publique,0.0
+depenses_sad,2020-2021,5,Estrie,Services généraux,9179120.21
+depenses_sad,2020-2021,5,Estrie,Soutien à l'autonomie des PA,75708744.06
+depenses_sad,2020-2021,6,Montréal,Déficience intellectuelle et TSA,18067537.46
+depenses_sad,2020-2021,6,Montréal,Déficience physique,74340088.6
+depenses_sad,2020-2021,6,Montréal,Santé mentale,4177728.23
+depenses_sad,2020-2021,6,Montréal,Santé physique,47238920.82
+depenses_sad,2020-2021,6,Montréal,Santé publique,0.0
+depenses_sad,2020-2021,6,Montréal,Services généraux,35600752.86
+depenses_sad,2020-2021,6,Montréal,Soutien à l'autonomie des PA,329243113.21
+depenses_sad,2020-2021,7,Outaouais,Déficience intellectuelle et TSA,5078288.14
+depenses_sad,2020-2021,7,Outaouais,Déficience physique,17954862.93
+depenses_sad,2020-2021,7,Outaouais,Santé mentale,44309.26
+depenses_sad,2020-2021,7,Outaouais,Santé physique,9893508.98
+depenses_sad,2020-2021,7,Outaouais,Santé publique,0.0
+depenses_sad,2020-2021,7,Outaouais,Services généraux,5938513.12
+depenses_sad,2020-2021,7,Outaouais,Soutien à l'autonomie des PA,41891303.49
+depenses_sad,2020-2021,8,Abitibi-Témiscamingue,Déficience intellectuelle et TSA,1654005.15
+depenses_sad,2020-2021,8,Abitibi-Témiscamingue,Déficience physique,8860272.51
+depenses_sad,2020-2021,8,Abitibi-Témiscamingue,Santé mentale,118414.26
+depenses_sad,2020-2021,8,Abitibi-Témiscamingue,Santé physique,2525925.97
+depenses_sad,2020-2021,8,Abitibi-Témiscamingue,Santé publique,0.0
+depenses_sad,2020-2021,8,Abitibi-Témiscamingue,Services généraux,1607640.1
+depenses_sad,2020-2021,8,Abitibi-Témiscamingue,Soutien à l'autonomie des PA,27692008.24
+depenses_sad,2020-2021,9,Côte-Nord,Déficience intellectuelle et TSA,1225102.72
+depenses_sad,2020-2021,9,Côte-Nord,Déficience physique,6027578.57
+depenses_sad,2020-2021,9,Côte-Nord,Santé mentale,203157.56
+depenses_sad,2020-2021,9,Côte-Nord,Santé physique,4037555.51
+depenses_sad,2020-2021,9,Côte-Nord,Santé publique,0.0
+depenses_sad,2020-2021,9,Côte-Nord,Services généraux,2195789.93
+depenses_sad,2020-2021,9,Côte-Nord,Soutien à l'autonomie des PA,21059690.05
+depenses_sad,2020-2021,10,Nord-du-Québec,Déficience intellectuelle et TSA,127152.59
+depenses_sad,2020-2021,10,Nord-du-Québec,Déficience physique,560426.26
+depenses_sad,2020-2021,10,Nord-du-Québec,Santé mentale,52705.51
+depenses_sad,2020-2021,10,Nord-du-Québec,Santé physique,776740.8
+depenses_sad,2020-2021,10,Nord-du-Québec,Santé publique,0.0
+depenses_sad,2020-2021,10,Nord-du-Québec,Services généraux,430717.46
+depenses_sad,2020-2021,10,Nord-du-Québec,Soutien à l'autonomie des PA,2876991.92
+depenses_sad,2020-2021,11,Gaspésie–Îles-de-la-Madeleine,Déficience intellectuelle et TSA,3005567.63
+depenses_sad,2020-2021,11,Gaspésie–Îles-de-la-Madeleine,Déficience physique,8090213.67
+depenses_sad,2020-2021,11,Gaspésie–Îles-de-la-Madeleine,Santé mentale,129678.24
+depenses_sad,2020-2021,11,Gaspésie–Îles-de-la-Madeleine,Santé physique,5213296.16
+depenses_sad,2020-2021,11,Gaspésie–Îles-de-la-Madeleine,Santé publique,0.0
+depenses_sad,2020-2021,11,Gaspésie–Îles-de-la-Madeleine,Services généraux,3290539.61
+depenses_sad,2020-2021,11,Gaspésie–Îles-de-la-Madeleine,Soutien à l'autonomie des PA,25051499.59
+depenses_sad,2020-2021,12,Chaudière-Appalaches,Déficience intellectuelle et TSA,6692165.68
+depenses_sad,2020-2021,12,Chaudière-Appalaches,Déficience physique,12975171.67
+depenses_sad,2020-2021,12,Chaudière-Appalaches,Santé mentale,178765.48
+depenses_sad,2020-2021,12,Chaudière-Appalaches,Santé physique,11281955.46
+depenses_sad,2020-2021,12,Chaudière-Appalaches,Santé publique,0.0
+depenses_sad,2020-2021,12,Chaudière-Appalaches,Services généraux,11799852.97
+depenses_sad,2020-2021,12,Chaudière-Appalaches,Soutien à l'autonomie des PA,60809559.84
+depenses_sad,2020-2021,13,Laval,Déficience intellectuelle et TSA,6906008.34
+depenses_sad,2020-2021,13,Laval,Déficience physique,12032925.33
+depenses_sad,2020-2021,13,Laval,Santé mentale,347535.51
+depenses_sad,2020-2021,13,Laval,Santé physique,4639869.7
+depenses_sad,2020-2021,13,Laval,Santé publique,0.0
+depenses_sad,2020-2021,13,Laval,Services généraux,7305787.17
+depenses_sad,2020-2021,13,Laval,Soutien à l'autonomie des PA,66480813.36
+depenses_sad,2020-2021,14,Lanaudière,Déficience intellectuelle et TSA,5055552.5
+depenses_sad,2020-2021,14,Lanaudière,Déficience physique,10683109.46
+depenses_sad,2020-2021,14,Lanaudière,Santé mentale,188874.98
+depenses_sad,2020-2021,14,Lanaudière,Santé physique,6471623.37
+depenses_sad,2020-2021,14,Lanaudière,Santé publique,0.0
+depenses_sad,2020-2021,14,Lanaudière,Services généraux,8554834.31
+depenses_sad,2020-2021,14,Lanaudière,Soutien à l'autonomie des PA,69506273.92
+depenses_sad,2020-2021,15,Laurentides,Déficience intellectuelle et TSA,6608238.47
+depenses_sad,2020-2021,15,Laurentides,Déficience physique,24182898.37
+depenses_sad,2020-2021,15,Laurentides,Santé mentale,1415872.74
+depenses_sad,2020-2021,15,Laurentides,Santé physique,12970708.54
+depenses_sad,2020-2021,15,Laurentides,Santé publique,0.0
+depenses_sad,2020-2021,15,Laurentides,Services généraux,10115616.28
+depenses_sad,2020-2021,15,Laurentides,Soutien à l'autonomie des PA,69613094.95
+depenses_sad,2020-2021,16,Montérégie,Déficience intellectuelle et TSA,22549459.19
+depenses_sad,2020-2021,16,Montérégie,Déficience physique,49698120.97
+depenses_sad,2020-2021,16,Montérégie,Santé mentale,622299.97
+depenses_sad,2020-2021,16,Montérégie,Santé physique,29785745.3
+depenses_sad,2020-2021,16,Montérégie,Santé publique,0.0
+depenses_sad,2020-2021,16,Montérégie,Services généraux,18260528.81
+depenses_sad,2020-2021,16,Montérégie,Soutien à l'autonomie des PA,181071414.84
+depenses_sad,2020-2021,17,Nunavik,Déficience intellectuelle et TSA,30039.12
+depenses_sad,2020-2021,17,Nunavik,Déficience physique,33443.25
+depenses_sad,2020-2021,17,Nunavik,Santé mentale,4822678.48
+depenses_sad,2020-2021,17,Nunavik,Santé physique,1648338.72
+depenses_sad,2020-2021,17,Nunavik,Santé publique,0.0
+depenses_sad,2020-2021,17,Nunavik,Services généraux,757726.4
+depenses_sad,2020-2021,17,Nunavik,Soutien à l'autonomie des PA,1534555.51
+depenses_sad,2020-2021,18,Terres-Cries-de-la-Baie-James,Déficience intellectuelle et TSA,59581.87
+depenses_sad,2020-2021,18,Terres-Cries-de-la-Baie-James,Déficience physique,768953.6
+depenses_sad,2020-2021,18,Terres-Cries-de-la-Baie-James,Santé mentale,25905.39
+depenses_sad,2020-2021,18,Terres-Cries-de-la-Baie-James,Santé physique,124777.07
+depenses_sad,2020-2021,18,Terres-Cries-de-la-Baie-James,Santé publique,0.0
+depenses_sad,2020-2021,18,Terres-Cries-de-la-Baie-James,Services généraux,50947.32
+depenses_sad,2020-2021,18,Terres-Cries-de-la-Baie-James,Soutien à l'autonomie des PA,3287374.78
+depenses_sad,2021-2022,1,Bas-Saint-Laurent,Déficience intellectuelle et TSA,2812529.18
+depenses_sad,2021-2022,1,Bas-Saint-Laurent,Déficience physique,20303248.4
+depenses_sad,2021-2022,1,Bas-Saint-Laurent,Santé mentale,91627.62
+depenses_sad,2021-2022,1,Bas-Saint-Laurent,Santé physique,10498767.08
+depenses_sad,2021-2022,1,Bas-Saint-Laurent,Services généraux,8646236.29
+depenses_sad,2021-2022,1,Bas-Saint-Laurent,Soutien à l'autonomie des PA,42650376.93
+depenses_sad,2021-2022,2,Saguenay–Lac-Saint-Jean,Déficience intellectuelle et TSA,3626365.76
+depenses_sad,2021-2022,2,Saguenay–Lac-Saint-Jean,Déficience physique,16904550.59
+depenses_sad,2021-2022,2,Saguenay–Lac-Saint-Jean,Santé mentale,71235.6
+depenses_sad,2021-2022,2,Saguenay–Lac-Saint-Jean,Santé physique,10902071.76
+depenses_sad,2021-2022,2,Saguenay–Lac-Saint-Jean,Services généraux,5412761.64
+depenses_sad,2021-2022,2,Saguenay–Lac-Saint-Jean,Soutien à l'autonomie des PA,39499850.2
+depenses_sad,2021-2022,3,Capitale-Nationale,Déficience intellectuelle et TSA,28454215.04
+depenses_sad,2021-2022,3,Capitale-Nationale,Déficience physique,62488457.31
+depenses_sad,2021-2022,3,Capitale-Nationale,Santé mentale,755391.23
+depenses_sad,2021-2022,3,Capitale-Nationale,Santé physique,18200522.97
+depenses_sad,2021-2022,3,Capitale-Nationale,Services généraux,25996040.44
+depenses_sad,2021-2022,3,Capitale-Nationale,Soutien à l'autonomie des PA,90854306.09
+depenses_sad,2021-2022,4,Mauricie et Centre-du-Québec,Déficience intellectuelle et TSA,9113418.04
+depenses_sad,2021-2022,4,Mauricie et Centre-du-Québec,Déficience physique,25528279.21
+depenses_sad,2021-2022,4,Mauricie et Centre-du-Québec,Santé mentale,444879.97
+depenses_sad,2021-2022,4,Mauricie et Centre-du-Québec,Santé physique,17456015.63
+depenses_sad,2021-2022,4,Mauricie et Centre-du-Québec,Services généraux,13714534.78
+depenses_sad,2021-2022,4,Mauricie et Centre-du-Québec,Soutien à l'autonomie des PA,95093067.82
+depenses_sad,2021-2022,5,Estrie,Déficience intellectuelle et TSA,11263385.85
+depenses_sad,2021-2022,5,Estrie,Déficience physique,30629954.54
+depenses_sad,2021-2022,5,Estrie,Santé mentale,244923.42
+depenses_sad,2021-2022,5,Estrie,Santé physique,13243767.35
+depenses_sad,2021-2022,5,Estrie,Services généraux,7281506.91
+depenses_sad,2021-2022,5,Estrie,Soutien à l'autonomie des PA,90359994.55
+depenses_sad,2021-2022,6,Montréal,Déficience intellectuelle et TSA,22075684.48
+depenses_sad,2021-2022,6,Montréal,Déficience physique,87492067.13
+depenses_sad,2021-2022,6,Montréal,Santé mentale,4009682.82
+depenses_sad,2021-2022,6,Montréal,Santé physique,54190335.2
+depenses_sad,2021-2022,6,Montréal,Services généraux,31640839.48
+depenses_sad,2021-2022,6,Montréal,Soutien à l'autonomie des PA,378717058.63
+depenses_sad,2021-2022,7,Outaouais,Déficience intellectuelle et TSA,6218878.61
+depenses_sad,2021-2022,7,Outaouais,Déficience physique,23105129.59
+depenses_sad,2021-2022,7,Outaouais,Santé mentale,41931.92
+depenses_sad,2021-2022,7,Outaouais,Santé physique,11704356.8
+depenses_sad,2021-2022,7,Outaouais,Services généraux,6282406.97
+depenses_sad,2021-2022,7,Outaouais,Soutien à l'autonomie des PA,53014280.86
+depenses_sad,2021-2022,8,Abitibi-Témiscamingue,Déficience intellectuelle et TSA,1986214.83
+depenses_sad,2021-2022,8,Abitibi-Témiscamingue,Déficience physique,9465340.76
+depenses_sad,2021-2022,8,Abitibi-Témiscamingue,Santé mentale,162713.0
+depenses_sad,2021-2022,8,Abitibi-Témiscamingue,Santé physique,2588551.79
+depenses_sad,2021-2022,8,Abitibi-Témiscamingue,Services généraux,1248172.33
+depenses_sad,2021-2022,8,Abitibi-Témiscamingue,Soutien à l'autonomie des PA,31665538.06
+depenses_sad,2021-2022,9,Côte-Nord,Déficience intellectuelle et TSA,1391426.17
+depenses_sad,2021-2022,9,Côte-Nord,Déficience physique,7377036.07
+depenses_sad,2021-2022,9,Côte-Nord,Santé mentale,290121.72
+depenses_sad,2021-2022,9,Côte-Nord,Santé physique,4251121.68
+depenses_sad,2021-2022,9,Côte-Nord,Services généraux,1691766.68
+depenses_sad,2021-2022,9,Côte-Nord,Soutien à l'autonomie des PA,24720393.31
+depenses_sad,2021-2022,10,Nord-du-Québec,Déficience intellectuelle et TSA,140738.62
+depenses_sad,2021-2022,10,Nord-du-Québec,Déficience physique,559734.96
+depenses_sad,2021-2022,10,Nord-du-Québec,Santé mentale,53783.78
+depenses_sad,2021-2022,10,Nord-du-Québec,Santé physique,804740.8
+depenses_sad,2021-2022,10,Nord-du-Québec,Services généraux,365884.83
+depenses_sad,2021-2022,10,Nord-du-Québec,Soutien à l'autonomie des PA,2874132.3
+depenses_sad,2021-2022,11,Gaspésie–Îles-de-la-Madeleine,Déficience intellectuelle et TSA,3061892.51
+depenses_sad,2021-2022,11,Gaspésie–Îles-de-la-Madeleine,Déficience physique,8575764.34
+depenses_sad,2021-2022,11,Gaspésie–Îles-de-la-Madeleine,Santé mentale,151013.48
+depenses_sad,2021-2022,11,Gaspésie–Îles-de-la-Madeleine,Santé physique,6149407.57
+depenses_sad,2021-2022,11,Gaspésie–Îles-de-la-Madeleine,Services généraux,3628809.26
+depenses_sad,2021-2022,11,Gaspésie–Îles-de-la-Madeleine,Soutien à l'autonomie des PA,29996670.68
+depenses_sad,2021-2022,12,Chaudière-Appalaches,Déficience intellectuelle et TSA,7839783.15
+depenses_sad,2021-2022,12,Chaudière-Appalaches,Déficience physique,15830350.9
+depenses_sad,2021-2022,12,Chaudière-Appalaches,Santé mentale,194161.53
+depenses_sad,2021-2022,12,Chaudière-Appalaches,Santé physique,12657939.49
+depenses_sad,2021-2022,12,Chaudière-Appalaches,Services généraux,12248362.29
+depenses_sad,2021-2022,12,Chaudière-Appalaches,Soutien à l'autonomie des PA,66046768.18
+depenses_sad,2021-2022,13,Laval,Déficience intellectuelle et TSA,8037375.86
+depenses_sad,2021-2022,13,Laval,Déficience physique,14071050.27
+depenses_sad,2021-2022,13,Laval,Santé mentale,327744.07
+depenses_sad,2021-2022,13,Laval,Santé physique,5238767.06
+depenses_sad,2021-2022,13,Laval,Services généraux,8112708.07
+depenses_sad,2021-2022,13,Laval,Soutien à l'autonomie des PA,76262904.29
+depenses_sad,2021-2022,14,Lanaudière,Déficience intellectuelle et TSA,7124156.5
+depenses_sad,2021-2022,14,Lanaudière,Déficience physique,12879352.76
+depenses_sad,2021-2022,14,Lanaudière,Santé mentale,210894.57
+depenses_sad,2021-2022,14,Lanaudière,Santé physique,7349946.09
+depenses_sad,2021-2022,14,Lanaudière,Services généraux,7779873.43
+depenses_sad,2021-2022,14,Lanaudière,Soutien à l'autonomie des PA,77975046.34
+depenses_sad,2021-2022,15,Laurentides,Déficience intellectuelle et TSA,8368468.14
+depenses_sad,2021-2022,15,Laurentides,Déficience physique,28288539.07
+depenses_sad,2021-2022,15,Laurentides,Santé mentale,1547323.41
+depenses_sad,2021-2022,15,Laurentides,Santé physique,14768719.23
+depenses_sad,2021-2022,15,Laurentides,Services généraux,9391000.52
+depenses_sad,2021-2022,15,Laurentides,Soutien à l'autonomie des PA,78765975.75
+depenses_sad,2021-2022,16,Montérégie,Déficience intellectuelle et TSA,24745127.71
+depenses_sad,2021-2022,16,Montérégie,Déficience physique,60477365.51
+depenses_sad,2021-2022,16,Montérégie,Santé mentale,1050999.65
+depenses_sad,2021-2022,16,Montérégie,Santé physique,33420923.88
+depenses_sad,2021-2022,16,Montérégie,Services généraux,16181299.21
+depenses_sad,2021-2022,16,Montérégie,Soutien à l'autonomie des PA,216967532.92
+depenses_sad,2021-2022,17,Nunavik,Déficience intellectuelle et TSA,57483.08
+depenses_sad,2021-2022,17,Nunavik,Déficience physique,126644.91
+depenses_sad,2021-2022,17,Nunavik,Santé mentale,5279012.22
+depenses_sad,2021-2022,17,Nunavik,Santé physique,2058784.98
+depenses_sad,2021-2022,17,Nunavik,Services généraux,991874.27
+depenses_sad,2021-2022,17,Nunavik,Soutien à l'autonomie des PA,2429448.64
+depenses_sad,2021-2022,18,Terres-Cries-de-la-Baie-James,Déficience intellectuelle et TSA,68617.49
+depenses_sad,2021-2022,18,Terres-Cries-de-la-Baie-James,Déficience physique,756508.4
+depenses_sad,2021-2022,18,Terres-Cries-de-la-Baie-James,Santé mentale,31117.79
+depenses_sad,2021-2022,18,Terres-Cries-de-la-Baie-James,Santé physique,234921.53
+depenses_sad,2021-2022,18,Terres-Cries-de-la-Baie-James,Services généraux,101733.1
+depenses_sad,2021-2022,18,Terres-Cries-de-la-Baie-James,Soutien à l'autonomie des PA,3326983.98
+depenses_sad,2022-2023,1,Bas-Saint-Laurent,Déficience intellectuelle et TSA,2741042.26
+depenses_sad,2022-2023,1,Bas-Saint-Laurent,Déficience physique,18273930.71
+depenses_sad,2022-2023,1,Bas-Saint-Laurent,Santé mentale,14035.86
+depenses_sad,2022-2023,1,Bas-Saint-Laurent,Santé physique,12229569.55
+depenses_sad,2022-2023,1,Bas-Saint-Laurent,Santé publique,0.0
+depenses_sad,2022-2023,1,Bas-Saint-Laurent,Services généraux,9710144.05
+depenses_sad,2022-2023,1,Bas-Saint-Laurent,Soutien à l'autonomie des PA,41463097.58
+depenses_sad,2022-2023,2,Saguenay–Lac-Saint-Jean,Déficience intellectuelle et TSA,3427731.9
+depenses_sad,2022-2023,2,Saguenay–Lac-Saint-Jean,Déficience physique,15134198.89
+depenses_sad,2022-2023,2,Saguenay–Lac-Saint-Jean,Santé mentale,55592.62
+depenses_sad,2022-2023,2,Saguenay–Lac-Saint-Jean,Santé physique,10994172.95
+depenses_sad,2022-2023,2,Saguenay–Lac-Saint-Jean,Santé publique,0.0
+depenses_sad,2022-2023,2,Saguenay–Lac-Saint-Jean,Services généraux,5369356.57
+depenses_sad,2022-2023,2,Saguenay–Lac-Saint-Jean,Soutien à l'autonomie des PA,36863673.07
+depenses_sad,2022-2023,3,Capitale-Nationale,Déficience intellectuelle et TSA,29480816.36
+depenses_sad,2022-2023,3,Capitale-Nationale,Déficience physique,56174361.85
+depenses_sad,2022-2023,3,Capitale-Nationale,Santé mentale,370977.24
+depenses_sad,2022-2023,3,Capitale-Nationale,Santé physique,17077273.97
+depenses_sad,2022-2023,3,Capitale-Nationale,Santé publique,0.0
+depenses_sad,2022-2023,3,Capitale-Nationale,Services généraux,31544809.34
+depenses_sad,2022-2023,3,Capitale-Nationale,Soutien à l'autonomie des PA,101239441.23
+depenses_sad,2022-2023,4,Mauricie et Centre-du-Québec,Déficience intellectuelle et TSA,10116010.96
+depenses_sad,2022-2023,4,Mauricie et Centre-du-Québec,Déficience physique,21716093.02
+depenses_sad,2022-2023,4,Mauricie et Centre-du-Québec,Santé mentale,413203.3
+depenses_sad,2022-2023,4,Mauricie et Centre-du-Québec,Santé physique,18373466.74
+depenses_sad,2022-2023,4,Mauricie et Centre-du-Québec,Santé publique,0.0
+depenses_sad,2022-2023,4,Mauricie et Centre-du-Québec,Services généraux,13264357.83
+depenses_sad,2022-2023,4,Mauricie et Centre-du-Québec,Soutien à l'autonomie des PA,98801875.15
+depenses_sad,2022-2023,5,Estrie,Déficience intellectuelle et TSA,13344339.36
+depenses_sad,2022-2023,5,Estrie,Déficience physique,28437008.87
+depenses_sad,2022-2023,5,Estrie,Santé mentale,254944.4
+depenses_sad,2022-2023,5,Estrie,Santé physique,13841892.53
+depenses_sad,2022-2023,5,Estrie,Santé publique,0.0
+depenses_sad,2022-2023,5,Estrie,Services généraux,7696607.91
+depenses_sad,2022-2023,5,Estrie,Soutien à l'autonomie des PA,88906631.93
+depenses_sad,2022-2023,6,Montréal,Déficience intellectuelle et TSA,20906395.6
+depenses_sad,2022-2023,6,Montréal,Déficience physique,82220841.87
+depenses_sad,2022-2023,6,Montréal,Santé mentale,4944124.56
+depenses_sad,2022-2023,6,Montréal,Santé physique,57339202.76
+depenses_sad,2022-2023,6,Montréal,Santé publique,0.0
+depenses_sad,2022-2023,6,Montréal,Services généraux,33681190.91
+depenses_sad,2022-2023,6,Montréal,Soutien à l'autonomie des PA,377216474.3
+depenses_sad,2022-2023,7,Outaouais,Déficience intellectuelle et TSA,5510355.3
+depenses_sad,2022-2023,7,Outaouais,Déficience physique,21967948.11
+depenses_sad,2022-2023,7,Outaouais,Santé mentale,38920.83
+depenses_sad,2022-2023,7,Outaouais,Santé physique,11353501.31
+depenses_sad,2022-2023,7,Outaouais,Santé publique,0.0
+depenses_sad,2022-2023,7,Outaouais,Services généraux,6511903.77
+depenses_sad,2022-2023,7,Outaouais,Soutien à l'autonomie des PA,56623937.68
+depenses_sad,2022-2023,8,Abitibi-Témiscamingue,Déficience intellectuelle et TSA,1917438.6
+depenses_sad,2022-2023,8,Abitibi-Témiscamingue,Déficience physique,8841137.75
+depenses_sad,2022-2023,8,Abitibi-Témiscamingue,Santé mentale,159535.19
+depenses_sad,2022-2023,8,Abitibi-Témiscamingue,Santé physique,2820682.61
+depenses_sad,2022-2023,8,Abitibi-Témiscamingue,Santé publique,0.0
+depenses_sad,2022-2023,8,Abitibi-Témiscamingue,Services généraux,1087884.07
+depenses_sad,2022-2023,8,Abitibi-Témiscamingue,Soutien à l'autonomie des PA,31556718.76
+depenses_sad,2022-2023,9,Côte-Nord,Déficience intellectuelle et TSA,1364001.02
+depenses_sad,2022-2023,9,Côte-Nord,Déficience physique,6415968.45
+depenses_sad,2022-2023,9,Côte-Nord,Santé mentale,466593.31
+depenses_sad,2022-2023,9,Côte-Nord,Santé physique,5422022.49
+depenses_sad,2022-2023,9,Côte-Nord,Santé publique,0.0
+depenses_sad,2022-2023,9,Côte-Nord,Services généraux,1860922.8
+depenses_sad,2022-2023,9,Côte-Nord,Soutien à l'autonomie des PA,24923903.93
+depenses_sad,2022-2023,10,Nord-du-Québec,Déficience intellectuelle et TSA,127859.79
+depenses_sad,2022-2023,10,Nord-du-Québec,Déficience physique,375801.59
+depenses_sad,2022-2023,10,Nord-du-Québec,Santé mentale,71055.04
+depenses_sad,2022-2023,10,Nord-du-Québec,Santé physique,838599.79
+depenses_sad,2022-2023,10,Nord-du-Québec,Santé publique,0.0
+depenses_sad,2022-2023,10,Nord-du-Québec,Services généraux,506440.88
+depenses_sad,2022-2023,10,Nord-du-Québec,Soutien à l'autonomie des PA,2938177.91
+depenses_sad,2022-2023,11,Gaspésie–Îles-de-la-Madeleine,Déficience intellectuelle et TSA,3023306.02
+depenses_sad,2022-2023,11,Gaspésie–Îles-de-la-Madeleine,Déficience physique,9310757.79
+depenses_sad,2022-2023,11,Gaspésie–Îles-de-la-Madeleine,Santé mentale,149535.36
+depenses_sad,2022-2023,11,Gaspésie–Îles-de-la-Madeleine,Santé physique,6836819.99
+depenses_sad,2022-2023,11,Gaspésie–Îles-de-la-Madeleine,Santé publique,0.0
+depenses_sad,2022-2023,11,Gaspésie–Îles-de-la-Madeleine,Services généraux,4364848.68
+depenses_sad,2022-2023,11,Gaspésie–Îles-de-la-Madeleine,Soutien à l'autonomie des PA,29096296.15
+depenses_sad,2022-2023,12,Chaudière-Appalaches,Déficience intellectuelle et TSA,8246386.25
+depenses_sad,2022-2023,12,Chaudière-Appalaches,Déficience physique,15209153.11
+depenses_sad,2022-2023,12,Chaudière-Appalaches,Santé mentale,182337.94
+depenses_sad,2022-2023,12,Chaudière-Appalaches,Santé physique,13018612.91
+depenses_sad,2022-2023,12,Chaudière-Appalaches,Santé publique,0.0
+depenses_sad,2022-2023,12,Chaudière-Appalaches,Services généraux,13308477.31
+depenses_sad,2022-2023,12,Chaudière-Appalaches,Soutien à l'autonomie des PA,61078497.49
+depenses_sad,2022-2023,13,Laval,Déficience intellectuelle et TSA,7556964.77
+depenses_sad,2022-2023,13,Laval,Déficience physique,13443906.17
+depenses_sad,2022-2023,13,Laval,Santé mentale,233683.48
+depenses_sad,2022-2023,13,Laval,Santé physique,5300832.83
+depenses_sad,2022-2023,13,Laval,Santé publique,0.0
+depenses_sad,2022-2023,13,Laval,Services généraux,8792837.42
+depenses_sad,2022-2023,13,Laval,Soutien à l'autonomie des PA,82299889.33
+depenses_sad,2022-2023,14,Lanaudière,Déficience intellectuelle et TSA,6397125.97
+depenses_sad,2022-2023,14,Lanaudière,Déficience physique,11196163.01
+depenses_sad,2022-2023,14,Lanaudière,Santé mentale,242657.8
+depenses_sad,2022-2023,14,Lanaudière,Santé physique,7664447.94
+depenses_sad,2022-2023,14,Lanaudière,Santé publique,0.0
+depenses_sad,2022-2023,14,Lanaudière,Services généraux,8558209.94
+depenses_sad,2022-2023,14,Lanaudière,Soutien à l'autonomie des PA,83341524.34
+depenses_sad,2022-2023,15,Laurentides,Déficience intellectuelle et TSA,8222872.07
+depenses_sad,2022-2023,15,Laurentides,Déficience physique,26879180.23
+depenses_sad,2022-2023,15,Laurentides,Santé mentale,1415163.99
+depenses_sad,2022-2023,15,Laurentides,Santé physique,14852764.17
+depenses_sad,2022-2023,15,Laurentides,Santé publique,0.0
+depenses_sad,2022-2023,15,Laurentides,Services généraux,9992302.94
+depenses_sad,2022-2023,15,Laurentides,Soutien à l'autonomie des PA,78533288.59
+depenses_sad,2022-2023,16,Montérégie,Déficience intellectuelle et TSA,28751809.11
+depenses_sad,2022-2023,16,Montérégie,Déficience physique,61145062.06
+depenses_sad,2022-2023,16,Montérégie,Santé mentale,1073792.57
+depenses_sad,2022-2023,16,Montérégie,Santé physique,34274833.11
+depenses_sad,2022-2023,16,Montérégie,Santé publique,0.0
+depenses_sad,2022-2023,16,Montérégie,Services généraux,16733791.9
+depenses_sad,2022-2023,16,Montérégie,Soutien à l'autonomie des PA,235328680.77
+depenses_sad,2022-2023,17,Nunavik,Déficience intellectuelle et TSA,1601914.45
+depenses_sad,2022-2023,17,Nunavik,Déficience physique,34167.15
+depenses_sad,2022-2023,17,Nunavik,Santé mentale,0.0
+depenses_sad,2022-2023,17,Nunavik,Santé physique,181394.01
+depenses_sad,2022-2023,17,Nunavik,Santé publique,0.0
+depenses_sad,2022-2023,17,Nunavik,Services généraux,5723023.21
+depenses_sad,2022-2023,17,Nunavik,Soutien à l'autonomie des PA,5360770.18
+depenses_sad,2022-2023,18,Terres-Cries-de-la-Baie-James,Déficience intellectuelle et TSA,68621.01
+depenses_sad,2022-2023,18,Terres-Cries-de-la-Baie-James,Déficience physique,885614.99
+depenses_sad,2022-2023,18,Terres-Cries-de-la-Baie-James,Santé mentale,29835.01
+depenses_sad,2022-2023,18,Terres-Cries-de-la-Baie-James,Santé physique,143707.99
+depenses_sad,2022-2023,18,Terres-Cries-de-la-Baie-James,Santé publique,0.0
+depenses_sad,2022-2023,18,Terres-Cries-de-la-Baie-James,Services généraux,58676.01
+depenses_sad,2022-2023,18,Terres-Cries-de-la-Baie-James,Soutien à l'autonomie des PA,3786115.0
+depenses_sad,2023-2024,1,Bas-Saint-Laurent,Déficience intellectuelle et TSA,3694874.34
+depenses_sad,2023-2024,1,Bas-Saint-Laurent,Déficience physique,21704162.89
+depenses_sad,2023-2024,1,Bas-Saint-Laurent,Santé mentale,6442.96
+depenses_sad,2023-2024,1,Bas-Saint-Laurent,Santé physique,18369619.52
+depenses_sad,2023-2024,1,Bas-Saint-Laurent,Services généraux,12777722.98
+depenses_sad,2023-2024,1,Bas-Saint-Laurent,Soutien à l'autonomie des PA,54204650.08
+depenses_sad,2023-2024,2,Saguenay–Lac-Saint-Jean,Déficience intellectuelle et TSA,4813874.76
+depenses_sad,2023-2024,2,Saguenay–Lac-Saint-Jean,Déficience physique,19258815.47
+depenses_sad,2023-2024,2,Saguenay–Lac-Saint-Jean,Santé mentale,36084.03
+depenses_sad,2023-2024,2,Saguenay–Lac-Saint-Jean,Santé physique,13459857.31
+depenses_sad,2023-2024,2,Saguenay–Lac-Saint-Jean,Services généraux,6277743.4
+depenses_sad,2023-2024,2,Saguenay–Lac-Saint-Jean,Soutien à l'autonomie des PA,55669820.12
+depenses_sad,2023-2024,3,Capitale-Nationale,Déficience intellectuelle et TSA,36249513.73
+depenses_sad,2023-2024,3,Capitale-Nationale,Déficience physique,62155109.04
+depenses_sad,2023-2024,3,Capitale-Nationale,Santé mentale,72184.61
+depenses_sad,2023-2024,3,Capitale-Nationale,Santé physique,20089830.35
+depenses_sad,2023-2024,3,Capitale-Nationale,Services généraux,39764573.19
+depenses_sad,2023-2024,3,Capitale-Nationale,Soutien à l'autonomie des PA,137871897.44
+depenses_sad,2023-2024,4,Mauricie et Centre-du-Québec,Déficience intellectuelle et TSA,12835268.53
+depenses_sad,2023-2024,4,Mauricie et Centre-du-Québec,Déficience physique,25485227.92
+depenses_sad,2023-2024,4,Mauricie et Centre-du-Québec,Santé mentale,503175.64
+depenses_sad,2023-2024,4,Mauricie et Centre-du-Québec,Santé physique,22048588.38
+depenses_sad,2023-2024,4,Mauricie et Centre-du-Québec,Services généraux,13733967.4
+depenses_sad,2023-2024,4,Mauricie et Centre-du-Québec,Soutien à l'autonomie des PA,132076778.34
+depenses_sad,2023-2024,5,Estrie,Déficience intellectuelle et TSA,19475717.9
+depenses_sad,2023-2024,5,Estrie,Déficience physique,37220142.77
+depenses_sad,2023-2024,5,Estrie,Santé mentale,350287.78
+depenses_sad,2023-2024,5,Estrie,Santé physique,16997268.54
+depenses_sad,2023-2024,5,Estrie,Services généraux,9196010.59
+depenses_sad,2023-2024,5,Estrie,Soutien à l'autonomie des PA,126540647.45
+depenses_sad,2023-2024,6,Montréal,Déficience intellectuelle et TSA,26266646.02
+depenses_sad,2023-2024,6,Montréal,Déficience physique,108838927.3
+depenses_sad,2023-2024,6,Montréal,Santé mentale,5149501.67
+depenses_sad,2023-2024,6,Montréal,Santé physique,77725549.08
+depenses_sad,2023-2024,6,Montréal,Santé publique,21583.67
+depenses_sad,2023-2024,6,Montréal,Services généraux,46963242.22
+depenses_sad,2023-2024,6,Montréal,Soutien à l'autonomie des PA,572271868.55
+depenses_sad,2023-2024,7,Outaouais,Déficience intellectuelle et TSA,6014565.71
+depenses_sad,2023-2024,7,Outaouais,Déficience physique,17818796.17
+depenses_sad,2023-2024,7,Outaouais,Santé mentale,21437.48
+depenses_sad,2023-2024,7,Outaouais,Santé physique,12429141.08
+depenses_sad,2023-2024,7,Outaouais,Services généraux,23941235.21
+depenses_sad,2023-2024,7,Outaouais,Soutien à l'autonomie des PA,92748624.15
+depenses_sad,2023-2024,8,Abitibi-Témiscamingue,Déficience intellectuelle et TSA,2474690.02
+depenses_sad,2023-2024,8,Abitibi-Témiscamingue,Déficience physique,11447921.44
+depenses_sad,2023-2024,8,Abitibi-Témiscamingue,Santé mentale,272974.11
+depenses_sad,2023-2024,8,Abitibi-Témiscamingue,Santé physique,4079619.0
+depenses_sad,2023-2024,8,Abitibi-Témiscamingue,Santé publique,1873.47
+depenses_sad,2023-2024,8,Abitibi-Témiscamingue,Services généraux,1802158.93
+depenses_sad,2023-2024,8,Abitibi-Témiscamingue,Soutien à l'autonomie des PA,40857980.04
+depenses_sad,2023-2024,9,Côte-Nord,Déficience intellectuelle et TSA,2067809.8
+depenses_sad,2023-2024,9,Côte-Nord,Déficience physique,7709900.72
+depenses_sad,2023-2024,9,Côte-Nord,Santé mentale,687540.74
+depenses_sad,2023-2024,9,Côte-Nord,Santé physique,6656855.87
+depenses_sad,2023-2024,9,Côte-Nord,Services généraux,2358318.31
+depenses_sad,2023-2024,9,Côte-Nord,Soutien à l'autonomie des PA,33252021.24
+depenses_sad,2023-2024,10,Nord-du-Québec,Déficience intellectuelle et TSA,202684.77
+depenses_sad,2023-2024,10,Nord-du-Québec,Déficience physique,416663.03
+depenses_sad,2023-2024,10,Nord-du-Québec,Santé mentale,95730.33
+depenses_sad,2023-2024,10,Nord-du-Québec,Santé physique,1377609.79
+depenses_sad,2023-2024,10,Nord-du-Québec,Services généraux,844863.14
+depenses_sad,2023-2024,10,Nord-du-Québec,Soutien à l'autonomie des PA,5754189.29
+depenses_sad,2023-2024,11,Gaspésie–Îles-de-la-Madeleine,Déficience intellectuelle et TSA,3683019.68
+depenses_sad,2023-2024,11,Gaspésie–Îles-de-la-Madeleine,Déficience physique,10723123.39
+depenses_sad,2023-2024,11,Gaspésie–Îles-de-la-Madeleine,Santé mentale,203453.09
+depenses_sad,2023-2024,11,Gaspésie–Îles-de-la-Madeleine,Santé physique,7616295.02
+depenses_sad,2023-2024,11,Gaspésie–Îles-de-la-Madeleine,Santé publique,9606.88
+depenses_sad,2023-2024,11,Gaspésie–Îles-de-la-Madeleine,Services généraux,4806790.17
+depenses_sad,2023-2024,11,Gaspésie–Îles-de-la-Madeleine,Soutien à l'autonomie des PA,35710977.21
+depenses_sad,2023-2024,12,Chaudière-Appalaches,Déficience intellectuelle et TSA,10319345.64
+depenses_sad,2023-2024,12,Chaudière-Appalaches,Déficience physique,18559159.94
+depenses_sad,2023-2024,12,Chaudière-Appalaches,Santé mentale,293098.6
+depenses_sad,2023-2024,12,Chaudière-Appalaches,Santé physique,15915283.39
+depenses_sad,2023-2024,12,Chaudière-Appalaches,Services généraux,15770021.53
+depenses_sad,2023-2024,12,Chaudière-Appalaches,Soutien à l'autonomie des PA,96396936.84
+depenses_sad,2023-2024,13,Laval,Déficience intellectuelle et TSA,9001169.34
+depenses_sad,2023-2024,13,Laval,Déficience physique,18238155.23
+depenses_sad,2023-2024,13,Laval,Santé mentale,147905.9
+depenses_sad,2023-2024,13,Laval,Santé physique,5784201.4
+depenses_sad,2023-2024,13,Laval,Santé publique,54845.61
+depenses_sad,2023-2024,13,Laval,Services généraux,8919694.88
+depenses_sad,2023-2024,13,Laval,Soutien à l'autonomie des PA,108416065.01
+depenses_sad,2023-2024,14,Lanaudière,Déficience intellectuelle et TSA,9398650.33
+depenses_sad,2023-2024,14,Lanaudière,Déficience physique,11709165.86
+depenses_sad,2023-2024,14,Lanaudière,Santé mentale,306610.64
+depenses_sad,2023-2024,14,Lanaudière,Santé physique,8354766.0
+depenses_sad,2023-2024,14,Lanaudière,Services généraux,11329190.63
+depenses_sad,2023-2024,14,Lanaudière,Soutien à l'autonomie des PA,111536895.97
+depenses_sad,2023-2024,15,Laurentides,Déficience intellectuelle et TSA,9947730.51
+depenses_sad,2023-2024,15,Laurentides,Déficience physique,32411270.89
+depenses_sad,2023-2024,15,Laurentides,Santé mentale,1721004.82
+depenses_sad,2023-2024,15,Laurentides,Santé physique,17230327.94
+depenses_sad,2023-2024,15,Laurentides,Santé publique,3941.27
+depenses_sad,2023-2024,15,Laurentides,Services généraux,12085282.29
+depenses_sad,2023-2024,15,Laurentides,Soutien à l'autonomie des PA,101043579.23
+depenses_sad,2023-2024,16,Montérégie,Déficience intellectuelle et TSA,39160816.77
+depenses_sad,2023-2024,16,Montérégie,Déficience physique,82828329.06
+depenses_sad,2023-2024,16,Montérégie,Santé mentale,1765098.36
+depenses_sad,2023-2024,16,Montérégie,Santé physique,40998929.95
+depenses_sad,2023-2024,16,Montérégie,Santé publique,5204.41
+depenses_sad,2023-2024,16,Montérégie,Services généraux,21330845.3
+depenses_sad,2023-2024,16,Montérégie,Soutien à l'autonomie des PA,336782355.64
+depenses_sad,2023-2024,17,Nunavik,Déficience physique,40895.93
+depenses_sad,2023-2024,17,Nunavik,Santé physique,86518.15
+depenses_sad,2023-2024,17,Nunavik,Services généraux,10039882.03
+depenses_sad,2023-2024,17,Nunavik,Soutien à l'autonomie des PA,7084506.94
+depenses_sad,2023-2024,18,Terres-Cries-de-la-Baie-James,Santé physique,7073116.99

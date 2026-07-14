@@ -425,6 +425,39 @@ def creer_vues_depenses_activites(con: sqlite3.Connection) -> None:
           "v_depenses_activites_par_ca")
 
 
+
+def charger_depenses_sad(con: sqlite3.Connection, canonique_dir: str) -> None:
+    """Charge la table canonique des dépenses SAD par programme × région (Chantier 4)."""
+    path = os.path.join(canonique_dir, "depenses_sad", "depenses_sad_long.parquet")
+    if not os.path.exists(path):
+        print(f"[SKIP] depenses_sad : introuvable {path}")
+        return
+    df = pd.read_parquet(path)
+    df.to_sql("depenses_sad", con, if_exists="replace", index=False)
+    print(f"[OK] table depenses_sad <- depenses_sad/depenses_sad_long.parquet  ({len(df):,} lignes)")
+
+
+def creer_vues_depenses_sad(con: sqlite3.Connection) -> None:
+    """Vues agrégées des dépenses SAD (soutien à domicile) par programme et région.
+
+    Code synthétique SAD:<programme> (montant en $). Maquette « par programme »
+    disponible dès 2016-2017 ; RSS casté en TEXT."""
+    con.executescript("""
+    DROP VIEW IF EXISTS v_depenses_sad_par_exercice_qc;
+    CREATE VIEW v_depenses_sad_par_exercice_qc AS
+      SELECT exercice, 'SAD:' || programme AS code_cellule, SUM(montant) AS valeur
+        FROM depenses_sad GROUP BY exercice, programme;
+
+    DROP VIEW IF EXISTS v_depenses_sad_par_exercice_region;
+    CREATE VIEW v_depenses_sad_par_exercice_region AS
+      SELECT exercice, CAST(rss AS TEXT) AS rss,
+             'SAD:' || programme AS code_cellule, SUM(montant) AS valeur
+        FROM depenses_sad GROUP BY exercice, rss, programme;
+    """)
+    print("[OK] vues créées : v_depenses_sad_par_exercice_qc, "
+          "v_depenses_sad_par_exercice_region")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--canonique", default="20_canonique")
@@ -444,6 +477,7 @@ def main() -> None:
         charger_effectifs(con, args.canonique)
         charger_depenses_region(con, args.canonique)
         charger_depenses_activites(con, args.canonique)
+        charger_depenses_sad(con, args.canonique)
         creer_index(con)
         creer_vues(con)
         creer_vues_as484(con)
@@ -452,6 +486,7 @@ def main() -> None:
         creer_vues_effectifs(con)
         creer_vues_depenses_region(con)
         creer_vues_depenses_activites(con)
+        creer_vues_depenses_sad(con)
         con.commit()
     finally:
         con.close()

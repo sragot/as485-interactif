@@ -82,6 +82,11 @@ SRC_DIR_ACT = RACINE / "Dépenses par activités"
 OUT_ACT = RACINE / "20_canonique" / "depenses_activites"
 JEU_ACT = "depenses_par_activites"
 
+# --- Chantier 4 : SAD (soutien à domicile) — par programme × région ---------
+SRC_DIR_SAD = RACINE / "SAD"
+OUT_SAD = RACINE / "20_canonique" / "depenses_sad"
+JEU_SAD = "depenses_sad"
+
 
 def _norm(s: str) -> str:
     """Normalise un libellé : espaces/retours-ligne compactés."""
@@ -92,6 +97,7 @@ def depivoter_tableau_large(
     path: Path, exercice: str,
     motif_ligne: str = r"^RSS\s*(\d{2})\b",
     sheet: str | None = None,
+    jeu: str = JEU,
 ):
     """Dépivote une feuille « postes en colonnes × entités en lignes ».
 
@@ -154,7 +160,7 @@ def depivoter_tableau_large(
             somme_ligne += montant
             somme_montants += montant
             lignes.append({
-                "jeu": JEU, "exercice": exercice, "rss": rss,
+                "jeu": jeu, "exercice": exercice, "rss": rss,
                 "region_nom": RSS_NOMS.get(rss, "Inconnu"),
                 "programme": poste, "montant": montant,
             })
@@ -312,15 +318,71 @@ def run_activites():
     print(ditsa.groupby("exercice")["montant"].sum().apply(lambda v: f"{v:,.0f}").to_string())
 
 
+def run_sad():
+    """Chantier 4 — SAD par programme × région (maquette récente, dès 2016-2017).
+
+    Réutilise depivoter_tableau_large (colonnes programmes × lignes RSS +
+    GRAND TOTAL). Les fichiers antérieurs à 2016-2017 ont une définition
+    différente (découpage services/soutien, non ventilé par programme) et sont
+    écartés : on ne retient que les feuilles présentant une colonne
+    « Déficience intellectuelle et TSA »."""
+    OUT_SAD.mkdir(parents=True, exist_ok=True)
+    fichiers = sorted(SRC_DIR_SAD.glob("*programme*region*.xlsx")) + \
+               sorted(SRC_DIR_SAD.glob("*programme-et-par-region*.xlsx"))
+    fichiers = sorted(set(fichiers))
+    toutes, rapports = [], []
+    for path in fichiers:
+        wb = openpyxl.load_workbook(path, data_only=True)
+        sh = wb.sheetnames[0]
+        # exercice depuis le nom de feuille (suffixe AABB -> 20AA-20BB)
+        m = re.search(r"(\d{2})(\d{2})\b", sh)
+        if not m:
+            rapports.append({"fichier": path.name, "statut": "EXERCICE ILLISIBLE (feuille)"})
+            continue
+        exercice = f"20{m.group(1)}-20{m.group(2)}"
+        # ne garder que la maquette « par programme » (colonne DI-TSA présente)
+        rows = list(wb[sh].iter_rows(values_only=True))
+        ir = next((i for i, r in enumerate(rows)
+                   if r and isinstance(r[0], str) and r[0].strip().startswith("RSS 01")), None)
+        header = [(_norm(v) if v not in (None, "") else "") for v in rows[ir - 1]] if ir else []
+        if not any("Déficience intellectuelle" in h for h in header):
+            rapports.append({"fichier": path.name, "exercice": exercice,
+                             "statut": "MAQUETTE ANCIENNE (écartée)"})
+            continue
+        lignes, rap = depivoter_tableau_large(path, exercice, sheet=sh, jeu=JEU_SAD)
+        toutes.extend(lignes)
+        rapports.append(rap)
+
+    long = pd.DataFrame(toutes).sort_values(
+        ["exercice", "rss", "programme"]).reset_index(drop=True)
+    long["montant"] = long["montant"].round(2)
+    rap = pd.DataFrame(rapports)
+
+    long.to_parquet(OUT_SAD / "depenses_sad_long.parquet", index=False)
+    long.to_csv(OUT_SAD / "depenses_sad_long.csv", index=False, encoding="utf-8")
+    rap.to_csv(OUT_SAD / "rapport_qualite.csv", index=False, encoding="utf-8")
+
+    print(f"[OK] {len(long):,} lignes -> {OUT_SAD/'depenses_sad_long.parquet'}")
+    print("\n=== Rapport qualité ===")
+    print(rap.to_string(index=False))
+    ditsa = long[long.programme.str.contains("Déficience intellectuelle")]
+    print("\n=== SAD DI-TSA Québec par exercice ===")
+    print(ditsa.groupby("exercice")["montant"].sum().apply(lambda v: f"{v:,.0f}").to_string())
+    print("\n=== SAD GRAND TOTAL (tous programmes) Québec par exercice ===")
+    print(long.groupby("exercice")["montant"].sum().apply(lambda v: f"{v:,.0f}").to_string())
+
+
 def main():
     import argparse
     ap = argparse.ArgumentParser()
-    ap.add_argument("--jeu", choices=["region", "activites"], default="region")
+    ap.add_argument("--jeu", choices=["region", "activites", "sad"], default="region")
     args = ap.parse_args()
     if args.jeu == "region":
         run_region()
-    else:
+    elif args.jeu == "activites":
         run_activites()
+    else:
+        run_sad()
 
 
 if __name__ == "__main__":
