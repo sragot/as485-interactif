@@ -57,6 +57,16 @@ INDICATEURS_AS481 = [
     ("P02L12C06", "dep481", "Usagers à la fin de l'année — jeux pathologiques"),
 ]
 
+# AS480 — page 04 (signalements retenus par problématique, LPJ art. 38/38.1),
+# colonne 7 = total toutes problématiques. Indicateurs de comptes (somme propre).
+INDICATEURS_AS480 = [
+    ("P04L01C07", "cj480", "Signalements retenus — total"),
+    ("P04L01C01", "cj480", "Signalements retenus — négligence"),
+    ("P04L01C03", "cj480", "Signalements retenus — abus sexuel"),
+    ("P04L05C07", "cj480", "Évaluations : sécurité/développement compromis"),
+    ("P04L12C07", "cj480", "Nouvelles applications de mesures"),
+]
+
 
 def _collecter(cur, vue_qc, vue_region, codes, prefixe=""):
     """Retourne (national, regional, rss_presentes) pour une liste de codes bruts.
@@ -87,6 +97,7 @@ def main() -> None:
     codes485 = [c for c, _, _ in INDICATEURS_AS485]
     codes484 = [c for c, _, _ in INDICATEURS_AS484]
     codes481 = [c for c, _, _ in INDICATEURS_AS481]
+    codes480 = [c for c, _, _ in INDICATEURS_AS480]
 
     ph485 = ",".join("?" * len(codes485))
     cur.execute(f"SELECT DISTINCT exercice FROM v_as485_demo_par_exercice_qc WHERE code_cellule IN ({ph485})", codes485)
@@ -97,15 +108,19 @@ def main() -> None:
     ph481 = ",".join("?" * len(codes481))
     cur.execute(f"SELECT DISTINCT exercice FROM v_as481_demo_par_exercice_qc WHERE code_cellule IN ({ph481})", codes481)
     exercices |= {r[0] for r in cur.fetchall()}
+    ph480 = ",".join("?" * len(codes480))
+    cur.execute(f"SELECT DISTINCT exercice FROM v_as480_demo_par_exercice_qc WHERE code_cellule IN ({ph480})", codes480)
+    exercices |= {r[0] for r in cur.fetchall()}
     exercices = sorted(exercices)
 
     nat485, reg485, rss485 = _collecter(cur, "v_as485_demo_par_exercice_qc", "v_as485_demo_par_exercice_region", codes485)
     nat484, reg484, rss484 = _collecter(cur, "v_as484_demo_par_exercice_qc", "v_as484_demo_par_exercice_region", codes484, prefixe="AS484:")
     nat481, reg481, rss481 = _collecter(cur, "v_as481_demo_par_exercice_qc", "v_as481_demo_par_exercice_region", codes481, prefixe="AS481:")
+    nat480, reg480, rss480 = _collecter(cur, "v_as480_demo_par_exercice_qc", "v_as480_demo_par_exercice_region", codes480, prefixe="AS480:")
 
-    national = {**nat485, **nat484, **nat481}
-    regional = {**reg485, **reg484, **reg481}
-    rss_presentes = rss485 | rss484 | rss481
+    national = {**nat485, **nat484, **nat481, **nat480}
+    regional = {**reg485, **reg484, **reg481, **reg480}
+    rss_presentes = rss485 | rss484 | rss481 | rss480
 
     cur.execute("SELECT rss, region_nom FROM regions_rss ORDER BY CAST(rss AS INTEGER)")
     regions = [{"rss": rss, "nom": nom} for rss, nom in cur.fetchall() if rss in rss_presentes]
@@ -114,6 +129,7 @@ def main() -> None:
         [{"code": c, "categorie": cat, "label": lbl} for c, cat, lbl in INDICATEURS_AS485]
         + [{"code": "AS484:" + c, "categorie": cat, "label": lbl} for c, cat, lbl in INDICATEURS_AS484]
         + [{"code": "AS481:" + c, "categorie": cat, "label": lbl} for c, cat, lbl in INDICATEURS_AS481]
+        + [{"code": "AS480:" + c, "categorie": cat, "label": lbl} for c, cat, lbl in INDICATEURS_AS480]
     )
 
     con.close()
@@ -131,7 +147,7 @@ def main() -> None:
 
     print(f"[LIVRABLE] {args.out}  "
           f"({len(exercices)} exercices, {len(regions)} régions, "
-          f"{len(INDICATEURS_AS485)} indic. AS485 + {len(INDICATEURS_AS484)} indic. AS484 + {len(INDICATEURS_AS481)} indic. AS481)")
+          f"{len(INDICATEURS_AS485)} AS485 + {len(INDICATEURS_AS484)} AS484 + {len(INDICATEURS_AS481)} AS481 + {len(INDICATEURS_AS480)} AS480)")
 
 
 if __name__ == "__main__":

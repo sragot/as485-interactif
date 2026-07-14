@@ -30,10 +30,10 @@ Données publiques du MSSS. Aucune restriction de rediffusion ; source à crédi
 - [x] Phase 1 — Catalogue des sources
 - [x] Phase 2 — ETL formulaires AS478/480/481/484/485 (tables canoniques + rapports qualité)
 - [ ] Phase 3 — ETL dépenses / SAD / contours *(non commencé)*
-- [~] Phase 4 — Dictionnaire de codes : 23 953 codes extraits ; **démo AS485 décodée** (6 pages : 09, 10, 17, 18, 19, 20) + **AS484 page 09** (usagers admis en CRDP par groupe d'âge, `epoque=depuis_2013`) + **AS481 page 02** (usagers admis en dépendance — alcool-drogues et jeux pathologiques — par groupe d'âge, lignes 01-14, `epoque=stable`)
-- [~] Phase 5 — Base SQLite `40_base/sqdi_sante.db` : 5 tables AS + dictionnaire + vues agrégées AS485, AS484 et AS481
+- [~] Phase 4 — Dictionnaire de codes : 23 953 codes extraits ; **démo AS485 décodée** (6 pages : 09, 10, 17, 18, 19, 20) + **AS484 page 09** (usagers admis en CRDP par groupe d'âge, `epoque=depuis_2013`) + **AS481 page 02** (usagers admis en dépendance — alcool-drogues et jeux pathologiques — par groupe d'âge, lignes 01-14, `epoque=stable`) + **AS480 page 04** (signalements retenus par problématique, LPJ art. 38/38.1, lignes 01-14, `epoque=stable`)
+- [~] Phase 5 — Base SQLite `40_base/sqdi_sante.db` : 5 tables AS + dictionnaire + vues agrégées AS485, AS484, AS481 et AS480
 - [ ] Phase 6 — Publication open data (GitHub public)
-- [~] Phase 7 — Visualisation : dashboard HTML autonome (`50_publication/`), 4 onglets : AS485 desservis / AS485 attente / AS484 déficience physique / AS481 dépendance
+- [~] Phase 7 — Visualisation : dashboard HTML autonome (`50_publication/`), 5 onglets : AS485 desservis / AS485 attente / AS484 déficience physique / AS481 dépendance / AS480 centres jeunesse
 - [ ] Phase 8 — Mise à jour annuelle
 
 Légende : `[x]` fait · `[~]` partiel (démo) · `[ ]` à faire.

@@ -192,6 +192,7 @@
     <button data-tab="attente">AS-485 · Listes d'attente</button>
     <button data-tab="dp484">AS-484 · Déficience physique</button>
     <button data-tab="dep481">AS-481 · Dépendance</button>
+    <button data-tab="cj480">AS-480 · Centres jeunesse</button>
   </nav>
 
   <!-- ================= ONGLET USAGERS DESSERVIS ================= -->
@@ -349,11 +350,49 @@
     </div>
   </section>
 
+  <section class="tabpanel" id="tab-cj480">
+    <div class="filters">
+      <div class="filter-group grow">
+        <label for="sel-cj480-indic">Indicateur (signalements retenus par problématique, page 04)</label>
+        <select id="sel-cj480-indic"></select>
+      </div>
+      <div class="filter-group">
+        <label for="sel-cj480-annee">Année (répartition régionale)</label>
+        <select id="sel-cj480-annee"></select>
+      </div>
+      <div class="filter-group">
+        <label for="sel-cj480-region">Isoler une région (tendance)</label>
+        <select id="sel-cj480-region"><option value="">Total Québec</option></select>
+      </div>
+    </div>
+
+    <div class="kpi-row" id="kpi-cj480"></div>
+
+    <div class="chart-row">
+      <div class="card">
+        <h3 id="titre-cj480-trend">Évolution 2010-2023</h3>
+        <div class="sub">Total Québec, sauf région isolée dans le filtre ci-dessus</div>
+        <svg class="chart" id="chart-cj480-trend" viewBox="0 0 640 300"></svg>
+      </div>
+      <div class="card">
+        <h3 id="titre-cj480-bar">Répartition par région</h3>
+        <div class="sub" id="sub-cj480-bar"></div>
+        <svg class="chart" id="chart-cj480-bar" viewBox="0 0 460 420"></svg>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Détail par région et par exercice</h3>
+      <div class="sub">Cliquer un en-tête pour trier</div>
+      <div class="table-wrap"><table class="data-table" id="table-cj480"></table></div>
+    </div>
+  </section>
+
   <footer class="bottom">
     Dashboard généré depuis 40_base/sqdi_sante.db (vues v_as485_* et v_as484_*) — voir
     10_scripts/exporter_dashboard_data.py et 10_scripts/construire_base.py.
     AS-485 : exercices 2010-2011 → 2012-2013 exclus (ancienne maquette). AS-484 : page 09
-    structurée ainsi depuis 2013-2014. AS-481 (dépendance) : page 02, usagers admis par groupe d'âge, lignes 01-14 stables sur 2011-2012 → 2022-2023.
+    structurée ainsi depuis 2013-2014. AS-481 (dépendance) : page 02, usagers admis par groupe d'âge, lignes 01-14 stables sur 2011-2012 → 2022-2023. AS-480 (centres jeunesse) : page 04, signalements retenus par problématique (LPJ art. 38/38.1), lignes 01-14 stables 2010-2011 → 2022-2023.
   </footer>
 </div>
 <div class="tooltip" id="tooltip"></div>
@@ -667,6 +706,7 @@ __DONNEES_JSON__
   construireOnglet("attente", "attente");
   construireOnglet("dp484", "dp484");
   construireOnglet("dep481", "dep481");
+  construireOnglet("cj480", "cj480");
 })();
 </script>
 </body>
