@@ -146,9 +146,17 @@ Pipeline dashboard : `construire_base.py` → `exporter_dashboard_data.py` →
 
 ---
 
-## 7. Décisions ouvertes
+## 7. Décisions (mise à jour juillet 2026)
 
-- **Feuille « effectifs dans le temps »** : laquelle exactement dans Stats.xlsx ?
-- **Hébergement open data** : dépôt GitHub public (recommandé) ?
-- **Licence** : confirmer les conditions de rediffusion des données MSSS.
+**Tranchées (phase 6) :**
+- **Hébergement open data** : ✅ dépôt GitHub existant `sragot/as485-interactif` rendu
+  public (préparé + commité ; toggle « public » + push à faire côté GitHub).
+- **Licence** : ✅ **CC BY 4.0** — le Québec n'a pas de « Licence Ouverte » autonome ;
+  CC BY 4.0 est le standard des données ouvertes du gouvernement du Québec (Données
+  Québec). Fichier `LICENSE` ajouté (préambule d'attribution MSSS + texte intégral).
+- **Dashboard en ligne** : ✅ GitHub Pages depuis `/docs` (`docs/index.html`), URL
+  cible `https://sragot.github.io/as485-interactif/` (activation Pages à faire côté GitHub).
+- **Feuille « effectifs dans le temps »** : ✅ résolue au chantier 1 (`Population (historical)`).
+
+**Encore ouvertes :**
 - **Étendre AS485** aux exercices 2023-2024 / 2024-2025 (CSV dispo) : oui / plus tard ?
