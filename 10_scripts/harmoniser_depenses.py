@@ -52,6 +52,16 @@ RSS_NOMS = {
 # Colonnes à ne jamais traiter comme un poste de dépense.
 COLS_IGNOREES = {"%", "GRAND TOTAL", "TOTAL", ""}
 
+# Table d'alias de programmes (variantes de libellé d'une année à l'autre).
+ALIAS_PROGRAMME = {
+    "Jeunes en difficultés": "Jeunes en difficulté",
+}
+
+
+def _prog(lib: str) -> str:
+    """Canonicalise un libellé de programme via la table d'alias."""
+    return ALIAS_PROGRAMME.get(lib, lib)
+
 # Fichiers du Chantier 3 -> exercice (le nom de fichier porte l'année de fin).
 FICHIERS_REGION = {
     "Depenses-par-programme-et-par-region-2013-2014.xlsx": "2013-2014",
@@ -65,6 +75,12 @@ FICHIERS_REGION = {
     "depenses-par-programme-et-par-region-2022.xlsx": "2021-2022",
     "depenses-par-programme-et-par-region-2023.xlsx": "2022-2023",
 }
+
+
+# --- Chantier 2 : Dépenses par activités (matrice C/A × programme) ----------
+SRC_DIR_ACT = RACINE / "Dépenses par activités"
+OUT_ACT = RACINE / "20_canonique" / "depenses_activites"
+JEU_ACT = "depenses_par_activites"
 
 
 def _norm(s: str) -> str:
@@ -113,7 +129,7 @@ def depivoter_tableau_large(
             continue
         if lib in COLS_IGNOREES or lib == "%":
             continue
-        postes[j] = lib
+        postes[j] = _prog(lib)
 
     lignes = []
     n_rss = 0
@@ -159,7 +175,82 @@ def depivoter_tableau_large(
     return lignes, rapport
 
 
-def main():
+def depivoter_par_ca(path: Path, exercice: str):
+    """Dépivote une matrice « C/A (lignes) × programme (colonnes) ».
+
+    Maquette « Dépenses par activités » : en-tête « C/A | NOM C/A | <postes...>
+    | TOTAL ». Le nombre de postes ventilés varie selon l'année (les années
+    anciennes ne détaillent que la DI-TSA ; la colonne TOTAL reste le total
+    tous programmes du centre d'activités). On dépivote les postes présents ;
+    on ignore la colonne TOTAL et la ligne « TOTAL DES PROGRAMMES »."""
+    wb = openpyxl.load_workbook(path, data_only=True)
+    ws = wb[wb.sheetnames[0]]
+    rows = list(ws.iter_rows(values_only=True))
+    ih = None
+    for i, r in enumerate(rows):
+        if r and isinstance(r[0], str) and r[0].strip() == "C/A":
+            ih = i
+            break
+    if ih is None:
+        return [], {"fichier": path.name, "exercice": exercice, "statut": "EN-TÊTE C/A ABSENTE"}
+
+    header = rows[ih]
+    postes = {}
+    col_total = None
+    for j, v in enumerate(header):
+        if j < 2 or v in (None, ""):
+            continue
+        lib = _norm(v)
+        if lib.upper().startswith("TOTAL"):
+            col_total = j
+            continue
+        postes[j] = _prog(lib)
+
+    lignes = []
+    n_ca = 0
+    somme_montants = 0.0
+    somme_total_col = 0.0
+    non_num = 0
+    for r in rows[ih + 1:]:
+        nom = r[1] if len(r) > 1 else None
+        if nom in (None, ""):
+            continue
+        if isinstance(nom, str) and nom.strip().upper().startswith("TOTAL"):
+            continue  # ligne « TOTAL DES PROGRAMMES »
+        n_ca += 1
+        ca_code = "" if r[0] in (None, "") else str(r[0]).strip()
+        ca_nom = _norm(nom)
+        for j, poste in postes.items():
+            val = r[j] if j < len(r) else None
+            montant = pd.to_numeric(val, errors="coerce")
+            if pd.isna(montant):
+                if val not in (None, ""):
+                    non_num += 1
+                continue
+            montant = float(montant)
+            somme_montants += montant
+            lignes.append({
+                "jeu": JEU_ACT, "exercice": exercice,
+                "centre_activites_code": ca_code, "centre_activites": ca_nom,
+                "programme": poste, "montant": montant,
+            })
+        if col_total is not None and col_total < len(r):
+            tv = pd.to_numeric(r[col_total], errors="coerce")
+            if not pd.isna(tv):
+                somme_total_col += float(tv)
+
+    rapport = {
+        "fichier": path.name, "exercice": exercice, "statut": "OK",
+        "n_postes": len(postes), "n_centres_activites": n_ca,
+        "n_lignes_long": len(lignes),
+        "somme_montants_postes": round(somme_montants, 2),
+        "somme_colonne_total_source": round(somme_total_col, 2),
+        "valeurs_non_numeriques": non_num,
+    }
+    return lignes, rapport
+
+
+def run_region():
     OUT.mkdir(parents=True, exist_ok=True)
     toutes = []
     rapports = []
@@ -189,6 +280,47 @@ def main():
     print("\n=== DI-TSA Québec par exercice (contrôle) ===")
     print(ditsa.groupby("exercice")["montant"].sum().apply(lambda v: f"{v:,.0f}").to_string())
     print("\nProgrammes:", sorted(long.programme.unique()))
+
+
+def run_activites():
+    OUT_ACT.mkdir(parents=True, exist_ok=True)
+    fichiers = sorted(
+        f for f in SRC_DIR_ACT.glob("*.xlsx")
+        if re.fullmatch(r"\d{4}-\d{4}", f.stem)
+    )
+    toutes, rapports = [], []
+    for path in fichiers:
+        exercice = path.stem
+        lignes, rap = depivoter_par_ca(path, exercice)
+        toutes.extend(lignes)
+        rapports.append(rap)
+
+    long = pd.DataFrame(toutes).sort_values(
+        ["exercice", "programme", "centre_activites"]).reset_index(drop=True)
+    long["montant"] = long["montant"].round(2)
+    rap = pd.DataFrame(rapports)
+
+    long.to_parquet(OUT_ACT / "depenses_activites_long.parquet", index=False)
+    long.to_csv(OUT_ACT / "depenses_activites_long.csv", index=False, encoding="utf-8")
+    rap.to_csv(OUT_ACT / "rapport_qualite.csv", index=False, encoding="utf-8")
+
+    print(f"[OK] {len(long):,} lignes -> {OUT_ACT/'depenses_activites_long.parquet'}")
+    print("\n=== Rapport qualité ===")
+    print(rap.to_string(index=False))
+    ditsa = long[long.programme.str.contains("Déficience intellectuelle")]
+    print("\n=== DI-TSA par C/A — total Québec par exercice (contrôle) ===")
+    print(ditsa.groupby("exercice")["montant"].sum().apply(lambda v: f"{v:,.0f}").to_string())
+
+
+def main():
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--jeu", choices=["region", "activites"], default="region")
+    args = ap.parse_args()
+    if args.jeu == "region":
+        run_region()
+    else:
+        run_activites()
 
 
 if __name__ == "__main__":

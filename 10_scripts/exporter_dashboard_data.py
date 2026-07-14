@@ -102,6 +102,14 @@ INDICATEURS_DEPR = [
     (f"DEPR:{prog}", "depr", prog, "$") for prog in _PROGRAMMES_DEPR
 ]
 
+# Dépenses par centre d'activités (Chantier 2). Mêmes programmes ; grain =
+# centre d'activités (section JSON dédiée "activites"). DI-TSA continu sur
+# tout l'historique ; les autres programmes n'apparaissent que les années
+# récentes (ventilation partielle dans la source).
+INDICATEURS_DACT = [
+    (f"DACT:{prog}", "dact", prog, "$") for prog in _PROGRAMMES_DEPR
+]
+
 
 def _collecter(cur, vue_qc, vue_region, codes, prefixe=""):
     """Retourne (national, regional, rss_presentes) pour une liste de codes bruts.
@@ -135,6 +143,7 @@ def main() -> None:
     codes480 = [c for c, _, _ in INDICATEURS_AS480]
     codeseff = [c for c, _, _ in INDICATEURS_EFF]
     codesdepr = [c for c, _, _, _ in INDICATEURS_DEPR]
+    codesdact = [c for c, _, _, _ in INDICATEURS_DACT]
 
     ph485 = ",".join("?" * len(codes485))
     cur.execute(f"SELECT DISTINCT exercice FROM v_as485_demo_par_exercice_qc WHERE code_cellule IN ({ph485})", codes485)
@@ -154,6 +163,9 @@ def main() -> None:
     phdepr = ",".join("?" * len(codesdepr))
     cur.execute(f"SELECT DISTINCT exercice FROM v_depenses_region_par_exercice_qc WHERE code_cellule IN ({phdepr})", codesdepr)
     exercices |= {r[0] for r in cur.fetchall()}
+    phdact = ",".join("?" * len(codesdact))
+    cur.execute(f"SELECT DISTINCT exercice FROM v_depenses_activites_par_exercice_qc WHERE code_cellule IN ({phdact})", codesdact)
+    exercices |= {r[0] for r in cur.fetchall()}
     exercices = sorted(exercices)
 
     nat485, reg485, rss485 = _collecter(cur, "v_as485_demo_par_exercice_qc", "v_as485_demo_par_exercice_region", codes485)
@@ -162,8 +174,16 @@ def main() -> None:
     nat480, reg480, rss480 = _collecter(cur, "v_as480_demo_par_exercice_qc", "v_as480_demo_par_exercice_region", codes480, prefixe="AS480:")
     nateff, regeff, rsseff = _collecter(cur, "v_effectifs_par_exercice_qc", "v_effectifs_par_exercice_region", codeseff)
     natdepr, regdepr, rssdepr = _collecter(cur, "v_depenses_region_par_exercice_qc", "v_depenses_region_par_exercice_region", codesdepr)
+    natdact: dict = {}
+    for code, exercice, valeur in cur.execute(
+        f"SELECT code_cellule, exercice, valeur FROM v_depenses_activites_par_exercice_qc WHERE code_cellule IN ({phdact})", codesdact):
+        natdact.setdefault(code, {})[exercice] = valeur
+    activites: dict = {}
+    for code, exercice, ca, valeur in cur.execute(
+        f"SELECT code_cellule, exercice, centre_activites, valeur FROM v_depenses_activites_par_ca WHERE code_cellule IN ({phdact})", codesdact):
+        activites.setdefault(code, {}).setdefault(exercice, {})[ca] = valeur
 
-    national = {**nat485, **nat484, **nat481, **nat480, **nateff, **natdepr}
+    national = {**nat485, **nat484, **nat481, **nat480, **nateff, **natdepr, **natdact}
     regional = {**reg485, **reg484, **reg481, **reg480, **regeff, **regdepr}
     rss_presentes = rss485 | rss484 | rss481 | rss480 | rsseff | rssdepr
 
@@ -177,6 +197,7 @@ def main() -> None:
         + [{"code": "AS480:" + c, "categorie": cat, "label": lbl} for c, cat, lbl in INDICATEURS_AS480]
         + [{"code": c, "categorie": cat, "label": lbl} for c, cat, lbl in INDICATEURS_EFF]
         + [{"code": c, "categorie": cat, "label": lbl, "unite": u} for c, cat, lbl, u in INDICATEURS_DEPR]
+        + [{"code": c, "categorie": cat, "label": lbl, "unite": u} for c, cat, lbl, u in INDICATEURS_DACT]
     )
 
     con.close()
@@ -187,6 +208,7 @@ def main() -> None:
         "indicateurs": indicateurs,
         "national": national,
         "regional": regional,
+        "activites": activites,
     }
 
     with open(args.out, "w", encoding="utf-8") as f:
@@ -194,7 +216,7 @@ def main() -> None:
 
     print(f"[LIVRABLE] {args.out}  "
           f"({len(exercices)} exercices, {len(regions)} régions, "
-          f"{len(INDICATEURS_AS485)} AS485 + {len(INDICATEURS_AS484)} AS484 + {len(INDICATEURS_AS481)} AS481 + {len(INDICATEURS_AS480)} AS480 + {len(INDICATEURS_EFF)} EFF + {len(INDICATEURS_DEPR)} DEPR)")
+          f"{len(INDICATEURS_AS485)} AS485 + {len(INDICATEURS_AS484)} AS484 + {len(INDICATEURS_AS481)} AS481 + {len(INDICATEURS_AS480)} AS480 + {len(INDICATEURS_EFF)} EFF + {len(INDICATEURS_DEPR)} DEPR + {len(INDICATEURS_DACT)} DACT)")
 
 
 if __name__ == "__main__":

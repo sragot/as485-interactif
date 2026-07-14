@@ -195,6 +195,7 @@
     <button data-tab="cj480">AS-480 · Centres jeunesse</button>
     <button data-tab="eff">Effectifs DI-TSA (2010-2023)</button>
     <button data-tab="depr">Dépenses par région ($)</button>
+    <button data-tab="dact">Dépenses par activités ($)</button>
   </nav>
 
   <!-- ================= ONGLET USAGERS DESSERVIS ================= -->
@@ -468,11 +469,46 @@
     </div>
   </section>
 
+  <!-- ================= ONGLET DÉPENSES PAR CENTRE D'ACTIVITÉS ================= -->
+  <section class="tabpanel" id="tab-dact">
+    <div class="filters">
+      <div class="filter-group grow">
+        <label for="sel-dact-indic">Programme (dépenses par centre d'activités, rapports MSSS)</label>
+        <select id="sel-dact-indic"></select>
+      </div>
+      <div class="filter-group">
+        <label for="sel-dact-annee">Année (top centres d'activités)</label>
+        <select id="sel-dact-annee"></select>
+      </div>
+    </div>
+
+    <div class="kpi-row" id="kpi-dact"></div>
+
+    <div class="chart-row">
+      <div class="card">
+        <h3 id="titre-dact-trend">Évolution (Québec, $)</h3>
+        <div class="sub">Total Québec, tous centres d'activités confondus</div>
+        <svg class="chart" id="chart-dact-trend" viewBox="0 0 640 300"></svg>
+      </div>
+      <div class="card">
+        <h3 id="titre-dact-bar">Top centres d'activités</h3>
+        <div class="sub" id="sub-dact-bar"></div>
+        <svg class="chart" id="chart-dact-bar" viewBox="0 0 460 420"></svg>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Détail par centre d'activités et par exercice</h3>
+      <div class="sub">Cliquer un en-tête pour trier</div>
+      <div class="table-wrap"><table class="data-table" id="table-dact"></table></div>
+    </div>
+  </section>
+
   <footer class="bottom">
     Dashboard généré depuis 40_base/sqdi_sante.db (vues v_as485_* et v_as484_*) — voir
     10_scripts/exporter_dashboard_data.py et 10_scripts/construire_base.py.
     AS-485 : exercices 2010-2011 → 2012-2013 exclus (ancienne maquette). AS-484 : page 09
-    structurée ainsi depuis 2013-2014. AS-481 (dépendance) : page 02, usagers admis par groupe d'âge, lignes 01-14 stables sur 2011-2012 → 2022-2023. AS-480 (centres jeunesse) : page 04, signalements retenus par problématique (LPJ art. 38/38.1), lignes 01-14 stables 2010-2011 → 2022-2023. Effectifs DI-TSA : feuille « Population (historical) » de Stats.xlsx (usagers DI / TSA par groupe d'âge, 2010-2011 → 2022-2023 ; rupture de maquette 2013 — ventilation par âge disponible dès 2013-2014). Dépenses par région : rapports annuels MSSS « Dépenses par programme et par région » (feuille « Par région »), dépivotés par programme, 2013-2014 → 2022-2023 (montants en $ ; somme des postes = GRAND TOTAL de la source, DI-TSA recoupé avec « historique par région »).
+    structurée ainsi depuis 2013-2014. AS-481 (dépendance) : page 02, usagers admis par groupe d'âge, lignes 01-14 stables sur 2011-2012 → 2022-2023. AS-480 (centres jeunesse) : page 04, signalements retenus par problématique (LPJ art. 38/38.1), lignes 01-14 stables 2010-2011 → 2022-2023. Effectifs DI-TSA : feuille « Population (historical) » de Stats.xlsx (usagers DI / TSA par groupe d'âge, 2010-2011 → 2022-2023 ; rupture de maquette 2013 — ventilation par âge disponible dès 2013-2014). Dépenses par région : rapports annuels MSSS « Dépenses par programme et par région » (feuille « Par région »), dépivotés par programme, 2013-2014 → 2022-2023 (montants en $ ; somme des postes = GRAND TOTAL de la source, DI-TSA recoupé avec « historique par région »). Dépenses par activités : rapports annuels MSSS « Dépenses par programme et par centre d'activités », dépivotés (matrice C/A × programme), 2013-2014 → 2023-2024 ; DI-TSA ventilée par centre d'activités sur tout l'historique et recoupée au dollar près avec les dépenses par région.
   </footer>
 </div>
 <div class="tooltip" id="tooltip"></div>
@@ -783,6 +819,116 @@ __DONNEES_JSON__
     rafraichir();
   }
 
+  function construireOngletCA(cat, prefix) {
+    const selIndic = document.getElementById(`sel-${prefix}-indic`);
+    const selAnnee = document.getElementById(`sel-${prefix}-annee`);
+    const kpiRow = document.getElementById(`kpi-${prefix}`);
+    const chartTrend = document.getElementById(`chart-${prefix}-trend`);
+    const chartBar = document.getElementById(`chart-${prefix}-bar`);
+    const titreTrend = document.getElementById(`titre-${prefix}-trend`);
+    const titreBar = document.getElementById(`titre-${prefix}-bar`);
+    const subBar = document.getElementById(`sub-${prefix}-bar`);
+    const tableEl = document.getElementById(`table-${prefix}`);
+    const legendEl = document.createElement("div");
+    legendEl.className = "legend";
+    chartTrend.after(legendEl);
+
+    indicateursPourCategorie(cat).forEach(ind => {
+      const o = document.createElement("option");
+      o.value = ind.code; o.textContent = ind.label;
+      selIndic.appendChild(o);
+    });
+    DATA.periode.forEach((ex, i) => {
+      const o = document.createElement("option");
+      o.value = ex; o.textContent = ex;
+      if (i === DATA.periode.length - 1) o.selected = true;
+      selAnnee.appendChild(o);
+    });
+
+    let sortState = { col: null, dir: 1 };
+
+    function rafraichir() {
+      const code = selIndic.value, annee = selAnnee.value, u = "$";
+      const ind = DATA.indicateurs.find(i => i.code === code) || {};
+      const parAnnee = DATA.national[code] || {};
+      const derniere = DATA.periode[DATA.periode.length - 1];
+      const avant = DATA.periode[DATA.periode.length - 2];
+      const vD = parAnnee[derniere], vA = parAnnee[avant];
+      const delta = (vD != null && vA) ? ((vD - vA) / vA * 100) : null;
+
+      kpiRow.innerHTML = "";
+      const cards = [
+        { label: `${ind.label} — ${derniere} (Québec)`, value: fmt(vD) + " $" },
+        { label: `Variation vs ${avant}`, value: delta == null ? "—" : (delta >= 0 ? "+" : "") + delta.toFixed(1) + "%",
+          cls: delta == null ? "" : (delta >= 0 ? "up" : "down") },
+        { label: `${ind.label} — ${annee}`, value: fmt(parAnnee[annee]) + " $" },
+      ];
+      cards.forEach(c => {
+        const d = document.createElement("div");
+        d.className = "kpi-card";
+        d.innerHTML = `<div class="kpi-label">${c.label}</div><div class="kpi-value">${c.value}</div>` +
+          (c.cls !== undefined ? `<div class="kpi-delta ${c.cls}"></div>` : `<div class="kpi-delta">$</div>`);
+        kpiRow.appendChild(d);
+      });
+
+      titreTrend.textContent = ind.label + " — évolution (Québec, $)";
+      const serie = DATA.periode.map(ex => ({ y: parAnnee[ex] ?? null }));
+      dessinerLigne(chartTrend, [{ name: ind.label, values: serie }], { labels: DATA.periode, unite: u, legend: legendEl });
+
+      titreBar.textContent = "Top centres d'activités — " + annee;
+      subBar.textContent = "Dépenses ($), 15 premiers centres d'activités";
+      const parCA = ((DATA.activites || {})[code] || {})[annee] || {};
+      const items = Object.entries(parCA).map(([ca, v]) => ({ label: ca, value: v }))
+        .sort((a, b) => b.value - a.value).slice(0, 15);
+      dessinerBarres(chartBar, items, { unite: u });
+
+      const parCode = (DATA.activites || {})[code] || {};
+      const rows = [];
+      Object.keys(parCode).forEach(ex => {
+        Object.entries(parCode[ex]).forEach(([ca, v]) => { if (v != null) rows.push({ centre: ca, exercice: ex, valeur: v }); });
+      });
+      function renderTable() {
+        let data = rows.slice();
+        if (sortState.col) {
+          data.sort((a, b) => {
+            const av = a[sortState.col], bv = b[sortState.col];
+            const cmp = av < bv ? -1 : av > bv ? 1 : 0;
+            return cmp * sortState.dir;
+          });
+        }
+        const cols = [
+          { key: "centre", label: "Centre d'activités" },
+          { key: "exercice", label: "Exercice" },
+          { key: "valeur", label: "Dépenses ($)" },
+        ];
+        let html = "<thead><tr>";
+        cols.forEach(c => {
+          const arrow = sortState.col === c.key ? (sortState.dir === 1 ? " ▲" : " ▼") : "";
+          html += `<th data-col="${c.key}">${c.label}${arrow}</th>`;
+        });
+        html += "</tr></thead><tbody>";
+        data.slice(0, 500).forEach(r => {
+          html += `<tr><td>${r.centre}</td><td>${r.exercice}</td><td>${fmt(r.valeur)}</td></tr>`;
+        });
+        html += "</tbody>";
+        tableEl.innerHTML = html;
+        tableEl.querySelectorAll("thead th").forEach(th => {
+          th.addEventListener("click", () => {
+            const col = th.dataset.col;
+            sortState.dir = sortState.col === col ? -sortState.dir : -1;
+            sortState.col = col;
+            renderTable();
+          });
+        });
+      }
+      renderTable();
+    }
+
+    selIndic.addEventListener("change", rafraichir);
+    selAnnee.addEventListener("change", rafraichir);
+    rafraichir();
+  }
+
   construireOnglet("desservis", "desservis");
   construireOnglet("attente", "attente");
   construireOnglet("dp484", "dp484");
@@ -790,6 +936,7 @@ __DONNEES_JSON__
   construireOnglet("cj480", "cj480");
   construireOnglet("eff", "eff");
   construireOnglet("depr", "depr");
+  construireOngletCA("dact", "dact");
 })();
 </script>
 </body>
