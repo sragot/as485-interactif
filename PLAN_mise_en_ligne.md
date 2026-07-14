@@ -19,7 +19,7 @@ déjà généré).
 | **Dépenses par activités** | **Cible viz** | ✅ | — | ✅ 1 onglet (par centre d'activités) |
 | **Dépenses par région** (`Dépenses par région/`) | **Cible viz** | ✅ | — | ✅ 1 onglet (par programme) |
 | **SAD** (soutien à domicile) | **Cible viz** | ✅ | — | ✅ 1 onglet (par programme, dès 2016-2017) |
-| **Contour financier** | **Cible viz** | ⬜ | — | ⬜ à faire |
+| **Contour financier** | **Cible viz** | ✅ | — | ✅ 1 onglet (SAD par type de service) |
 | AS484 (déficience physique) | Archive | ✅ | ✅ page 09 | ✅ 1 onglet (déjà généré — conservé) |
 | AS481 (dépendance) | Archive | ✅ | ✅ page 02 | ✅ 1 onglet (déjà généré — conservé) |
 | AS480 (centres jeunesse) | Archive | ✅ | ✅ page 04 | ✅ 1 onglet (déjà généré — conservé) |

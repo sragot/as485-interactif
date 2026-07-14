@@ -161,6 +161,10 @@ def main() -> None:
     codesdepr = [c for c, _, _, _ in INDICATEURS_DEPR]
     codesdact = [c for c, _, _, _ in INDICATEURS_DACT]
     codessad = [c for c, _, _, _ in INDICATEURS_SAD]
+    # SADS (Chantier 5) : services SAD listés dynamiquement, triés par montant.
+    cur.execute("SELECT code_cellule, SUM(valeur) FROM v_sad_service_par_exercice_qc GROUP BY code_cellule ORDER BY 2 DESC")
+    codessads = [row[0] for row in cur.fetchall()]
+    INDICATEURS_SADS = [(c, "sads", c.split(":", 1)[1], "$") for c in codessads]
 
     ph485 = ",".join("?" * len(codes485))
     cur.execute(f"SELECT DISTINCT exercice FROM v_as485_demo_par_exercice_qc WHERE code_cellule IN ({ph485})", codes485)
@@ -186,6 +190,8 @@ def main() -> None:
     phsad = ",".join("?" * len(codessad))
     cur.execute(f"SELECT DISTINCT exercice FROM v_depenses_sad_par_exercice_qc WHERE code_cellule IN ({phsad})", codessad)
     exercices |= {r[0] for r in cur.fetchall()}
+    cur.execute("SELECT DISTINCT exercice FROM v_sad_service_par_exercice_qc")
+    exercices |= {r[0] for r in cur.fetchall()}
     exercices = sorted(exercices)
 
     nat485, reg485, rss485 = _collecter(cur, "v_as485_demo_par_exercice_qc", "v_as485_demo_par_exercice_region", codes485)
@@ -203,10 +209,11 @@ def main() -> None:
         f"SELECT code_cellule, exercice, centre_activites, valeur FROM v_depenses_activites_par_ca WHERE code_cellule IN ({phdact})", codesdact):
         activites.setdefault(code, {}).setdefault(exercice, {})[ca] = valeur
     natsad, regsad, rsssad = _collecter(cur, "v_depenses_sad_par_exercice_qc", "v_depenses_sad_par_exercice_region", codessad)
+    natsads, regsads, rsssads = _collecter(cur, "v_sad_service_par_exercice_qc", "v_sad_service_par_exercice_region", codessads)
 
-    national = {**nat485, **nat484, **nat481, **nat480, **nateff, **natdepr, **natdact, **natsad}
-    regional = {**reg485, **reg484, **reg481, **reg480, **regeff, **regdepr, **regsad}
-    rss_presentes = rss485 | rss484 | rss481 | rss480 | rsseff | rssdepr | rsssad
+    national = {**nat485, **nat484, **nat481, **nat480, **nateff, **natdepr, **natdact, **natsad, **natsads}
+    regional = {**reg485, **reg484, **reg481, **reg480, **regeff, **regdepr, **regsad, **regsads}
+    rss_presentes = rss485 | rss484 | rss481 | rss480 | rsseff | rssdepr | rsssad | rsssads
 
     cur.execute("SELECT rss, region_nom FROM regions_rss ORDER BY CAST(rss AS INTEGER)")
     regions = [{"rss": rss, "nom": nom} for rss, nom in cur.fetchall() if rss in rss_presentes]
@@ -220,6 +227,7 @@ def main() -> None:
         + [{"code": c, "categorie": cat, "label": lbl, "unite": u} for c, cat, lbl, u in INDICATEURS_DEPR]
         + [{"code": c, "categorie": cat, "label": lbl, "unite": u} for c, cat, lbl, u in INDICATEURS_DACT]
         + [{"code": c, "categorie": cat, "label": lbl, "unite": u} for c, cat, lbl, u in INDICATEURS_SAD]
+        + [{"code": c, "categorie": cat, "label": lbl, "unite": u} for c, cat, lbl, u in INDICATEURS_SADS]
     )
 
     con.close()
@@ -238,7 +246,7 @@ def main() -> None:
 
     print(f"[LIVRABLE] {args.out}  "
           f"({len(exercices)} exercices, {len(regions)} régions, "
-          f"{len(INDICATEURS_AS485)} AS485 + {len(INDICATEURS_AS484)} AS484 + {len(INDICATEURS_AS481)} AS481 + {len(INDICATEURS_AS480)} AS480 + {len(INDICATEURS_EFF)} EFF + {len(INDICATEURS_DEPR)} DEPR + {len(INDICATEURS_DACT)} DACT + {len(INDICATEURS_SAD)} SAD)")
+          f"{len(INDICATEURS_AS485)} AS485 + {len(INDICATEURS_AS484)} AS484 + {len(INDICATEURS_AS481)} AS481 + {len(INDICATEURS_AS480)} AS480 + {len(INDICATEURS_EFF)} EFF + {len(INDICATEURS_DEPR)} DEPR + {len(INDICATEURS_DACT)} DACT + {len(INDICATEURS_SAD)} SAD + {len(INDICATEURS_SADS)} SADS)")
 
 
 if __name__ == "__main__":

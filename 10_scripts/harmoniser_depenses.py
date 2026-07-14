@@ -87,6 +87,26 @@ SRC_DIR_SAD = RACINE / "SAD"
 OUT_SAD = RACINE / "20_canonique" / "depenses_sad"
 JEU_SAD = "depenses_sad"
 
+# --- Chantier 5 : SAD par type de service (centre d'activités) × région ------
+# Apport propre des « contours financiers » : la seule table non déjà couverte
+# par les chantiers 2/3/4. Lignes RSS × colonnes de services SAD (nom + code
+# c/a sur deux lignes d'en-tête), colonnes SOUS-TOTAL / TOTAL en fin.
+OUT_SADSVC = RACINE / "20_canonique" / "sad_par_service"
+JEU_SADSVC = "sad_par_service"
+FICHIERS_SAD_CA = {
+    "SAD-par-Ca-201314.xlsx": "2013-2014",
+    "01-Contour-Financier-SAD-par-CA-2014-15.xlsx": "2014-2015",
+    "Depenses_de_services_a_domicile_par_centre_d-activites_et_par_region_1516.xlsx": "2015-2016",
+    "depenses-de-services-a-domicile-par-CA-et-par-region-1617.xlsx": "2016-2017",
+    "depenses-de-services-a-domicile-par-CA-et-par-region-1718.xlsx": "2017-2018",
+    "depenses-de-services-a-domicile-par-CA-et-par-region-1819.xlsx": "2018-2019",
+    "depenses-de-services-a-domicile-par-CA-et-par-region-1920.xlsx": "2019-2020",
+    "depenses-de-services-a-domicile-par-CA-et-par-region-2021.xlsx": "2020-2021",
+    "depenses-de-services-a-domicile-par-CA-et-par-region-2022.xlsx": "2021-2022",
+    "depenses-services-a-domicile-par-ca-et-region-2023.xlsx": "2022-2023",
+    "depenses-services-a-domicile-par-ca-et-region-2324.xlsx": "2023-2024",
+}
+
 
 def _norm(s: str) -> str:
     """Normalise un libellé : espaces/retours-ligne compactés."""
@@ -256,6 +276,107 @@ def depivoter_par_ca(path: Path, exercice: str):
     return lignes, rapport
 
 
+def depivoter_sad_ca(path: Path, exercice: str):
+    """Dépivote « SAD par type de service (c/a) × région ».
+
+    En-tête sur DEUX lignes : noms de service (ir-2) + codes c/a (ir-1), juste
+    au-dessus de « RSS 01 ». Colonnes de service = tout sauf SOUS-TOTAL et
+    TOTAL. Le nom (unique par colonne) sert d'identité de service ; le code c/a
+    est conservé. Contrôle : somme des services = colonne TOTAL de la source."""
+    wb = openpyxl.load_workbook(path, data_only=True)
+    ws = wb[wb.sheetnames[0]]
+    rows = list(ws.iter_rows(values_only=True))
+    ir = next((i for i, r in enumerate(rows)
+               if r and isinstance(r[0], str) and r[0].strip().startswith("RSS 01")), None)
+    if ir is None or ir < 2:
+        return [], {"fichier": path.name, "exercice": exercice, "statut": "EN-TÊTE INTROUVABLE"}
+    names, codes = rows[ir - 2], rows[ir - 1]
+
+    postes = {}          # col -> (service, code)
+    col_total = None
+    ncol = max(len(names), len(codes))
+    for j in range(1, ncol):
+        nm = _norm(names[j]) if j < len(names) and names[j] not in (None, "") else ""
+        cd = str(codes[j]).strip() if j < len(codes) and codes[j] not in (None, "") else ""
+        mcode = re.search(r"(\d{3,4})", cd)
+        code = mcode.group(1) if mcode else ""
+        up = nm.upper()
+        if up == "TOTAL":
+            col_total = j
+            continue
+        if up == "SOUS-TOTAL":
+            continue
+        if not nm and not code:
+            continue
+        postes[j] = (nm if nm else f"c/a {code}", code)
+
+    lignes, n_rss, somme, ecart, non_num = [], 0, 0.0, 0.0, 0
+    for r in rows[ir:]:
+        if not (r and isinstance(r[0], str) and r[0].strip().startswith("RSS ")):
+            continue
+        m = re.search(r"^RSS\s*(\d{2})", r[0].strip())
+        if not m:
+            continue
+        rss = int(m.group(1))
+        n_rss += 1
+        somme_ligne = 0.0
+        for j, (svc, code) in postes.items():
+            val = r[j] if j < len(r) else None
+            montant = pd.to_numeric(val, errors="coerce")
+            if pd.isna(montant):
+                if val not in (None, ""):
+                    non_num += 1
+                continue
+            montant = float(montant)
+            somme_ligne += montant
+            somme += montant
+            lignes.append({
+                "jeu": JEU_SADSVC, "exercice": exercice, "rss": rss,
+                "region_nom": RSS_NOMS.get(rss, "Inconnu"),
+                "sad_service": svc, "sad_ca_code": code, "montant": montant,
+            })
+        if col_total is not None and col_total < len(r):
+            tv = pd.to_numeric(r[col_total], errors="coerce")
+            if not pd.isna(tv):
+                ecart += abs(somme_ligne - float(tv))
+
+    rapport = {
+        "fichier": path.name, "exercice": exercice, "statut": "OK",
+        "n_services": len(postes), "n_regions": n_rss,
+        "n_lignes_long": len(lignes), "somme_montants": round(somme, 2),
+        "ecart_total_vs_total_source": round(ecart, 2),
+        "valeurs_non_numeriques": non_num,
+    }
+    return lignes, rapport
+
+
+def run_contours():
+    """Chantier 5 — SAD par type de service × région (issu des contours)."""
+    OUT_SADSVC.mkdir(parents=True, exist_ok=True)
+    toutes, rapports = [], []
+    for fichier, exercice in FICHIERS_SAD_CA.items():
+        path = SRC_DIR_SAD / fichier
+        if not path.exists():
+            rapports.append({"fichier": fichier, "exercice": exercice, "statut": "ABSENT"})
+            continue
+        lignes, rap = depivoter_sad_ca(path, exercice)
+        toutes.extend(lignes)
+        rapports.append(rap)
+    long = pd.DataFrame(toutes).sort_values(
+        ["exercice", "rss", "sad_service"]).reset_index(drop=True)
+    long["montant"] = long["montant"].round(2)
+    rap = pd.DataFrame(rapports)
+    long.to_parquet(OUT_SADSVC / "sad_par_service_long.parquet", index=False)
+    long.to_csv(OUT_SADSVC / "sad_par_service_long.csv", index=False, encoding="utf-8")
+    rap.to_csv(OUT_SADSVC / "rapport_qualite.csv", index=False, encoding="utf-8")
+    print(f"[OK] {len(long):,} lignes -> {OUT_SADSVC/'sad_par_service_long.parquet'}")
+    print("\n=== Rapport qualité ===")
+    print(rap.to_string(index=False))
+    print("\n=== SAD par service — total Québec par exercice ===")
+    print(long.groupby("exercice")["montant"].sum().apply(lambda v: f"{v:,.0f}").to_string())
+    print("\nServices:", sorted(long.sad_service.unique()))
+
+
 def run_region():
     OUT.mkdir(parents=True, exist_ok=True)
     toutes = []
@@ -375,14 +496,16 @@ def run_sad():
 def main():
     import argparse
     ap = argparse.ArgumentParser()
-    ap.add_argument("--jeu", choices=["region", "activites", "sad"], default="region")
+    ap.add_argument("--jeu", choices=["region", "activites", "sad", "contours"], default="region")
     args = ap.parse_args()
     if args.jeu == "region":
         run_region()
     elif args.jeu == "activites":
         run_activites()
-    else:
+    elif args.jeu == "sad":
         run_sad()
+    else:
+        run_contours()
 
 
 if __name__ == "__main__":

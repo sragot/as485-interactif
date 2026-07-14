@@ -458,6 +458,36 @@ def creer_vues_depenses_sad(con: sqlite3.Connection) -> None:
           "v_depenses_sad_par_exercice_region")
 
 
+
+def charger_sad_par_service(con: sqlite3.Connection, canonique_dir: str) -> None:
+    """Charge la table canonique SAD par type de service × région (Chantier 5)."""
+    path = os.path.join(canonique_dir, "sad_par_service", "sad_par_service_long.parquet")
+    if not os.path.exists(path):
+        print(f"[SKIP] sad_par_service : introuvable {path}")
+        return
+    df = pd.read_parquet(path)
+    df.to_sql("sad_par_service", con, if_exists="replace", index=False)
+    print(f"[OK] table sad_par_service <- sad_par_service/sad_par_service_long.parquet  ({len(df):,} lignes)")
+
+
+def creer_vues_sad_par_service(con: sqlite3.Connection) -> None:
+    """Vues agrégées SAD par type de service (code SADS:<service>, $)."""
+    con.executescript("""
+    DROP VIEW IF EXISTS v_sad_service_par_exercice_qc;
+    CREATE VIEW v_sad_service_par_exercice_qc AS
+      SELECT exercice, 'SADS:' || sad_service AS code_cellule, SUM(montant) AS valeur
+        FROM sad_par_service GROUP BY exercice, sad_service;
+
+    DROP VIEW IF EXISTS v_sad_service_par_exercice_region;
+    CREATE VIEW v_sad_service_par_exercice_region AS
+      SELECT exercice, CAST(rss AS TEXT) AS rss,
+             'SADS:' || sad_service AS code_cellule, SUM(montant) AS valeur
+        FROM sad_par_service GROUP BY exercice, rss, sad_service;
+    """)
+    print("[OK] vues créées : v_sad_service_par_exercice_qc, "
+          "v_sad_service_par_exercice_region")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--canonique", default="20_canonique")
@@ -478,6 +508,7 @@ def main() -> None:
         charger_depenses_region(con, args.canonique)
         charger_depenses_activites(con, args.canonique)
         charger_depenses_sad(con, args.canonique)
+        charger_sad_par_service(con, args.canonique)
         creer_index(con)
         creer_vues(con)
         creer_vues_as484(con)
@@ -487,6 +518,7 @@ def main() -> None:
         creer_vues_depenses_region(con)
         creer_vues_depenses_activites(con)
         creer_vues_depenses_sad(con)
+        creer_vues_sad_par_service(con)
         con.commit()
     finally:
         con.close()
