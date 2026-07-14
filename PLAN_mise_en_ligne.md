@@ -151,12 +151,18 @@ Pipeline dashboard : `construire_base.py` → `exporter_dashboard_data.py` →
 **Tranchées (phase 6) :**
 - **Hébergement open data** : ✅ dépôt GitHub existant `sragot/as485-interactif` rendu
   public (préparé + commité ; toggle « public » + push à faire côté GitHub).
-- **Licence** : ✅ **CC BY 4.0** — le Québec n'a pas de « Licence Ouverte » autonome ;
-  CC BY 4.0 est le standard des données ouvertes du gouvernement du Québec (Données
-  Québec). Fichier `LICENSE` ajouté (préambule d'attribution MSSS + texte intégral).
-- **Dashboard en ligne** : ✅ GitHub Pages depuis `/docs` (`docs/index.html`), URL
-  cible `https://sragot.github.io/as485-interactif/` (activation Pages à faire côté GitHub).
+- **Licence** : ✅ **CC BY-NC-SA 4.0** (Attribution · Pas d'utilisation commerciale ·
+  Partage dans les mêmes conditions). Fichier `LICENSE` : préambule d'attribution MSSS
+  + texte intégral. (À noter : le standard des données ouvertes du Québec est CC BY 4.0 ;
+  le choix NC-SA est plus restrictif, retenu par Samuel.)
+- **Dashboard en ligne** : ✅ GitHub Pages depuis `/docs`. Page d'accueil propre
+  (`docs/index.html`) distincte du tableau de bord (`docs/dashboard.html`). URL cible
+  `https://sragot.github.io/as485-interactif/` (activation Pages à faire côté GitHub).
 - **Feuille « effectifs dans le temps »** : ✅ résolue au chantier 1 (`Population (historical)`).
+- **Étendre AS485 aux exercices 2023-2024 / 2024-2025** : ✅ fait. `harmoniser_as485.py`
+  ingère désormais aussi les CSV bruts `AS485_BD_*.csv` (dédup par exercice). Table
+  canonique AS485 = **15 exercices (2010-2011 → 2024-2025), 422 461 lignes**.
+- **Outillage MAJ** : ✅ GUI `10_scripts/maj_gui.py` (Tkinter) pour régénérer sans
+  ligne de commande ; runbook de maintenance dans `README.md`.
 
-**Encore ouvertes :**
-- **Étendre AS485** aux exercices 2023-2024 / 2024-2025 (CSV dispo) : oui / plus tard ?
+**Encore ouvertes :** aucune pour l'instant.

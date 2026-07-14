@@ -1,73 +1,100 @@
-# Données budgétaires de la santé — DI-TSA (SQDI)
+# Données santé DI-TSA (Québec) — as485-interactif
 
-Dépôt de travail pour harmoniser, publier et visualiser les données financières et
-statistiques du réseau de la santé (formulaires MSSS), avec un focus déficience
-intellectuelle et trouble du spectre de l'autisme (DI-TSA).
+Harmonisation, publication et visualisation des données financières et statistiques
+publiques du réseau de la santé du Québec (formulaires MSSS), avec un focus déficience
+intellectuelle et trouble du spectre de l'autisme (DI-TSA). Projet de plaidoyer SQDI.
 
-## Principe : 3 couches
+**Tableau de bord en ligne :** https://sragot.github.io/as485-interactif/
+**Couverture :** 15 exercices, 2010-2011 → 2024-2025.
 
-1. **Archive brute** — fichiers sources du MSSS, jamais modifiés (non versionnés ici).
+---
+
+## Ce que contient le dépôt
+
+Trois couches, du brut au publié :
+
+1. **Archive brute** — fichiers sources du MSSS, jamais modifiés (non versionnés).
 2. **Données canoniques** — tables harmonisées, UTF-8, format long (`20_canonique/`).
-3. **Publication** — catalogue open data + visualisations (`50_publication/`).
-
-Données publiques du MSSS, rediffusées sous **CC BY 4.0** (licence d'attribution, standard des données ouvertes du gouvernement du Québec) — source à créditer. Voir [`LICENSE`](LICENSE).
-
-## Structure
+3. **Publication** — catalogue, tableau de bord et page d'accueil (`50_publication/`, `docs/`).
 
 | Dossier | Contenu |
 |---|---|
-| `00_brut/` | Copies/décompressions des sources (non versionné) |
-| `00_catalogue/` | `catalogue_sources.csv` — inventaire machine-lisible |
-| `10_scripts/` | Scripts ETL (`harmoniser_as485.py`, `scan_catalogue.py`, …) |
-| `20_canonique/` | Tables propres : 1 Parquet + 1 CSV par jeu |
-| `30_dictionnaires/` | Dictionnaire de codes P/L/C, référentiels (calqués sur les pages des formulaires MSSS) |
-| `40_base/` | Base SQLite unique (reconstructible) |
-| `50_publication/` | Catalogue open data + dashboards |
+| `00_catalogue/` | `catalogue_sources.csv` — inventaire machine-lisible des sources |
+| `10_scripts/` | Scripts ETL + génération du dashboard + **GUI de mise à jour** |
+| `20_canonique/` | Tables propres : 1 CSV + 1 Parquet par jeu |
+| `30_dictionnaires/` | Dictionnaire de codes P/L/C, référentiels |
+| `40_base/` | Base SQLite unique (reconstructible, non versionnée, ~450 Mo) |
+| `50_publication/` | Tableau de bord HTML autonome + JSON de données |
+| `docs/` | Site GitHub Pages : `index.html` (accueil) + `dashboard.html` |
 
-## État d'avancement
+---
 
-- [x] Phase 0 — Socle de projet + git
-- [x] Phase 1 — Catalogue des sources
-- [x] Phase 2 — ETL formulaires AS478/480/481/484/485 (tables canoniques + rapports qualité)
-- [x] Phase 3 — ETL dépenses / SAD / contours — **5 chantiers ETL faits** via `10_scripts/harmoniser_depenses.py` (moule « tableaux larges », 2 fonctions de dépivotage) : effectifs (`20_canonique/effectifs/`), dépenses par région (`depenses_region/`, 12 programmes×18 RSS), dépenses par centre d'activités (`depenses_activites/`), SAD par programme (`depenses_sad/`, dès 2016-2017) et SAD par type de service (`sad_par_service/`, 2013-2014→2023-2024). Chaque jeu : contrôle somme des postes = total source, recoupements inter-sources DI-TSA au dollar près
-- [~] Phase 4 — Dictionnaire de codes : 23 953 codes extraits ; **démo AS485 décodée** (6 pages : 09, 10, 17, 18, 19, 20) + **AS484 page 09** (usagers admis en CRDP par groupe d'âge, `epoque=depuis_2013`) + **AS481 page 02** (usagers admis en dépendance — alcool-drogues et jeux pathologiques — par groupe d'âge, lignes 01-14, `epoque=stable`) + **AS480 page 04** (signalements retenus par problématique, LPJ art. 38/38.1, lignes 01-14, `epoque=stable`)
-- [~] Phase 5 — Base SQLite `40_base/sqdi_sante.db` : 5 tables AS + tables `effectifs`, `depenses_region`, `depenses_activites`, `depenses_sad` et `sad_par_service` + dictionnaire + vues agrégées AS485-484-481-480, `v_effectifs_*`, `v_depenses_region_*`, `v_depenses_activites_*` et `v_depenses_sad_*`
-- [x] Phase 6 — Publication open data : `LICENSE` (CC BY 4.0), dashboard servi en ligne via **GitHub Pages** (`docs/index.html`), runbook de reproduction ci-dessous. Reste l'action manuelle côté GitHub (rendre le dépôt public + activer Pages sur `/docs`).
-- [~] Phase 7 — Visualisation : dashboard HTML autonome (`50_publication/`), 10 onglets : AS485 desservis / AS485 attente / AS484 déficience physique / AS481 dépendance / AS480 centres jeunesse / **effectifs DI-TSA** / **dépenses par région** / **dépenses par centre d'activités** / **SAD par programme** / **SAD par type de service**
-- [ ] Phase 8 — Mise à jour annuelle
+## Mettre à jour les données (MAJ annuelle)
 
-## Publication & reproduction
+Chaque année, le MSSS publie de nouveaux exercices. Deux façons de régénérer.
 
-**Licence.** Travail (tables canoniques, scripts, dictionnaires, dashboard) sous
-[CC BY 4.0](LICENSE) ; données sources publiques du MSSS, à créditer.
+### Option A — Interface graphique (recommandée, sans ligne de commande)
 
-**Dashboard en ligne (GitHub Pages).** Le dashboard autonome est copié dans
-`docs/index.html`. Une fois le dépôt rendu public et Pages activé (source :
-branche `main`, dossier `/docs`), il est consultable à :
-`https://sragot.github.io/as485-interactif/`
-
-**Étapes manuelles restantes (côté GitHub, à faire par Samuel) :**
-1. Pousser les commits locaux : `git push origin main`.
-2. Rendre le dépôt public : *Settings → General → Danger Zone → Change visibility → Public*.
-3. Activer Pages : *Settings → Pages → Source : Deploy from a branch → `main` / `/docs`*.
-
-**Reproduire les données et le dashboard depuis les sources :**
 ```
-# 1. ETL formulaires AS + jeux financiers (tables canoniques dans 20_canonique/)
-python 10_scripts/harmoniser_as485.py         # (et harmoniser_depenses.py, effectifs, …)
-# 2. Base SQLite (construite hors du mont, ex. /tmp/build/, reconstructible ~430 Mo)
-python 10_scripts/construire_base.py
-# 3. Export des indicateurs du dashboard (JSON)
-python 10_scripts/exporter_dashboard_data.py
-# 4. Génération du dashboard HTML autonome (données embarquées)
-python 10_scripts/generer_dashboard.py
-# 5. Publication : copier 50_publication/dashboard_as485.html -> docs/index.html
+python 10_scripts/maj_gui.py
 ```
 
-**Contenu publié** : catalogue des sources (`00_catalogue/`), tables canoniques
-(`20_canonique/**/*.csv` + `.parquet`), dictionnaire de codes (`30_dictionnaires/`),
-scripts ETL (`10_scripts/`), dashboard (`50_publication/` + `docs/`). Sources brutes
-et base SQLite non versionnées (volumineuses, reconstructibles).
+Une fenêtre s'ouvre avec des boutons pour chaque étape (1 → 5) et un bouton
+**« Tout faire »**. Le journal s'affiche en direct. Cliquer sur « Tout faire »
+harmonise, reconstruit la base, exporte les indicateurs, régénère le dashboard et
+le publie dans `docs/`.
 
-Légende : `[x]` fait · `[~]` partiel (démo) · `[ ]` à faire.
-La base SQLite (`40_base/*.db`, ~430 Mo) est reconstructible et n'est pas versionné
+### Option B — Ligne de commande
+
+```
+python 10_scripts/harmoniser_as485.py       # -> 20_canonique/AS485/
+python 10_scripts/construire_base.py         # -> 40_base/sqdi_sante.db
+python 10_scripts/exporter_dashboard_data.py # -> 50_publication/donnees_dashboard.json
+python 10_scripts/generer_dashboard.py       # -> 50_publication/dashboard_as485.html
+cp 50_publication/dashboard_as485.html docs/dashboard.html
+```
+
+### Ajouter un nouvel exercice AS485
+
+L'harmonisation AS485 lit d'abord les onglets annuels de `Demographic Data/Stats.xlsx`,
+puis **ingère automatiquement** tout export brut `AS485_BD_AAAA-AAAA*.csv` déposé dans
+le même dossier, dédupliqué par exercice (l'onglet Stats.xlsx reste prioritaire, jamais
+de double comptage). Pour ajouter une année :
+
+1. Déposer le CSV brut du MSSS dans `Demographic Data/` sous le nom
+   `AS485_BD_AAAA-AAAA*.csv` (ex. `AS485_BD_2025-2026.csv`) **ou** ajouter un onglet
+   `AAAA-AAAA` dans `Stats.xlsx`.
+2. Relancer la MAJ (option A ou B).
+3. Vérifier le rapport `20_canonique/AS485/rapport_qualite.csv` (lignes retenues,
+   `chiffre_null`, PLC rejetés) — toute perte de lignes est un motif à corriger.
+
+Les autres jeux (dépenses, SAD, contours, effectifs) suivent le même principe via
+`harmoniser_depenses.py` et `harmoniser_effectifs.py` (voir `PLAN_mise_en_ligne.md`).
+
+---
+
+## Publier
+
+Le tableau de bord est servi par **GitHub Pages** depuis `docs/`.
+
+1. `git push origin main`
+2. (une seule fois) *Settings → Pages → Source : `main` / `/docs`*.
+
+Le site se met à jour automatiquement à chaque push touchant `docs/`.
+
+---
+
+## Données & licence
+
+**Source :** ministère de la Santé et des Services sociaux du Québec (MSSS) — données
+publiques. Ce dépôt n'implique aucun endossement du MSSS.
+
+**Licence :** le travail d'harmonisation et les visualisations sont diffusés sous
+[CC BY-NC-SA 4.0](LICENSE) — Attribution · Pas d'utilisation commerciale · Partage dans
+les mêmes conditions. Créditer : « Données MSSS ; harmonisation et visualisation :
+projet as485-interactif (SQDI), CC BY-NC-SA 4.0 ».
+
+---
+
+*Historique de conception et périmètre détaillé : `PLAN_mise_en_ligne.md`.*
+*Contraintes techniques du dépôt local : voir la mémoire projet.*
