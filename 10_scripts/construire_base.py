@@ -296,6 +296,66 @@ def creer_vues_as480(con: sqlite3.Connection) -> None:
           "v_as480_demo_par_exercice_region, v_as480_demo_par_exercice_qc")
 
 
+
+def charger_effectifs(con: sqlite3.Connection, canonique_dir: str) -> None:
+    """Charge la table canonique des effectifs démographiques (Chantier 1).
+
+    Reproduit la feuille « Population (historical) » de Stats.xlsx :
+    usagers DI / TSA par groupe d'âge, par RSS et par exercice
+    (cf. 10_scripts/harmoniser_effectifs.py)."""
+    path = os.path.join(canonique_dir, "effectifs", "effectifs_long.parquet")
+    if not os.path.exists(path):
+        print(f"[SKIP] effectifs : introuvable {path}")
+        return
+    df = pd.read_parquet(path)
+    df.to_sql("effectifs", con, if_exists="replace", index=False)
+    print(f"[OK] table effectifs <- effectifs/effectifs_long.parquet  ({len(df):,} lignes)")
+
+
+def creer_vues_effectifs(con: sqlite3.Connection) -> None:
+    """Vues agrégées des effectifs DI-TSA.
+
+    - Totaux DI / TSA / DI+TSA (toutes époques, tous âges) : codes EFF:DI,
+      EFF:TSA, EFF:DITSA.
+    - Ventilation par groupe d'âge (brackets de la maquette « nouveau »,
+      2013-2014 →) : codes EFF:DI:<âge> et EFF:TSA:<âge>.
+    Le RSS est casté en TEXT pour rester cohérent avec regions_rss et les
+    autres vues (jointure/filtre côté export)."""
+    con.executescript("""
+    DROP VIEW IF EXISTS v_effectifs_par_exercice_qc;
+    CREATE VIEW v_effectifs_par_exercice_qc AS
+      SELECT exercice, 'EFF:' || deficience AS code_cellule, SUM(chiffre_) AS valeur
+        FROM (SELECT exercice, deficience, effectif AS chiffre_ FROM effectifs WHERE est_total = 0)
+       GROUP BY exercice, deficience
+      UNION ALL
+      SELECT exercice, 'EFF:DITSA' AS code_cellule, SUM(effectif) AS valeur
+        FROM effectifs WHERE est_total = 0 GROUP BY exercice
+      UNION ALL
+      SELECT exercice, 'EFF:' || deficience || ':' || groupe_age AS code_cellule,
+             SUM(effectif) AS valeur
+        FROM effectifs WHERE est_total = 0 AND epoque = 'nouveau'
+       GROUP BY exercice, deficience, groupe_age;
+
+    DROP VIEW IF EXISTS v_effectifs_par_exercice_region;
+    CREATE VIEW v_effectifs_par_exercice_region AS
+      SELECT exercice, CAST(rss AS TEXT) AS rss, 'EFF:' || deficience AS code_cellule,
+             SUM(effectif) AS valeur
+        FROM effectifs WHERE est_total = 0 GROUP BY exercice, rss, deficience
+      UNION ALL
+      SELECT exercice, CAST(rss AS TEXT) AS rss, 'EFF:DITSA' AS code_cellule,
+             SUM(effectif) AS valeur
+        FROM effectifs WHERE est_total = 0 GROUP BY exercice, rss
+      UNION ALL
+      SELECT exercice, CAST(rss AS TEXT) AS rss,
+             'EFF:' || deficience || ':' || groupe_age AS code_cellule,
+             SUM(effectif) AS valeur
+        FROM effectifs WHERE est_total = 0 AND epoque = 'nouveau'
+       GROUP BY exercice, rss, deficience, groupe_age;
+    """)
+    print("[OK] vues créées : v_effectifs_par_exercice_qc, "
+          "v_effectifs_par_exercice_region")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--canonique", default="20_canonique")
@@ -312,11 +372,13 @@ def main() -> None:
         charger_tables(con, args.canonique)
         charger_dictionnaire(con, args.dico)
         charger_regions(con)
+        charger_effectifs(con, args.canonique)
         creer_index(con)
         creer_vues(con)
         creer_vues_as484(con)
         creer_vues_as481(con)
         creer_vues_as480(con)
+        creer_vues_effectifs(con)
         con.commit()
     finally:
         con.close()

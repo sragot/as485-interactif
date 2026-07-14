@@ -1,183 +1,154 @@
-# Plan — Rendre les données disponibles et visualisables
+# Plan de travail — Données santé DI-TSA (SQDI)
 
-*Roadmap actionnable (Claude Code ou autre) — juillet 2026*
-*Contexte : diffusion open data publique · maintenance no-code · dépôt de travail local sur le Bureau (`Data Santé`)*
-
----
-
-## 1. Où on en est
-
-- ✅ **Stratégie validée** : séparer 3 couches — archive brute → données canoniques harmonisées → publication (voir `Strategie_data_repository.md`).
-- ✅ **Preuve de concept AS485 faite** : script `harmoniser_as485.py` qui empile les 13 exercices de `Stats.xlsx` en une table propre (371 446 lignes, UTF-8, code PLC reparsé y compris pages à suffixe lettre). Livré dans `Data Santé\AS485_repository\`.
-- 🔜 **Reste à faire** : appliquer la même logique aux **autres familles**, construire le **dictionnaire de codes**, puis **publier + visualiser**.
-
-Ce plan découpe tout ça en phases autonomes. Chaque phase se termine par un livrable concret et un exemple de consigne à donner à Claude Code.
+*Refocus juillet 2026. Remplace la roadmap initiale.*
+*Contexte : diffusion open data publique · maintenance no-code · dépôt de travail local `as485-interactif` (Documents/GitHub).*
 
 ---
 
-## 2. Inventaire des données à traiter
+## 1. Décision de périmètre (juillet 2026)
 
-| Famille | Fichiers | Structure | Traitement |
-|---|---|---|---|
-| **AS485** (usagers DI-TSA) | 8 csv, 35 pdf, 5 zip + Stats.xlsx | Format long codé (P/L/C) | ✅ Fait — sert de modèle |
-| **AS478** | 5 csv, 3 xlsx, 14 pdf, 10 zip | Format long codé | Réutiliser le script AS485 |
-| **AS480** | 10 csv, 6 xlsx, 24 pdf, 9 zip | Format long codé | Réutiliser le script AS485 |
-| **AS481** | 7 csv, 19 pdf, 5 zip | Format long codé | Réutiliser le script AS485 |
-| **AS484** | 7 csv, 18 pdf, 6 zip | Format long codé | Réutiliser le script AS485 |
-| **Contours financiers** | 42 xlsx | Tableaux larges | ETL « large → long » (nouveau) |
-| **Dépenses par activités** | 14 xlsx, 40 pdf | Tableaux larges | ETL « large → long » |
-| **Dépenses par région** | 13 xlsx | Tableaux larges | ETL « large → long » |
-| **SAD** (soutien à domicile) | 23 xlsx | Tableaux larges | ETL « large → long » |
-| **Stats usagers DI-TSA** | 7 csv, 4 xlsx, 2 zip | Format long codé | Réutiliser le script AS485 |
-| **Documents de référence** | ~150 pdf | Documents / rapports | Cataloguer (pas d'ETL) |
+On concentre l'effort de **publication et de visualisation** sur les jeux réellement
+utiles au plaidoyer SQDI. Le reste des formulaires AS est conservé **en archive brute
+et en table canonique**, mais **sans dictionnaire ni visualisation** (sauf ce qui est
+déjà généré).
 
-**Deux moules seulement** : (A) le **format long codé** des formulaires AS — déjà résolu ; (B) les **tableaux larges** en xlsx (dépenses, contours, SAD) — à traiter avec un nouveau script générique de « dépivotage ». Les PDF et ZIP sont soit des archives à décompresser, soit des documents à référencer.
+| Jeu | Rôle | Canonique | Décodé | Visualisé |
+|---|---|:--:|:--:|:--:|
+| **AS485** (usagers DI-TSA) | **Cible viz** | ✅ | ✅ 6 pages | ✅ 2 onglets (desservis, attente) |
+| **Effectifs démographiques** (Stats.xlsx) | **Cible viz** | ✅ | ✅ Population (historical) | ✅ 1 onglet (effectifs DI-TSA) |
+| **Dépenses par activités** | **Cible viz** | ⬜ | — | ⬜ à faire |
+| **Dépenses par région** | **Cible viz** | ⬜ | — | ⬜ à faire |
+| **SAD** (soutien à domicile) | **Cible viz** | ⬜ | — | ⬜ à faire |
+| **Contour financier** | **Cible viz** | ⬜ | — | ⬜ à faire |
+| AS484 (déficience physique) | Archive | ✅ | ✅ page 09 | ✅ 1 onglet (déjà généré — conservé) |
+| AS481 (dépendance) | Archive | ✅ | ✅ page 02 | ✅ 1 onglet (déjà généré — conservé) |
+| AS480 (centres jeunesse) | Archive | ✅ | ✅ page 04 | ✅ 1 onglet (déjà généré — conservé) |
+| AS478 (CH/CHSLD/CLSC) | **Archive brute seulement** | ✅ | ❌ abandonné | ❌ **pas de viz** |
+
+**Pourquoi AS478 est écarté de la viz** : grosse rupture de maquette. La page phare
+candidate — page 18 « Répartition des usagers par catégorie de clientèle » (qui
+contient pourtant les lignes DI-TED 11-15) — est instable dans le temps : les colonnes
+changent en 2012, puis refonte complète + dimension `souspage` en 2018. Décodage
+possible mais coûteux et fragile ; le jeu reste disponible en canonique
+(`20_canonique/AS478/`) si besoin plus tard.
 
 ---
 
-## 3. La cible (rappel en une image)
+## 2. Ce qui est déjà livré (ne pas refaire)
+
+- **AS485** : table canonique (13+ exercices empilés), 6 pages décodées (09, 10, 17,
+  18, 19, 20 — usagers desservis + listes d'attente), 2 onglets dashboard.
+- **AS484 / AS481 / AS480** : une page phare décodée chacun + un onglet dashboard.
+  On les **garde tels quels** (viz déjà générée), sans y ajouter d'effort.
+- **Socle** : catalogue des sources, base SQLite reconstructible (`construire_base.py`
+  → `exporter_dashboard_data.py` → `generer_dashboard.py`), dictionnaire de codes
+  (`30_dictionnaires/codes_as.csv`), recette de commit adaptée au mont (voir mémoire
+  « as485-mount-git-workarounds »).
+
+---
+
+## 3. Le travail restant — 6 chantiers
+
+Deux profils : (A) **effectifs AS485 déjà en format long** — reproduire une feuille
+de synthèse ; (B) **tableaux larges xlsx** (dépenses / SAD / contours) — nouvel ETL
+générique de « dépivotage » (large → long).
+
+### Chantier 1 — Effectifs démographiques dans le temps 🟡
+**Source** : `Demographic Data/Stats.xlsx` (feuilles annuelles 2010-2011 → 2022-2023 +
+feuilles de synthèse : `Populational data (by year)`, `Population (historical)`,
+`Employment - P13`, `Waiting list - P16,17,18,19,20`, `Housing P10`, …).
+**Objectif** : reproduire **la feuille d'effectifs dans le temps** en table canonique
+longue + un onglet dashboard (évolution des effectifs par année, ventilée région/âge
+selon la feuille retenue).
+**À clarifier en ouverture** : confirmer avec Samuel **quelle feuille exacte** joue le
+rôle d'« effectifs dans le temps » (plusieurs candidates).
+**Note** : exercices récents `2023-2024` et `2024-2025` disponibles en CSV bruts dans
+le même dossier — possibilité d'étendre AS485 par la même occasion.
+
+### Chantier 2 — Dépenses par activités 🔴
+**Source** : `Dépenses par activités/` — 11 xlsx annuels `2013-2014.xlsx` →
+`2023-2024.xlsx`, feuille « Par centre d'activités » (~325 lignes). PDF associés =
+définitions de centres d'activités (référence).
+**Objectif** : `harmoniser_depenses.py` (dépivotage) → table longue
+`(exercice, centre_activites, programme, montant, …)` + onglet dashboard.
+
+### Chantier 3 — Dépenses par région 🟡
+**Source** : `Dépenses par région/` — `historique par région.xlsx` (feuille
+« Budgets en DI-TSA », déjà quasi en format synthèse), `Classeur1.xlsx`, sous-dossier
+`dépenses/`.
+**Objectif** : table longue `(exercice, région, montant)` + onglet dashboard
+(évolution des budgets DI-TSA par région).
+
+### Chantier 4 — SAD (soutien à domicile) 🔴
+**Source** : `SAD/` — ~23 xlsx, deux familles (par programme et par région / par
+centre d'activités et par région), 2013-2014 → 2023-2024 + `Depenses SAD.xlsx`
+(classeur multi-feuilles récapitulatif).
+**Objectif** : table longue `(exercice, région, programme|CA, montant)` + onglet
+dashboard. **Vigilance** : mises en page hétérogènes d'une année à l'autre → mapping
+par variante, procéder fichier par fichier.
+
+### Chantier 5 — Contour financier 🔴
+**Source** : `Archives/Contours financiers/` — un dossier par exercice 2013-2014 →
+2022-2023, 4 xlsx/an (par programme et par CA, par région, SAD par CA/région, SAD par
+programme/région) + `03-Contour-Financier-...2014-15.xlsx` à la racine.
+**Objectif** : table longue + onglet dashboard.
+
+### Chantier 6 — Publication + vérifications 🟡
+Intégrer les nouvelles tables à `40_base/sqdi_sante.db`, régénérer le JSON et le
+dashboard, contrôles de cohérence (totaux = somme des postes, ordres de grandeur
+plausibles, zéro perte de lignes), commit, MAJ README.
+
+---
+
+## 4. Le moule « tableaux larges » (dépenses / SAD / contours)
+
+Script générique `harmoniser_depenses.py` à écrire, réutilisé par les chantiers 2-5 :
+
+1. **Inspecter 2-3 fichiers d'années différentes** avant de coder (repérer l'en-tête,
+   les variantes de mise en page).
+2. **Repérer la ligne d'en-tête** (souvent pas la première ligne du xlsx).
+3. **Dépivoter** : colonnes région/programme/CA → lignes ; une colonne `montant`.
+4. **Normaliser** libellés région/programme (table d'alias) + ajouter l'`exercice`
+   déduit du nom de fichier.
+5. **Rapport qualité** par fichier (lignes lues/retenues, montants totaux) — toute
+   perte = un motif à corriger.
+
+Sortie : `20_canonique/<jeu>/<jeu>_long.parquet` + `.csv` + `rapport_qualite.csv`.
+
+---
+
+## 5. Cible technique (arborescence)
 
 ```
-Bureau/Data Santé/  ← dépôt de travail local (git)
-├── 00_brut/            copies des fichiers sources (jamais modifiées)
-├── 10_scripts/         les ETL Python (AS + dépenses)
-├── 20_canonique/       sorties propres : 1 Parquet + 1 CSV par jeu
-├── 30_dictionnaires/   dictionnaire de codes P/L/C, référentiels
-├── 40_base/            base SQLite unique (toutes les tables)
-└── 50_publication/     catalogue open data + dashboard
+as485-interactif/            ← dépôt git local (Documents/GitHub)
+├── 00_brut/                 copies des sources (non versionné)
+├── 00_catalogue/            catalogue_sources.csv
+├── 10_scripts/              ETL Python (AS + dépenses) + génération dashboard
+├── 20_canonique/            sorties propres : 1 Parquet + 1 CSV par jeu
+├── 30_dictionnaires/        codes_as.csv (P/L/C), référentiels
+├── 40_base/                 sqdi_sante.db (reconstructible, non versionné, ~430 Mo)
+└── 50_publication/          dashboard HTML autonome + JSON de données
 ```
 
-Choix techno retenus (cohérents avec « public + no-code ») :
-- **Stockage canonique** : fichiers **Parquet/CSV** + une **base SQLite** unique (un seul fichier, zéro serveur).
-- **Diffusion open data** : un **dépôt public GitHub** (gratuit, versionné, téléchargeable) + fiches de métadonnées.
-- **Visualisation** : au choix selon l'effort — **dashboard HTML autonome**, **Datasette** (exploration SQL publique), ou **Grist** (vues no-code). Décidé en Phase 7.
+Pipeline dashboard : `construire_base.py` → `exporter_dashboard_data.py` →
+`generer_dashboard.py`. Base construite dans `/tmp/build/` (jamais sur le mont).
 
 ---
 
-## 4. Le plan par phases
+## 6. Ordre suggéré
 
-> Chaque phase est indépendante et se lance telle quelle dans Claude Code. Effort indicatif : 🟢 court · 🟡 moyen · 🔴 long.
-
-### Phase 0 — Poser le dépôt de travail 🟢
-**Objectif** : un projet local propre et versionné, à l'abri des soucis OneDrive.
-- Créer l'arborescence ci-dessus dans `Data Santé`.
-- `git init` + un `.gitignore` (exclure les gros bruts si besoin).
-- Y déposer `harmoniser_as485.py` (dans `10_scripts/`) et les sorties AS485 (dans `20_canonique/`).
-
-**Livrable** : dépôt git initialisé avec la structure.
-**Consigne Claude Code** : *« Crée l'arborescence de projet 00_brut … 50_publication dans ce dossier, initialise git, déplace le script et les sorties AS485 aux bons endroits. »*
+1. **Chantier 1 (effectifs)** — proche de l'existant AS485, gain rapide + effet démo.
+2. **Chantier 3 (dépenses par région)** — le plus proche du format synthèse, sert de
+   patron au moule « tableaux larges ».
+3. **Chantiers 2, 4, 5** (activités, SAD, contours) — dossier par dossier, une fois le
+   moule stabilisé.
+4. **Chantier 6** — publication publique + runbook une fois 2-3 jeux stabilisés.
 
 ---
 
-### Phase 1 — Catalogue machine-lisible des sources 🟢
-**Objectif** : savoir exactement ce qu'on a (base de tout le reste).
-- Scanner récursivement les dossiers sources ; produire `catalogue_sources.csv` : chemin, famille, exercice détecté, format, taille, nb lignes/feuilles.
-- Décompresser les ZIP des AS anciens vers `00_brut/`.
+## 7. Décisions ouvertes
 
-**Livrable** : `catalogue_sources.csv`.
-**Consigne** : *« Génère un inventaire CSV de tous les fichiers de données (famille, année, format, taille, nb de lignes), et décompresse les .zip des dossiers AS. »*
-
----
-
-### Phase 2 — Généraliser l'ETL des formulaires AS 🟡
-**Objectif** : une table canonique par formulaire (AS478, AS480, AS481, AS484), sur le modèle AS485.
-- Refactorer `harmoniser_as485.py` en module réutilisable prenant le n° de formulaire en paramètre.
-- Gérer les sources CSV (séparateur `;`/`,`, encodage ISO-8859-1) **et** les feuilles xlsx, comme pour AS485.
-- Vérifier les schémas de chaque formulaire (les colonnes peuvent différer légèrement) et étendre la table d'alias.
-
-**Livrable** : `20_canonique/as478.parquet`, `as480.parquet`, `as481.parquet`, `as484.parquet` + rapports qualité.
-**Consigne** : *« Généralise harmoniser_as485.py pour traiter aussi AS478/480/481/484 depuis leurs CSV et zip ; sors un Parquet + un rapport qualité par formulaire, avec zéro perte de lignes. »*
-**Vigilance** : valider le taux de lignes retenues par exercice (comme on l'a fait pour AS485 : toute perte = un motif de code à décoder).
-
----
-
-### Phase 3 — ETL « tableaux larges » : dépenses, contours, SAD 🔴
-**Objectif** : convertir les xlsx en format long comparable.
-- Écrire `harmoniser_depenses.py` : pour chaque xlsx, repérer l'en-tête, dépivoter (colonnes région/programme → lignes), normaliser les libellés, ajouter l'exercice.
-- Attention : ces fichiers changent de mise en page d'une année à l'autre → prévoir un mapping par variante, procéder **un dossier à la fois** (SAD, puis Dépenses activités, puis région, puis Contours).
-
-**Livrable** : `20_canonique/sad.parquet`, `depenses_activites.parquet`, `depenses_region.parquet`, `contours.parquet`.
-**Consigne** : *« Écris un ETL qui dépivote les xlsx du dossier SAD en table longue (exercice, région, programme, centre_activites, montant) ; commence par inspecter 3 fichiers d'années différentes pour repérer les variantes de mise en page. »*
-**Vigilance** : c'est la phase la plus longue (mises en page hétérogènes). La traiter dossier par dossier, pas tout d'un coup.
-
----
-
-### Phase 4 — Dictionnaire de codes (chemin critique) 🔴
-**Objectif** : rendre la donnée lisible. Sans lui, `P09L01C03` ne veut rien dire pour le public.
-- Extraire la liste des `code_cellule` distincts par formulaire (déjà possible depuis les Parquet).
-- Les mettre en correspondance avec leur libellé, à partir des **gabarits officiels des formulaires AS** (MSSS) — travail semi-manuel.
-- Stocker le dictionnaire dans un fichier éditable (`30_dictionnaires/codes_as.csv`) — idéalement maintenu **dans Grist** (no-code) puis exporté.
-
-**Livrable** : `codes_as.csv` (code_cellule → libellé, unité, thème, page-titre).
-**Consigne** : *« Extrais tous les code_cellule distincts de as485.parquet avec un exemple de valeur et leur fréquence, et prépare un gabarit CSV à compléter (libellé, unité, thème). »*
-**Vigilance** : prioriser les pages réellement utilisées pour le plaidoyer (usagers desservis, listes d'attente, etc.) plutôt que tout décoder d'un coup.
-
----
-
-### Phase 5 — Base canonique unique 🟢
-**Objectif** : tout requêtable au même endroit.
-- Charger tous les Parquet + le dictionnaire dans **une base SQLite** (`40_base/sqdi_sante.db`), avec des vues joignant les valeurs à leurs libellés.
-- Créer quelques **vues agrégées** utiles (par exercice/région/programme) — ce sont elles qui seront publiées.
-
-**Livrable** : `sqdi_sante.db` + un script de (re)construction.
-**Consigne** : *« Charge tous les Parquet de 20_canonique et le dictionnaire dans une base SQLite, crée une vue qui joint les valeurs AS485 à leurs libellés, et 3 vues agrégées par région et par année. »*
-
----
-
-### Phase 6 — Publication open data 🟡
-**Objectif** : que d'autres puissent télécharger et réutiliser.
-- Créer un **dépôt GitHub public** contenant : les CSV canoniques, le dictionnaire, un `README` clair, une fiche `datapackage.json` (métadonnées standard), la **licence** (confirmer la licence ouverte du gouvernement du Québec + créditer le MSSS).
-- Option : publier une release datée à chaque mise à jour annuelle.
-
-**Livrable** : dépôt public consultable et téléchargeable.
-**Consigne** : *« Prépare un dépôt open data : structure les CSV, écris un README (source, méthodo, limites), génère un datapackage.json, ajoute le fichier de licence. »*
-**Décision** : confirmer les conditions de rediffusion des données MSSS avant publication.
-
----
-
-### Phase 7 — Visualisation 🟡
-**Objectif** : rendre les chiffres parlants pour un public non technique. Choisir **une** voie :
-
-| Voie | Ce que ça donne | Effort | Maintenance |
-|---|---|---|---|
-| **Dashboard HTML autonome** | Un fichier ouvrable dans le navigateur, graphiques + filtres | 🟡 | Faible |
-| **Datasette** | Site d'exploration + requêtes SQL publiques + export | 🟡 | Faible |
-| **Grist (vues publiques)** | Tableaux/graphes no-code, partage en 1 clic | 🟢 | Très faible |
-| **WordPress + wpDataTables** | Intégré à ton site existant, graphiques depuis SQL | 🔴 | Moyenne |
-
-**Recommandation** : commencer par un **dashboard HTML autonome** (ou Grist si tu veux du no-code pur) sur 2-3 indicateurs phares, puis étendre.
-**Consigne** : *« À partir de sqdi_sante.db, génère un dashboard HTML autonome : évolution du nombre d'usagers DI-TSA par région et par année, avec filtres. »*
-
----
-
-### Phase 8 — Mise à jour annuelle 🟢
-**Objectif** : qu'une mise à jour prenne des heures, pas des semaines.
-- Rédiger un **runbook** : où déposer les nouveaux fichiers MSSS, quelles commandes lancer, comment republier.
-- Option : tâche planifiée qui te rappelle chaque année à la sortie des données.
-
-**Livrable** : `RUNBOOK.md` + procédure testée sur un exercice.
-**Consigne** : *« Rédige un runbook de mise à jour annuelle : ajouter l'exercice N, relancer les ETL, régénérer la base et le dashboard, publier une release. »*
-
----
-
-## 5. Ordre suggéré et gains rapides
-
-1. **Phases 0-1** (une session) : socle propre + inventaire. Débloque tout le reste.
-2. **Phase 2** : les 4 autres formulaires AS — réutilise 90 % du code AS485. **Gain rapide.**
-3. **Phase 4 (partielle)** : décoder d'abord les 20-30 codes les plus utiles → la donnée devient parlante.
-4. **Phases 5 + 7** : base SQLite + un premier dashboard sur AS485/AS478. **Effet démo.**
-5. **Phase 3** : dépenses/SAD/contours (le plus long) en parallèle, dossier par dossier.
-6. **Phase 6 + 8** : publication publique + runbook, une fois 2-3 jeux stabilisés.
-
-**Principe** : ne pas attendre que tout soit parfait. Publier tôt un sous-ensemble propre (AS485 + AS478 + dictionnaire partiel), puis élargir.
-
----
-
-## 6. Décisions à prendre avant de lancer
-
-- **Hébergement open data** : dépôt GitHub public (recommandé), ou portail dédié ?
-- **Voie de visualisation** : dashboard HTML, Datasette, Grist, ou WordPress ? (cf. Phase 7)
+- **Feuille « effectifs dans le temps »** : laquelle exactement dans Stats.xlsx ?
+- **Hébergement open data** : dépôt GitHub public (recommandé) ?
 - **Licence** : confirmer les conditions de rediffusion des données MSSS.
-- **Périmètre initial** : quels 2-3 indicateurs publier en premier pour la démo ?
-
-Dis-moi par quelle phase tu veux commencer — je peux enchaîner directement sur la Phase 0-1 (socle + inventaire) ou la Phase 2 (généraliser l'ETL aux autres formulaires AS).
+- **Étendre AS485** aux exercices 2023-2024 / 2024-2025 (CSV dispo) : oui / plus tard ?

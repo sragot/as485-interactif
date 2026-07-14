@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AS-485 (DI-TSA) et AS-484 (déficience physique) — MSSS</title>
+<title>Effectifs et statistiques DI-TSA (AS-485) et déficience physique (AS-484) — MSSS</title>
 <style>
   :root {
     --surface-1:      #fcfcfb;
@@ -193,6 +193,7 @@
     <button data-tab="dp484">AS-484 · Déficience physique</button>
     <button data-tab="dep481">AS-481 · Dépendance</button>
     <button data-tab="cj480">AS-480 · Centres jeunesse</button>
+    <button data-tab="eff">Effectifs DI-TSA (2010-2023)</button>
   </nav>
 
   <!-- ================= ONGLET USAGERS DESSERVIS ================= -->
@@ -388,11 +389,50 @@
     </div>
   </section>
 
+  <!-- ================= ONGLET EFFECTIFS DI-TSA DANS LE TEMPS ================= -->
+  <section class="tabpanel" id="tab-eff">
+    <div class="filters">
+      <div class="filter-group grow">
+        <label for="sel-eff-indic">Indicateur (usagers DI / TSA, feuille « Population (historical) »)</label>
+        <select id="sel-eff-indic"></select>
+      </div>
+      <div class="filter-group">
+        <label for="sel-eff-annee">Année (répartition régionale)</label>
+        <select id="sel-eff-annee"></select>
+      </div>
+      <div class="filter-group">
+        <label for="sel-eff-region">Isoler une région (tendance)</label>
+        <select id="sel-eff-region"><option value="">Total Québec</option></select>
+      </div>
+    </div>
+
+    <div class="kpi-row" id="kpi-eff"></div>
+
+    <div class="chart-row">
+      <div class="card">
+        <h3 id="titre-eff-trend">Évolution 2010-2023</h3>
+        <div class="sub">Total Québec, sauf région isolée dans le filtre ci-dessus</div>
+        <svg class="chart" id="chart-eff-trend" viewBox="0 0 640 300"></svg>
+      </div>
+      <div class="card">
+        <h3 id="titre-eff-bar">Répartition par région</h3>
+        <div class="sub" id="sub-eff-bar"></div>
+        <svg class="chart" id="chart-eff-bar" viewBox="0 0 460 420"></svg>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Détail par région et par exercice</h3>
+      <div class="sub">Cliquer un en-tête pour trier</div>
+      <div class="table-wrap"><table class="data-table" id="table-eff"></table></div>
+    </div>
+  </section>
+
   <footer class="bottom">
     Dashboard généré depuis 40_base/sqdi_sante.db (vues v_as485_* et v_as484_*) — voir
     10_scripts/exporter_dashboard_data.py et 10_scripts/construire_base.py.
     AS-485 : exercices 2010-2011 → 2012-2013 exclus (ancienne maquette). AS-484 : page 09
-    structurée ainsi depuis 2013-2014. AS-481 (dépendance) : page 02, usagers admis par groupe d'âge, lignes 01-14 stables sur 2011-2012 → 2022-2023. AS-480 (centres jeunesse) : page 04, signalements retenus par problématique (LPJ art. 38/38.1), lignes 01-14 stables 2010-2011 → 2022-2023.
+    structurée ainsi depuis 2013-2014. AS-481 (dépendance) : page 02, usagers admis par groupe d'âge, lignes 01-14 stables sur 2011-2012 → 2022-2023. AS-480 (centres jeunesse) : page 04, signalements retenus par problématique (LPJ art. 38/38.1), lignes 01-14 stables 2010-2011 → 2022-2023. Effectifs DI-TSA : feuille « Population (historical) » de Stats.xlsx (usagers DI / TSA par groupe d'âge, 2010-2011 → 2022-2023 ; rupture de maquette 2013 — ventilation par âge disponible dès 2013-2014).
   </footer>
 </div>
 <div class="tooltip" id="tooltip"></div>
@@ -707,6 +747,7 @@ __DONNEES_JSON__
   construireOnglet("dp484", "dp484");
   construireOnglet("dep481", "dep481");
   construireOnglet("cj480", "cj480");
+  construireOnglet("eff", "eff");
 })();
 </script>
 </body>

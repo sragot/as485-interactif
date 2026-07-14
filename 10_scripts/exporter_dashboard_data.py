@@ -67,6 +67,20 @@ INDICATEURS_AS480 = [
     ("P04L12C07", "cj480", "Nouvelles applications de mesures"),
 ]
 
+# Effectifs démographiques DI-TSA dans le temps (Chantier 1 — reproduit la
+# feuille « Population (historical) » de Stats.xlsx). Codes synthétiques EFF:*
+# produits par les vues v_effectifs_par_exercice_qc / _region.
+_AGE_BANDS_EFF = [
+    "0 à 4 ans", "5 à 11 ans", "12 à 17 ans", "18 à 21 ans",
+    "22 à 44 ans", "45 à 64 ans", "65 à 74 ans", "75 ans et plus",
+]
+INDICATEURS_EFF = [
+    ("EFF:DITSA", "eff", "Usagers DI-TSA — total (tous âges)"),
+    ("EFF:DI", "eff", "Usagers DI — total (tous âges)"),
+    ("EFF:TSA", "eff", "Usagers TSA — total (tous âges)"),
+] + [(f"EFF:DI:{a}", "eff", f"DI — {a} (dès 2013-2014)") for a in _AGE_BANDS_EFF] \
+  + [(f"EFF:TSA:{a}", "eff", f"TSA — {a} (dès 2013-2014)") for a in _AGE_BANDS_EFF]
+
 
 def _collecter(cur, vue_qc, vue_region, codes, prefixe=""):
     """Retourne (national, regional, rss_presentes) pour une liste de codes bruts.
@@ -98,6 +112,7 @@ def main() -> None:
     codes484 = [c for c, _, _ in INDICATEURS_AS484]
     codes481 = [c for c, _, _ in INDICATEURS_AS481]
     codes480 = [c for c, _, _ in INDICATEURS_AS480]
+    codeseff = [c for c, _, _ in INDICATEURS_EFF]
 
     ph485 = ",".join("?" * len(codes485))
     cur.execute(f"SELECT DISTINCT exercice FROM v_as485_demo_par_exercice_qc WHERE code_cellule IN ({ph485})", codes485)
@@ -111,16 +126,20 @@ def main() -> None:
     ph480 = ",".join("?" * len(codes480))
     cur.execute(f"SELECT DISTINCT exercice FROM v_as480_demo_par_exercice_qc WHERE code_cellule IN ({ph480})", codes480)
     exercices |= {r[0] for r in cur.fetchall()}
+    pheff = ",".join("?" * len(codeseff))
+    cur.execute(f"SELECT DISTINCT exercice FROM v_effectifs_par_exercice_qc WHERE code_cellule IN ({pheff})", codeseff)
+    exercices |= {r[0] for r in cur.fetchall()}
     exercices = sorted(exercices)
 
     nat485, reg485, rss485 = _collecter(cur, "v_as485_demo_par_exercice_qc", "v_as485_demo_par_exercice_region", codes485)
     nat484, reg484, rss484 = _collecter(cur, "v_as484_demo_par_exercice_qc", "v_as484_demo_par_exercice_region", codes484, prefixe="AS484:")
     nat481, reg481, rss481 = _collecter(cur, "v_as481_demo_par_exercice_qc", "v_as481_demo_par_exercice_region", codes481, prefixe="AS481:")
     nat480, reg480, rss480 = _collecter(cur, "v_as480_demo_par_exercice_qc", "v_as480_demo_par_exercice_region", codes480, prefixe="AS480:")
+    nateff, regeff, rsseff = _collecter(cur, "v_effectifs_par_exercice_qc", "v_effectifs_par_exercice_region", codeseff)
 
-    national = {**nat485, **nat484, **nat481, **nat480}
-    regional = {**reg485, **reg484, **reg481, **reg480}
-    rss_presentes = rss485 | rss484 | rss481 | rss480
+    national = {**nat485, **nat484, **nat481, **nat480, **nateff}
+    regional = {**reg485, **reg484, **reg481, **reg480, **regeff}
+    rss_presentes = rss485 | rss484 | rss481 | rss480 | rsseff
 
     cur.execute("SELECT rss, region_nom FROM regions_rss ORDER BY CAST(rss AS INTEGER)")
     regions = [{"rss": rss, "nom": nom} for rss, nom in cur.fetchall() if rss in rss_presentes]
@@ -130,6 +149,7 @@ def main() -> None:
         + [{"code": "AS484:" + c, "categorie": cat, "label": lbl} for c, cat, lbl in INDICATEURS_AS484]
         + [{"code": "AS481:" + c, "categorie": cat, "label": lbl} for c, cat, lbl in INDICATEURS_AS481]
         + [{"code": "AS480:" + c, "categorie": cat, "label": lbl} for c, cat, lbl in INDICATEURS_AS480]
+        + [{"code": c, "categorie": cat, "label": lbl} for c, cat, lbl in INDICATEURS_EFF]
     )
 
     con.close()
@@ -147,7 +167,7 @@ def main() -> None:
 
     print(f"[LIVRABLE] {args.out}  "
           f"({len(exercices)} exercices, {len(regions)} régions, "
-          f"{len(INDICATEURS_AS485)} AS485 + {len(INDICATEURS_AS484)} AS484 + {len(INDICATEURS_AS481)} AS481 + {len(INDICATEURS_AS480)} AS480)")
+          f"{len(INDICATEURS_AS485)} AS485 + {len(INDICATEURS_AS484)} AS484 + {len(INDICATEURS_AS481)} AS481 + {len(INDICATEURS_AS480)} AS480 + {len(INDICATEURS_EFF)} EFF)")
 
 
 if __name__ == "__main__":
