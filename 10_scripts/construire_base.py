@@ -53,6 +53,11 @@ PAGES_DEMO = ("09", "10", "17", "18", "19", "20")
 # Structure post-restructuration 2013-2014 (epoque = 'depuis_2013').
 PAGES_DEMO_AS484 = ("09",)
 
+# AS481 (dépendance) — page phare décodée (cf. decoder_pages_as481.py).
+# Page 02 « Usagers admis – alcool-drogues et jeux pathologiques », lignes 01-14,
+# structure stable sur tout l'historique 2011-2022 (epoque = 'stable').
+PAGES_DEMO_AS481 = ("02",)
+
 
 def charger_tables(con: sqlite3.Connection, canonique_dir: str) -> None:
     for formulaire, rel in PREFERES.items():
@@ -84,6 +89,8 @@ def creer_index(con: sqlite3.Connection) -> None:
     con.execute("CREATE INDEX IF NOT EXISTS idx_as485_exercice ON as485(exercice_debut)")
     con.execute("CREATE INDEX IF NOT EXISTS idx_as484_code ON as484(code_cellule)")
     con.execute("CREATE INDEX IF NOT EXISTS idx_as484_exercice ON as484(exercice_debut)")
+    con.execute("CREATE INDEX IF NOT EXISTS idx_as481_code ON as481(code_cellule)")
+    con.execute("CREATE INDEX IF NOT EXISTS idx_as481_exercice ON as481(exercice_debut)")
     con.execute("CREATE INDEX IF NOT EXISTS idx_dico_formulaire_code ON dictionnaire(formulaire, code_cellule)")
 
 
@@ -184,6 +191,54 @@ def creer_vues_as484(con: sqlite3.Connection) -> None:
           "v_as484_demo_par_exercice_region, v_as484_demo_par_exercice_qc")
 
 
+def creer_vues_as481(con: sqlite3.Connection) -> None:
+    """Vues AS481 (dépendance) sur la page phare décodée (page 02).
+
+    Même logique que l'AS485/AS484 : une vue valeurs libellées qui joint le
+    dictionnaire (ici epoque = 'stable' : lignes 01-14 identiques sur tout
+    l'historique 2011-2022), puis deux agrégats de démonstration."""
+    pages_in = "(" + ",".join("'" + str(pp) + "'" for pp in PAGES_DEMO_AS481) + ")"
+    con.executescript(f"""
+    DROP VIEW IF EXISTS as481_valeurs_libellees;
+    CREATE VIEW as481_valeurs_libellees AS
+    SELECT
+        v.exercice, v.exercice_debut, v.rss, r.region_nom,
+        v.etablissement_id, v.etablissement_nom,
+        v.page, v.ligne, v.colonne, v.code_cellule, v.chiffre,
+        d.libelle, d.unite, d.theme, d.page_titre, d.epoque
+    FROM as481 AS v
+    LEFT JOIN regions_rss AS r ON r.rss = v.rss
+    LEFT JOIN dictionnaire AS d
+        ON d.formulaire = 'AS481'
+       AND d.code_cellule = v.code_cellule
+       AND (d.epoque IS NULL OR d.epoque = 'stable');
+
+    DROP VIEW IF EXISTS v_as481_demo_par_exercice_region;
+    CREATE VIEW v_as481_demo_par_exercice_region AS
+    SELECT
+        exercice, exercice_debut, rss, region_nom,
+        page, page_titre, ligne, colonne, code_cellule, libelle, theme, unite,
+        SUM(chiffre) AS valeur,
+        COUNT(*) AS n_lignes_sources
+    FROM as481_valeurs_libellees
+    WHERE page IN {pages_in} AND libelle IS NOT NULL
+    GROUP BY exercice, rss, page, ligne, colonne;
+
+    DROP VIEW IF EXISTS v_as481_demo_par_exercice_qc;
+    CREATE VIEW v_as481_demo_par_exercice_qc AS
+    SELECT
+        exercice, exercice_debut,
+        page, page_titre, ligne, colonne, code_cellule, libelle, theme, unite,
+        SUM(chiffre) AS valeur,
+        COUNT(*) AS n_lignes_sources
+    FROM as481_valeurs_libellees
+    WHERE page IN {pages_in} AND libelle IS NOT NULL
+    GROUP BY exercice, page, ligne, colonne;
+    """)
+    print("[OK] vues créées : as481_valeurs_libellees, "
+          "v_as481_demo_par_exercice_region, v_as481_demo_par_exercice_qc")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--canonique", default="20_canonique")
@@ -203,6 +258,7 @@ def main() -> None:
         creer_index(con)
         creer_vues(con)
         creer_vues_as484(con)
+        creer_vues_as481(con)
         con.commit()
     finally:
         con.close()
